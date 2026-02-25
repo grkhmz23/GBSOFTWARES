@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import emailjs from '@emailjs/browser'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, Clock, Mail, MapPin, Send } from 'lucide-react'
@@ -17,6 +18,13 @@ import {
 
 gsap.registerPlugin(ScrollTrigger)
 
+// EmailJS configuration
+// Service ID: service_cxb26d4 (already set)
+// You still need: Template ID and Public Key from EmailJS dashboard
+const EMAILJS_SERVICE_ID = 'service_cxb26d4'
+const EMAILJS_TEMPLATE_ID = 'template_mj57ngy'
+const EMAILJS_PUBLIC_KEY = 'cKs7isxAB4tBNN7B7'
+
 export default function Contact() {
   const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
@@ -25,6 +33,7 @@ export default function Contact() {
   const infoRef = useRef<HTMLDivElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -82,14 +91,46 @@ export default function Contact() {
     return () => ctx.revert()
   }, [])
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    projectType: '',
+    budget: '',
+    timeline: '',
+    message: '',
+  })
+
+  const handleChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+    setError(null)
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          project_type: formData.projectType,
+          budget: formData.budget,
+          timeline: formData.timeline,
+          message: formData.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+      
+      setIsSubmitted(true)
+    } catch (err) {
+      console.error('Failed to send message:', err)
+      setError(t('contact.error'))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const whatToIncludeItems = [
@@ -106,7 +147,7 @@ export default function Contact() {
       id="contact"
     >
       <div className="absolute inset-0 grid-pattern opacity-50" />
-      
+
       <div className="container-custom relative z-10">
         <div ref={headerRef} className="text-center mb-12">
           <span className="inline-block px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-mono uppercase tracking-wider mb-4">
@@ -185,6 +226,12 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 className="p-6 md:p-8 rounded-xl bg-surface/50 border border-border-color space-y-6"
               >
+                {error && (
+                  <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                    {error}
+                  </div>
+                )}
+
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-text">
@@ -192,6 +239,8 @@ export default function Contact() {
                     </Label>
                     <Input
                       id="name"
+                      value={formData.name}
+                      onChange={(e) => handleChange('name', e.target.value)}
                       placeholder={t('contact.form.namePlaceholder')}
                       required
                       className="bg-void border-border-color text-white placeholder:text-text-muted focus:border-cyan"
@@ -204,6 +253,8 @@ export default function Contact() {
                     <Input
                       id="email"
                       type="email"
+                      value={formData.email}
+                      onChange={(e) => handleChange('email', e.target.value)}
                       placeholder={t('contact.form.emailPlaceholder')}
                       required
                       className="bg-void border-border-color text-white placeholder:text-text-muted focus:border-cyan"
@@ -215,7 +266,7 @@ export default function Contact() {
                   <Label htmlFor="project" className="text-text">
                     {t('contact.form.projectType')}
                   </Label>
-                  <Select>
+                  <Select value={formData.projectType} onValueChange={(value) => handleChange('projectType', value)}>
                     <SelectTrigger className="bg-void border-border-color text-white">
                       <SelectValue placeholder={t('contact.form.projectTypePlaceholder')} />
                     </SelectTrigger>
@@ -234,7 +285,7 @@ export default function Contact() {
                     <Label htmlFor="budget" className="text-text">
                       {t('contact.form.budget')}
                     </Label>
-                    <Select>
+                    <Select value={formData.budget} onValueChange={(value) => handleChange('budget', value)}>
                       <SelectTrigger className="bg-void border-border-color text-white">
                         <SelectValue placeholder={t('contact.form.budgetPlaceholder')} />
                       </SelectTrigger>
@@ -251,7 +302,7 @@ export default function Contact() {
                     <Label htmlFor="timeline" className="text-text">
                       {t('contact.form.timeline')}
                     </Label>
-                    <Select>
+                    <Select value={formData.timeline} onValueChange={(value) => handleChange('timeline', value)}>
                       <SelectTrigger className="bg-void border-border-color text-white">
                         <SelectValue placeholder={t('contact.form.timelinePlaceholder')} />
                       </SelectTrigger>
@@ -271,6 +322,8 @@ export default function Contact() {
                   </Label>
                   <Textarea
                     id="message"
+                    value={formData.message}
+                    onChange={(e) => handleChange('message', e.target.value)}
                     placeholder={t('contact.form.projectDetailsPlaceholder')}
                     rows={5}
                     required

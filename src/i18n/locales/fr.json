@@ -362,7 +362,7 @@
     "info": {
       "responseTime": "Temps de réponse : sous 24 heures",
       "timezone": "Fuseau horaire : PST (UTC-8)",
-      "email": "gorkhmaz@example.com"
+      "email": "gorkhmazb23@gmail.com"
     },
     "schedule": {
       "question": "Vous préférez planifier directement ?",
@@ -407,7 +407,8 @@
     "success": {
       "title": "Message Envoyé !",
       "message": "Merci de m'avoir contacté. Je vous réponds sous 24 heures."
-    }
+    },
+    "error": "Échec de l'envoi du message. Veuillez réessayer ou m'envoyer un email directement."
   },
   "footer": {
     "builtWith": "Construit avec la performance en tête.",

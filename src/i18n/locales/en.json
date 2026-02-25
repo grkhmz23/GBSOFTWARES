@@ -362,7 +362,7 @@
     "info": {
       "responseTime": "Response time: Within 24 hours",
       "timezone": "Timezone: PST (UTC-8)",
-      "email": "gorkhmaz@example.com"
+      "email": "gorkhmazb23@gmail.com"
     },
     "schedule": {
       "question": "Prefer to schedule directly?",
@@ -407,7 +407,8 @@
     "success": {
       "title": "Message Sent!",
       "message": "Thanks for reaching out. I'll get back to you within 24 hours."
-    }
+    },
+    "error": "Failed to send message. Please try again or email me directly."
   },
   "footer": {
     "builtWith": "Built with performance in mind.",

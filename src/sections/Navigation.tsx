@@ -107,21 +107,13 @@ export default function Navigation() {
       style={{ height: isScrolled ? '60px' : '80px' }}
     >
       <div className="container-custom h-full flex items-center justify-between">
-        {/* Left: Logo + Descriptor */}
-        <div className="flex items-center gap-3">
+        {/* Left: Logo */}
+        <div className="flex items-center">
           <img 
             src="/logo_transparent.png" 
             alt="Logo" 
             className="w-8 h-8 rounded object-cover"
           />
-          <div className="hidden sm:block">
-            <span className="font-heading font-semibold text-white text-sm">
-              Gorkhmaz Beydullayev
-            </span>
-            <span className="text-text-muted text-xs ml-2 hidden md:inline">
-              · Fullstack + Blockchain Engineer
-            </span>
-          </div>
         </div>
 
         {/* Center: Navigation Links (Desktop) */}
