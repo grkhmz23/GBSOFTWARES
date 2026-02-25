@@ -96,6 +96,19 @@ export default function Navigation() {
     setIsMobileMenuOpen(false)
   }
 
+  const scrollToBooking = () => {
+    const element = document.querySelector('#booking')
+    if (element) {
+      const offset = 100
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth',
+      })
+    }
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <nav
       ref={navRef}
@@ -173,7 +186,7 @@ export default function Navigation() {
               variant="outline"
               size="sm"
               className="border-cyan text-cyan hover:bg-cyan hover:text-void transition-all duration-300"
-              onClick={() => scrollToSection('#contact')}
+              onClick={() => scrollToBooking()}
             >
               <Calendar className="w-4 h-4 mr-2" />
               {t('nav.bookCall')}
@@ -227,7 +240,7 @@ export default function Navigation() {
                   </div>
                   <Button
                     className="w-full bg-cyan text-void hover:bg-cyan/90"
-                    onClick={() => scrollToSection('#contact')}
+                    onClick={() => scrollToBooking()}
                   >
                     <Calendar className="w-4 h-4 mr-2" />
                     {t('nav.bookCall')}

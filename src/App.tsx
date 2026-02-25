@@ -10,6 +10,7 @@ import Work from './sections/Work'
 import Process from './sections/Process'
 import Security from './sections/Security'
 import FAQ from './sections/FAQ'
+import Booking from './sections/Booking'
 import Contact from './sections/Contact'
 import Footer from './sections/Footer'
 import LoadingScreen from './sections/LoadingScreen'
@@ -63,6 +64,7 @@ function App() {
         <Process />
         <Security />
         <FAQ />
+        <Booking />
         <Contact />
       </main>
       
