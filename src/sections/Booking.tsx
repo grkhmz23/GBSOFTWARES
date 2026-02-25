@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { format, addDays, isWeekend, isBefore, startOfToday } from 'date-fns'
+import { enUS, fr } from 'date-fns/locale'
 import { CalendarIcon, Clock, User, Mail, Phone, MessageSquare, CheckCircle, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -14,12 +16,12 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import emailjs from '@emailjs/browser'
+import { toast } from 'sonner'
 
 // EmailJS configuration (same as Contact section)
 const EMAILJS_SERVICE_ID = 'service_cxb26d4'
 const EMAILJS_TEMPLATE_ID = 'template_g9qlawr'
 const EMAILJS_PUBLIC_KEY = 'cKs7isxAB4tBNN7B7'
-import { toast } from 'sonner'
 
 // Available time slots
 const TIME_SLOTS = [
@@ -28,31 +30,35 @@ const TIME_SLOTS = [
   '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM'
 ]
 
-// Service options
+// Service options with translation keys
 const SERVICES = [
-  'Consultation',
-  'Strategy Session',
-  'Technical Review',
-  'Project Discussion',
-  'Other'
+  { key: 'consultation', value: 'Consultation' },
+  { key: 'strategy', value: 'Strategy Session' },
+  { key: 'technical', value: 'Technical Review' },
+  { key: 'project', value: 'Project Discussion' },
+  { key: 'other', value: 'Other' }
 ]
 
-// Form validation schema
-const bookingSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email'),
-  phone: z.string().optional(),
-  service: z.string().min(1, 'Please select a service'),
-  date: z.date({ message: 'Please select a date' }),
-  time: z.string().min(1, 'Please select a time slot'),
-  notes: z.string().optional()
-})
-
-type BookingFormData = z.infer<typeof bookingSchema>
-
 export default function Booking() {
+  const { t, i18n } = useTranslation()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+
+  // Get date locale based on current language
+  const dateLocale = i18n.language === 'fr' ? fr : enUS
+
+  // Form validation schema with translated error messages
+  const bookingSchema = z.object({
+    name: z.string().min(2, t('booking.validation.nameRequired')),
+    email: z.string().email(t('booking.validation.emailInvalid')),
+    phone: z.string().optional(),
+    service: z.string().min(1, t('booking.validation.serviceRequired')),
+    date: z.date({ message: t('booking.validation.dateRequired') }),
+    time: z.string().min(1, t('booking.validation.timeRequired')),
+    notes: z.string().optional()
+  })
+
+  type BookingFormData = z.infer<typeof bookingSchema>
 
   const {
     register,
@@ -67,6 +73,7 @@ export default function Booking() {
 
   const selectedDate = watch('date')
   const selectedTime = watch('time')
+  const selectedService = watch('service')
 
   // Disable past dates and weekends
   const disabledDays = (date: Date) => {
@@ -78,8 +85,6 @@ export default function Booking() {
     setIsSubmitting(true)
 
     try {
-      // Using EmailJS to send booking request
-      // You'll need to set up your EmailJS account and replace these values
       const templateParams = {
         from_name: data.name,
         from_email: data.email,
@@ -99,7 +104,7 @@ export default function Booking() {
       )
 
       setIsSuccess(true)
-      toast.success('Appointment booked successfully!')
+      toast.success(t('booking.success.title'))
       
       // Reset form after 3 seconds
       setTimeout(() => {
@@ -107,7 +112,7 @@ export default function Booking() {
         setIsSuccess(false)
       }, 3000)
     } catch (error) {
-      toast.error('Failed to book appointment. Please try again.')
+      toast.error(t('booking.error'))
       console.error('Booking error:', error)
     } finally {
       setIsSubmitting(false)
@@ -123,9 +128,9 @@ export default function Booking() {
               <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-8 h-8 text-green-500" />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Booking Confirmed!</h3>
+              <h3 className="text-2xl font-bold mb-2">{t('booking.success.title')}</h3>
               <p className="text-muted-foreground">
-                Thank you for your booking. We've sent a confirmation to your email.
+                {t('booking.success.message')}
               </p>
             </CardContent>
           </Card>
@@ -138,17 +143,17 @@ export default function Booking() {
     <section id="booking" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Book an Appointment</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('booking.title')}</h2>
           <p className="text-muted-foreground text-lg">
-            Schedule a meeting with us. We'll confirm your booking via email.
+            {t('booking.subtitle')}
           </p>
         </div>
 
         <Card className="bg-background/50 backdrop-blur-xl border-border/50">
           <CardHeader>
-            <CardTitle>Select Date & Time</CardTitle>
+            <CardTitle>{t('booking.cardTitle')}</CardTitle>
             <CardDescription>
-              Choose your preferred date and time slot for the appointment
+              {t('booking.cardDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -157,7 +162,7 @@ export default function Booking() {
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Calendar */}
                 <div className="space-y-2">
-                  <Label>Date</Label>
+                  <Label>{t('booking.date')}</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
@@ -168,7 +173,9 @@ export default function Booking() {
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {selectedDate ? format(selectedDate, 'PPP') : 'Pick a date'}
+                        {selectedDate 
+                          ? format(selectedDate, 'PPP', { locale: dateLocale }) 
+                          : t('booking.pickDate')}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -190,11 +197,11 @@ export default function Booking() {
 
                 {/* Time Slot */}
                 <div className="space-y-2">
-                  <Label>Time</Label>
+                  <Label>{t('booking.time')}</Label>
                   <Select onValueChange={(value) => setValue('time', value)}>
                     <SelectTrigger className={cn(!selectedTime && 'text-muted-foreground')}>
                       <Clock className="mr-2 h-4 w-4" />
-                      <SelectValue placeholder="Select time" />
+                      <SelectValue placeholder={t('booking.selectTime')} />
                     </SelectTrigger>
                     <SelectContent>
                       {TIME_SLOTS.map((slot) => (
@@ -215,11 +222,11 @@ export default function Booking() {
                 <div className="space-y-2">
                   <Label htmlFor="name">
                     <User className="inline w-4 h-4 mr-1" />
-                    Full Name
+                    {t('booking.fullName')}
                   </Label>
                   <Input
                     id="name"
-                    placeholder="John Doe"
+                    placeholder={t('booking.namePlaceholder')}
                     {...register('name')}
                   />
                   {errors.name && (
@@ -230,12 +237,12 @@ export default function Booking() {
                 <div className="space-y-2">
                   <Label htmlFor="email">
                     <Mail className="inline w-4 h-4 mr-1" />
-                    Email
+                    {t('booking.email')}
                   </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder={t('booking.emailPlaceholder')}
                     {...register('email')}
                   />
                   {errors.email && (
@@ -248,26 +255,26 @@ export default function Booking() {
                 <div className="space-y-2">
                   <Label htmlFor="phone">
                     <Phone className="inline w-4 h-4 mr-1" />
-                    Phone (Optional)
+                    {t('booking.phone')}
                   </Label>
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="+1 234 567 8900"
+                    placeholder={t('booking.phonePlaceholder')}
                     {...register('phone')}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="service">Service Type</Label>
+                  <Label htmlFor="service">{t('booking.service')}</Label>
                   <Select onValueChange={(value) => setValue('service', value)}>
-                    <SelectTrigger className={cn(!watch('service') && 'text-muted-foreground')}>
-                      <SelectValue placeholder="Select service" />
+                    <SelectTrigger className={cn(!selectedService && 'text-muted-foreground')}>
+                      <SelectValue placeholder={t('booking.selectService')} />
                     </SelectTrigger>
                     <SelectContent>
                       {SERVICES.map((service) => (
-                        <SelectItem key={service} value={service}>
-                          {service}
+                        <SelectItem key={service.key} value={service.value}>
+                          {t(`booking.services.${service.key}`)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -282,11 +289,11 @@ export default function Booking() {
               <div className="space-y-2">
                 <Label htmlFor="notes">
                   <MessageSquare className="inline w-4 h-4 mr-1" />
-                  Additional Notes (Optional)
+                  {t('booking.notes')}
                 </Label>
                 <Textarea
                   id="notes"
-                  placeholder="Tell us more about what you'd like to discuss..."
+                  placeholder={t('booking.notesPlaceholder')}
                   rows={4}
                   {...register('notes')}
                 />
@@ -302,10 +309,10 @@ export default function Booking() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Booking...
+                    {t('booking.submitting')}
                   </>
                 ) : (
-                  'Book Appointment'
+                  t('booking.submit')
                 )}
               </Button>
             </form>

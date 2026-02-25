@@ -419,6 +419,47 @@
     "initializing": "INITIALIZING",
     "loadingAssets": "Loading assets..."
   },
+  "booking": {
+    "title": "Book an Appointment",
+    "subtitle": "Schedule a meeting with us. We'll confirm your booking via email.",
+    "cardTitle": "Select Date & Time",
+    "cardDescription": "Choose your preferred date and time slot for the appointment",
+    "date": "Date",
+    "pickDate": "Pick a date",
+    "time": "Time",
+    "selectTime": "Select time",
+    "fullName": "Full Name",
+    "namePlaceholder": "John Doe",
+    "email": "Email",
+    "emailPlaceholder": "john@example.com",
+    "phone": "Phone (Optional)",
+    "phonePlaceholder": "+1 234 567 8900",
+    "service": "Service Type",
+    "selectService": "Select service",
+    "services": {
+      "consultation": "Consultation",
+      "strategy": "Strategy Session",
+      "technical": "Technical Review",
+      "project": "Project Discussion",
+      "other": "Other"
+    },
+    "notes": "Additional Notes (Optional)",
+    "notesPlaceholder": "Tell us more about what you'd like to discuss...",
+    "submit": "Book Appointment",
+    "submitting": "Booking...",
+    "success": {
+      "title": "Booking Confirmed!",
+      "message": "Thank you for your booking. We've sent a confirmation to your email."
+    },
+    "error": "Failed to book appointment. Please try again.",
+    "validation": {
+      "nameRequired": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email",
+      "serviceRequired": "Please select a service",
+      "dateRequired": "Please select a date",
+      "timeRequired": "Please select a time slot"
+    }
+  },
   "language": {
     "en": "English",
     "fr": "Français",
