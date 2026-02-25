@@ -1,21 +1,24 @@
+import { useTranslation } from 'react-i18next'
 import { Github, Linkedin, Twitter } from 'lucide-react'
 
-const footerLinks = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'Process', href: '#process' },
-  { label: 'Security', href: '#security' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
-]
-
-const socialLinks = [
-  { icon: Github, href: 'https://github.com/grkhmz23/', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/in/gorkhmaz-beydullayev/', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://x.com/uncgorkh', label: 'Twitter' },
-]
-
 export default function Footer() {
+  const { t } = useTranslation()
+
+  const footerLinks = [
+    { label: t('nav.work'), href: '#work' },
+    { label: t('nav.services'), href: '#services' },
+    { label: t('nav.process'), href: '#process' },
+    { label: t('nav.security'), href: '#security' },
+    { label: t('nav.faq'), href: '#faq' },
+    { label: t('nav.bookCall'), href: '#contact' },
+  ]
+
+  const socialLinks = [
+    { icon: Github, href: 'https://github.com/grkhmz23/', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/gorkhmaz-beydullayev/', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/uncgorkh', label: 'Twitter' },
+  ]
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
     if (element) {
@@ -32,7 +35,6 @@ export default function Footer() {
     <footer className="py-12 border-t border-border-color">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Logo & Copyright */}
           <div className="flex items-center gap-3">
             <img 
               src="/logo_transparent.png" 
@@ -44,12 +46,11 @@ export default function Footer() {
                 Gorkhmaz Beydullayev
               </span>
               <p className="text-xs text-text-muted">
-                Built with performance in mind.
+                {t('footer.builtWith')}
               </p>
             </div>
           </div>
 
-          {/* Navigation */}
           <nav className="flex flex-wrap justify-center gap-6">
             {footerLinks.map((link) => (
               <button
@@ -62,7 +63,6 @@ export default function Footer() {
             ))}
           </nav>
 
-          {/* Social Links */}
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (
               <a
@@ -79,13 +79,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="mt-8 pt-8 border-t border-border-color/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
-          <p>© {new Date().getFullYear()} Gorkhmaz Beydullayev. All rights reserved.</p>
+          <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Available for new projects
+              {t('footer.available')}
             </span>
           </div>
         </div>

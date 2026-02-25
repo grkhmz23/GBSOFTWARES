@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Menu, X, Calendar, Mail } from 'lucide-react'
+import { Menu, X, Calendar, Mail, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -9,25 +10,35 @@ import {
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const navLinks = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'Process', href: '#process' },
-  { label: 'Security', href: '#security' },
-  { label: 'FAQ', href: '#faq' },
-]
-
 export default function Navigation() {
+  const { t, i18n } = useTranslation()
   const navRef = useRef<HTMLElement>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  const navLinks = [
+    { label: t('nav.work'), href: '#work' },
+    { label: t('nav.services'), href: '#services' },
+    { label: t('nav.process'), href: '#process' },
+    { label: t('nav.security'), href: '#security' },
+    { label: t('nav.faq'), href: '#faq' },
+  ]
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng)
+  }
+
   useEffect(() => {
-    // Handle scroll for nav background
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
@@ -37,7 +48,6 @@ export default function Navigation() {
   }, [])
 
   useEffect(() => {
-    // Set up intersection observers for each section
     const sections = navLinks.map(link => link.href.replace('#', ''))
     
     const observers: IntersectionObserver[] = []
@@ -66,7 +76,6 @@ export default function Navigation() {
   }, [])
 
   useEffect(() => {
-    // Entrance animation
     gsap.fromTo(
       navRef.current,
       { opacity: 0, y: -20 },
@@ -135,13 +144,36 @@ export default function Navigation() {
           ))}
         </div>
 
-        {/* Right: CTA + Status */}
+        {/* Right: CTA + Status + Language Switcher */}
         <div className="flex items-center gap-4">
           {/* Status Pill */}
           <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-color">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs text-text-muted">Available</span>
+            <span className="text-xs text-text-muted">{t('nav.available')}</span>
           </div>
+
+          {/* Language Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-text-muted hover:text-white">
+                <Globe className="w-5 h-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-surface border-border-color">
+              <DropdownMenuItem 
+                onClick={() => changeLanguage('en')}
+                className={`${i18n.language === 'en' ? 'text-cyan' : 'text-text'} cursor-pointer`}
+              >
+                {t('language.en')}
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => changeLanguage('fr')}
+                className={`${i18n.language === 'fr' ? 'text-cyan' : 'text-text'} cursor-pointer`}
+              >
+                {t('language.fr')}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* CTA Buttons (Desktop) */}
           <div className="hidden sm:flex items-center gap-3">
@@ -152,7 +184,7 @@ export default function Navigation() {
               onClick={() => scrollToSection('#contact')}
             >
               <Calendar className="w-4 h-4 mr-2" />
-              Book Call
+              {t('nav.bookCall')}
             </Button>
             <a
               href="mailto:gorkhmaz@example.com"
@@ -172,7 +204,7 @@ export default function Navigation() {
             <SheetContent side="right" className="w-[300px] bg-surface border-border-color">
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between mb-8">
-                  <span className="font-heading font-semibold text-white">Menu</span>
+                  <span className="font-heading font-semibold text-white">{t('nav.menu')}</span>
                   <SheetClose asChild>
                     <Button variant="ghost" size="icon" className="text-white">
                       <X className="w-5 h-5" />
@@ -199,14 +231,14 @@ export default function Navigation() {
                 <div className="mt-auto pb-8">
                   <div className="flex items-center gap-2 mb-4 text-text-muted text-sm">
                     <span className="w-2 h-2 rounded-full bg-green-500" />
-                    Available for new projects
+                    {t('nav.availableForProjects')}
                   </div>
                   <Button
                     className="w-full bg-cyan text-void hover:bg-cyan/90"
                     onClick={() => scrollToSection('#contact')}
                   >
                     <Calendar className="w-4 h-4 mr-2" />
-                    Book a Call
+                    {t('nav.bookCall')}
                   </Button>
                   <div className="mt-4 text-center text-xs text-text-muted">
                     gorkhmaz@example.com · UTC-8

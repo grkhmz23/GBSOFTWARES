@@ -1,0 +1,426 @@
+{
+  "nav": {
+    "work": "Projets",
+    "services": "Services",
+    "process": "Processus",
+    "security": "Sécurité",
+    "faq": "FAQ",
+    "bookCall": "Réserver un appel",
+    "available": "Disponible",
+    "availableForProjects": "Disponible pour nouveaux projets",
+    "menu": "Menu"
+  },
+  "hero": {
+    "terminalPrefix": "gorkhmaz@portfolio:~$",
+    "terminalCommand": "npm run start",
+    "headline": "Je construis des systèmes web et blockchain de qualité production.",
+    "subheadline": "Contrats intelligents, backends, indexeurs et frontend optimisés—{{shippedFast}}, {{securedProperly}}.",
+    "shippedFast": "livrés rapidement",
+    "securedProperly": "sécurisés correctement",
+    "ctaBookCall": "Réserver un appel",
+    "ctaViewWork": "Voir les projets",
+    "stats": {
+      "projects": "Projets",
+      "secured": "Sécurisés",
+      "uptime": "Disponibilité"
+    },
+    "latestCommit": "DERNIER_COMMIT",
+    "commitMessage": "feat: implémentation du contrat secure vault",
+    "commitTime": "il y a 2 heures • 847 ajouts",
+    "name": "Gorkhmaz Beydullayev",
+    "role": "Ingénieur Fullstack & Blockchain",
+    "trustBadges": {
+      "openSource": "Open Source",
+      "productionApps": "Apps en Production",
+      "securityAudits": "Audits de Sécurité",
+      "solanaStack": "Solana/Rust/Anchor",
+      "fullStack": "Full Stack",
+      "smartContracts": "Smart Contracts",
+      "indexing": "Indexation"
+    }
+  },
+  "metrics": {
+    "badge": "Résultats",
+    "title": "Preuve de Travail",
+    "subtitle": "Des chiffres qui témoignent de la fiabilité, de l'échelle et de l'impact.",
+    "items": {
+      "projectsDelivered": "Projets Livrés",
+      "yearsExperience": "Années d'Expérience",
+      "uptimeAchieved": "Disponibilité Atteinte",
+      "valueSecured": "Valeur Sécurisée"
+    }
+  },
+  "services": {
+    "badge": "Services",
+    "title": "Ce Que Je Fais",
+    "subtitle": "Des forfaits productisés pour les besoins courants. Scope clair, livrables clairs, résultats clairs.",
+    "mvpSprint": {
+      "title": "Sprint MVP",
+      "description": "Application full-stack construite et déployée en semaines, pas en mois.",
+      "features": [
+        "Frontend React/Next.js avec UI moderne",
+        "API backend avec authentification",
+        "Intégration wallet & flux Web3",
+        "Pipeline CI/CD & déploiement",
+        "Configuration monitoring & alertes"
+      ],
+      "whoFor": "Startups & Fondateurs",
+      "timeline": "4-8 semaines",
+      "cta": "Obtenir un Devis"
+    },
+    "protocolEngineering": {
+      "title": "Ingénierie de Protocole",
+      "description": "Développement de smart contracts avec la sécurité comme fondation.",
+      "features": [
+        "Conception & architecture de programmes",
+        "Couverture de tests complète",
+        "Revue de sécurité & renforcement",
+        "Stratégie de mise à jour & migration",
+        "Documentation & runbooks"
+      ],
+      "whoFor": "Équipes DeFi & Web3",
+      "timeline": "6-12 semaines",
+      "cta": "Réserver un Appel"
+    },
+    "securityAuditing": {
+      "title": "Sécurité & Renforcement",
+      "description": "Modélisation des menaces, audits et correctifs pour les systèmes existants.",
+      "features": [
+        "Modèle de menaces & évaluation des risques",
+        "Revue de code & identification des vulnérabilités",
+        "PRs de correctifs",
+        "Retest & validation",
+        "Rapport de sécurité & recommandations"
+      ],
+      "whoFor": "Projets en Production",
+      "timeline": "2-4 semaines",
+      "cta": "Demander un Audit"
+    },
+    "customEngagement": {
+      "title": "Engagement Personnalisé",
+      "description": "Support continu pour les équipes ayant besoin d'ingénierie dédiée.",
+      "features": [
+        "Heures d'ingénierie dédiées",
+        "Support prioritaire & réponse",
+        "Conseil en architecture",
+        "Formation & mentorat d'équipe",
+        "Scope & timeline flexibles"
+      ],
+      "whoFor": "Équipes Enterprise",
+      "timeline": "Retainer mensuel",
+      "cta": "Discuter des Besoins"
+    }
+  },
+  "work": {
+    "badge": "Projets Sélectionnés",
+    "title": "Études de Cas",
+    "subtitle": "Plongées approfondies dans des projets réels—problématiques, approches et résultats.",
+    "problem": "Problématique",
+    "approach": "Approche",
+    "outcome": "Résultat",
+    "viewProject": "Voir le Projet",
+    "projects": {
+      "psol": {
+        "title": "PSOL Protocol",
+        "tags": ["Solana", "Confidentialité", "DeFi"],
+        "problem": "Les utilisateurs avaient besoin d'une couche de confidentialité pour les transactions Solana sans compromettre la vitesse ou la sécurité.",
+        "approach": "Développement d'un protocole de confidentialité zero-knowledge permettant des transactions anonymes sur Solana avec une latence minimale.",
+        "outcome": "Lancé comme le principal protocole de confidentialité sur Solana avec des milliers de transactions privées traitées."
+      },
+      "humanRail": {
+        "title": "Human Rail",
+        "tags": ["Solana", "Identité", "Web3"],
+        "problem": "Le Web3 manquait d'une solution d'identité décentralisée pouvant vérifier de vrais humains tout en préservant la confidentialité.",
+        "approach": "Construction d'un protocole d'identité on-chain utilisant des Soulbound tokens et des credentials vérifiables sur Solana.",
+        "outcome": "Système de vérification d'identité déployé avec succès utilisé par plusieurs dApps pour la résistance aux sybilles."
+      },
+      "maniaAtelier": {
+        "title": "Mania Atelier",
+        "tags": ["E-commerce", "Mode", "Fullstack"],
+        "problem": "La marque de mode avait besoin d'une boutique en ligne moderne et performante pour vêtements hommes et femmes.",
+        "approach": "Conception d'une plateforme e-commerce élégante avec checkout fluide, gestion d'inventaire et UX mobile-first.",
+        "outcome": "Augmentation des ventes en ligne de 150% et temps de chargement inférieur à 2 secondes sur tous les appareils."
+      },
+      "trailblazer": {
+        "title": "Trailblazer Agent",
+        "tags": ["Solana", "Agent IA", "Narratif"],
+        "problem": "La communauté crypto avait besoin d'un agent IA pour suivre et analyser les narratifs émergents sur Solana.",
+        "approach": "Création d'un agent IA autonome qui scanne les réseaux sociaux, forums et données on-chain pour identifier les tendances.",
+        "outcome": "Devenu un chasseur de narratifs incontournable pour les traders Solana, identifiant les tendances avant qu'elles ne deviennent virales."
+      },
+      "solAudit": {
+        "title": "SOL Audit",
+        "tags": ["Solana", "Agent IA", "Sécurité"],
+        "problem": "Les développeurs avaient besoin d'une analyse de sécurité automatisée et de propositions de correctifs pour les repos GitHub Solana.",
+        "approach": "Construction d'un agent IA qui scanne les repos GitHub natifs Solana, identifie les vulnérabilités, propose des correctifs et auto-fork avec améliorations.",
+        "outcome": "Analyse de 500+ repositories, proposition de 2000+ correctifs de sécurité, et auto-fork de projets critiques avec sécurité renforcée."
+      },
+      "swarpFoundation": {
+        "title": "Swarp Foundation",
+        "tags": ["Fondation", "Web3", "Officiel"],
+        "problem": "La Swarp Foundation avait besoin d'une présence web officielle pour présenter leur mission et initiatives écosystème.",
+        "approach": "Conception et développement d'un site web professionnel et accessible avec fonctionnalités de gouvernance et documentation.",
+        "outcome": "Établissement de l'identité digitale de la fondation avec outils de gouvernance intégrés et engagement communautaire."
+      },
+      "splitguard": {
+        "title": "SplitGuard",
+        "tags": ["Solana", "Partage de Frais", "DeFi"],
+        "problem": "Les projets Solana avaient besoin d'une solution native pour le partage transparent et automatisé des frais entre stakeholders.",
+        "approach": "Développement d'une plateforme de smart contracts permettant la distribution programmable des frais avec splits personnalisables.",
+        "outcome": "Permis à plusieurs projets de distribuer plus de 1M$ de frais partagés de manière transparente et efficace."
+      },
+      "liveDrops": {
+        "title": "Live Drops",
+        "tags": ["Solana", "Launchpad", "Streaming"],
+        "problem": "Les créateurs avaient besoin d'une plateforme pour lancer des tokens et NFTs avec capacités de streaming en direct pour l'engagement.",
+        "approach": "Construction d'une plateforme de lancement en stream intégrant vidéo temps réel avec lancements de tokens et minting live.",
+        "outcome": "Hébergement de 100+ lancements réussis avec engagement communautaire en direct et provision de liquidité instantanée."
+      },
+      "simfi": {
+        "title": "SimFi",
+        "tags": ["Solana", "Memecoins", "Trading"],
+        "problem": "Les traders voulaient pratiquer des stratégies de trading de memecoins sans risquer de capital réel.",
+        "approach": "Création d'une plateforme de trading papier avec prix des memecoins Solana en temps réel et portfolios simulés.",
+        "outcome": "Attiré des milliers d'utilisateurs pratiquant des stratégies avant de déployer du capital réel sur les marchés."
+      },
+      "funpumpfun": {
+        "title": "FunPumpFun",
+        "tags": ["Solana", "Gaming", "Simulation"],
+        "problem": "Les utilisateurs voulaient une façon gamifiée d'apprendre les lancements de tokens sans risque financier.",
+        "approach": "Construction d'un jeu de simulation engageant reproduisant l'expérience Pump.fun avec monnaie virtuelle.",
+        "outcome": "Devenu un outil éducatif et jeu populaire, les utilisateurs passant des heures à maîtriser les mécaniques de lancement."
+      },
+      "noCrying": {
+        "title": "No Crying",
+        "tags": ["Solana", "Memecoin", "Communauté"],
+        "problem": "Une communauté memecoin en croissance avait besoin d'une page fan dédiée avec mises à jour en temps réel et outils d'engagement.",
+        "approach": "Création d'un hub communautaire dynamique avec suivi de prix, galerie de memes et fonctionnalités sociales.",
+        "outcome": "Construction d'un hub communautaire florissant avec des milliers d'utilisateurs actifs quotidiens et partage de contenu viral."
+      },
+      "scratchNSol": {
+        "title": "Scratch n SOL",
+        "tags": ["Solana", "Gaming", "Loterie"],
+        "problem": "Les utilisateurs Solana voulaient un jeu de grattage on-chain amusant avec gains instantanés et équité vérifiable.",
+        "approach": "Développement d'un jeu de grattage et gagner basé sur blockchain avec aléatoire vérifiable et paiements instantanés.",
+        "outcome": "Traitement de milliers de jeux quotidiens avec paiements SOL instantanés et résultats prouvablement équitables."
+      }
+    }
+  },
+  "process": {
+    "badge": "Processus",
+    "title": "Comment Je Travaille",
+    "subtitle": "Un processus éprouvé qui réduit les risques et délivre des résultats.",
+    "steps": {
+      "discovery": {
+        "title": "Discovery",
+        "description": "Plongée approfondie dans votre espace problème. Définir les limites, identifier les risques et établir des métriques de succès claires.",
+        "details": ["Collecte des besoins", "Faisabilité technique", "Évaluation des risques", "Définition du scope"]
+      },
+      "architecture": {
+        "title": "Architecture",
+        "description": "Concevoir le système avec la sécurité et l'évolutivité en tête. Modélisation des menaces spécifique blockchain incluse.",
+        "details": ["Conception système", "Modélisation des menaces", "Diagrammes de flux de données", "Sélection de la stack tech"]
+      },
+      "build": {
+        "title": "Construction",
+        "description": "Développement agile avec démos hebdomadaires. Workflow basé sur les PR avec revues de code approfondies.",
+        "details": ["Démos hebdomadaires", "Revues de PR", "Couverture de tests", "Documentation"]
+      },
+      "launch": {
+        "title": "Lancement",
+        "description": "Déploiement CI/CD avec monitoring, runbooks et processus de transfert fluide.",
+        "details": ["Pipeline CI/CD", "Configuration monitoring", "Runbooks", "Transfert d'équipe"]
+      },
+      "support": {
+        "title": "Support",
+        "description": "Support continu optionnel avec garanties SLA pour les systèmes critiques.",
+        "details": ["Monitoring 24/7", "Réponse aux incidents", "Optimisation des performances", "Itérations de fonctionnalités"]
+      }
+    },
+    "microDetails": {
+      "weeklyDemo": {
+        "title": "Démo Hebdomadaire + Changelog",
+        "description": "Voyez les progrès chaque semaine avec des démos live et des changelogs détaillés."
+      },
+      "definitionOfDone": {
+        "title": "Définition du Terminé",
+        "description": "Chaque fonctionnalité inclut des tests, de l'observabilité et de la documentation."
+      }
+    }
+  },
+  "security": {
+    "badge": "Sécurité d'Abord",
+    "title": "Sécurité & Fiabilité",
+    "subtitle": "La sécurité n'est pas une réflexion après coup—elle est intégrée à chaque couche. Voici comment je l'aborde.",
+    "items": {
+      "keyManagement": {
+        "title": "Gestion des Clés",
+        "description": "Gestion sécurisée des secrets, hardware wallets et politiques de rotation des clés."
+      },
+      "inputValidation": {
+        "title": "Validation des Entrées",
+        "description": "Validation stricte à toutes les frontières, assainissement et vérifications d'authentification."
+      },
+      "rateLimiting": {
+        "title": "Limitation de Débit",
+        "description": "Prévention des abus via throttling et limites de requêtes."
+      },
+      "onchainInvariants": {
+        "title": "Invariants On-chain",
+        "description": "Tests basés sur les propriétés et vérification formelle lorsque applicable."
+      },
+      "monitoring": {
+        "title": "Monitoring & Alertes",
+        "description": "Détection d'anomalies en temps réel et playbooks de réponse aux incidents."
+      },
+      "upgradeStrategy": {
+        "title": "Stratégie de Mise à Jour",
+        "description": "Patterns proxy, plans de migration et procédures de rollback."
+      }
+    },
+    "sampleFindings": {
+      "title": "Exemples de Découvertes",
+      "subtitle": "Exemples expurgés de vraies revues de sécurité.",
+      "high": {
+        "severity": "Élevé",
+        "title": "Réentrance dans le Retrait",
+        "description": "L'appel externe avant la mise à jour de l'état pourrait permettre des retraits récursifs.",
+        "fix": "Implémentation du pattern checks-effects-interactions."
+      },
+      "medium": {
+        "severity": "Moyen",
+        "title": "Validation d'Entrée Manquante",
+        "description": "L'adresse fournie par l'utilisateur n'est pas validée avant stockage.",
+        "fix": "Ajout de vérifications d'adresse zero et de contrat."
+      }
+    },
+    "mindset": {
+      "title": "Mentalité Sécurité d'Abord",
+      "items": [
+        "Modélisation des menaces pour chaque projet blockchain",
+        "Tests basés sur les propriétés avec Foundry",
+        "Audits et mises à jour régulières des dépendances"
+      ]
+    }
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Questions Fréquentes",
+    "subtitle": "Réponses rapides pour lever les blocages. Vous en avez d'autres ? Parlons-en.",
+    "questions": {
+      "q1": {
+        "question": "De quoi avez-vous besoin pour commencer ?",
+        "answer": "Un énoncé clair du problème, toute documentation ou code existant, et accès aux stakeholders pour les calls de discovery. Plus vous fournissez de contexte à l'avance, plus nous irons vite. Idéalement, venez avec : user stories, wireframes (si applicable), et une timeline approximative."
+      },
+      "q2": {
+        "question": "Comment fonctionnent les prix et les jalons ?",
+        "answer": "Je travaille généralement avec des paiements basés sur des jalons liés aux livrables. Par exemple : 30% à l'avance, 40% à la démo mi-parcours, 30% à la livraison finale. Cela aligne les incitations et réduit les risques pour les deux parties."
+      },
+      "q3": {
+        "question": "Faites-vous du forfait ou à l'heure ?",
+        "answer": "Je préfère le forfait pour les scopes bien définis (comme le Sprint MVP) et l'heure/retainer pour le travail continu ou exploratoire. Nous discuterons de ce qui a du sens pour votre projet pendant le call de discovery."
+      },
+      "q4": {
+        "question": "Pouvez-vous auditer du code existant ?",
+        "answer": "Oui. Je propose des revues de sécurité et audits de code pour les smart contracts et applications Web3. Cela inclut la modélisation des menaces, l'évaluation des vulnérabilités et un rapport détaillé avec correctifs priorisés."
+      },
+      "q5": {
+        "question": "Fournissez-vous une maintenance continue ?",
+        "answer": "Oui, via des accords de retainer mensuels. Cela inclut le monitoring, les corrections de bugs, l'optimisation des performances et les itérations de fonctionnalités. Des SLAs disponibles pour les systèmes critiques."
+      },
+      "q6": {
+        "question": "Avec quelles chains/stacks travaillez-vous ?",
+        "answer": "Principalement : Solana (Rust/Anchor), Ethereum (Solidity/Foundry), Next.js/React, Node.js, PostgreSQL, Redis, Kubernetes. Je peux aussi m'adapter à de nouvelles stacks si votre projet le nécessite."
+      },
+      "q7": {
+        "question": "Comment gérez-vous les fuseaux horaires ?",
+        "answer": "Je suis basé en PST (UTC-8) et ai travaillé avec des équipes aux US, EU et APAC. J'ajuste mon planning pour les réunions importantes et utilise la communication asynchrone (Notion, Slack, Loom) pour avancer sereinement."
+      },
+      "q8": {
+        "question": "Quel est votre temps de réponse typique ?",
+        "answer": "Pour les projets actifs : même jour sur Slack, sous 24h par email. Pour les problèmes urgents (pannes production), je suis disponible par téléphone/Signal."
+      }
+    },
+    "cta": {
+      "stillHaveQuestions": "Vous avez encore des questions ?",
+      "discussProject": "Discutons de votre projet"
+    }
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Construisons le Futur",
+    "subtitle": "Vous avez un projet en tête ? Discutons de comment je peux vous aider.",
+    "whatToInclude": {
+      "title": "Quoi Inclure",
+      "items": [
+        "Brève description de votre projet",
+        "Timeline et jalons clés",
+        "Plage de budget (m'aide à suggérer la bonne approche)",
+        "Code ou documentation existante"
+      ]
+    },
+    "info": {
+      "responseTime": "Temps de réponse : sous 24 heures",
+      "timezone": "Fuseau horaire : PST (UTC-8)",
+      "email": "gorkhmaz@example.com"
+    },
+    "schedule": {
+      "question": "Vous préférez planifier directement ?",
+      "button": "Réserver un Appel"
+    },
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "email": "Email",
+      "emailPlaceholder": "vous@entreprise.com",
+      "projectType": "Type de Projet",
+      "projectTypePlaceholder": "Sélectionnez un service",
+      "services": {
+        "mvp": "Sprint MVP",
+        "protocol": "Ingénierie de Protocole",
+        "security": "Audit de Sécurité",
+        "custom": "Engagement Personnalisé",
+        "other": "Autre"
+      },
+      "budget": "Plage de Budget",
+      "budgetPlaceholder": "Sélectionnez une plage",
+      "budgetOptions": {
+        "10k": "10k$ - 25k$",
+        "25k": "25k$ - 50k$",
+        "50k": "50k$ - 100k$",
+        "100k": "100k$+",
+        "discuss": "Discutons-en"
+      },
+      "timeline": "Timeline",
+      "timelinePlaceholder": "Sélectionnez une timeline",
+      "timelineOptions": {
+        "asap": "Dès que possible",
+        "1month": "Dans le mois",
+        "3months": "1-3 mois",
+        "flexible": "Flexible"
+      },
+      "projectDetails": "Détails du Projet",
+      "projectDetailsPlaceholder": "Parlez-moi de votre projet, objectifs et exigences spécifiques...",
+      "send": "Envoyer le Message",
+      "sending": "Envoi en cours..."
+    },
+    "success": {
+      "title": "Message Envoyé !",
+      "message": "Merci de m'avoir contacté. Je vous réponds sous 24 heures."
+    }
+  },
+  "footer": {
+    "builtWith": "Construit avec la performance en tête.",
+    "copyright": "© {{year}} Gorkhmaz Beydullayev. Tous droits réservés.",
+    "available": "Disponible pour nouveaux projets"
+  },
+  "loading": {
+    "initializing": "INITIALISATION",
+    "loadingAssets": "Chargement des assets..."
+  },
+  "language": {
+    "en": "English",
+    "fr": "Français",
+    "switch": "Changer de langue"
+  }
+}

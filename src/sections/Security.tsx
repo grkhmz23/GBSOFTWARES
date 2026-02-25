@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { 
@@ -15,63 +16,69 @@ import {
 
 gsap.registerPlugin(ScrollTrigger)
 
-const securityItems = [
-  {
-    icon: Key,
-    title: 'Key Management',
-    description: 'Secure secret handling, hardware wallets, and key rotation policies.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Input Validation',
-    description: 'Strict validation at all boundaries, sanitization, and auth checks.',
-  },
-  {
-    icon: Gauge,
-    title: 'Rate Limiting',
-    description: 'Abuse prevention through throttling and request limits.',
-  },
-  {
-    icon: FileSearch,
-    title: 'Onchain Invariants',
-    description: 'Property-based testing and formal verification where applicable.',
-  },
-  {
-    icon: Bell,
-    title: 'Monitoring & Alerting',
-    description: 'Real-time anomaly detection and incident response playbooks.',
-  },
-  {
-    icon: RefreshCw,
-    title: 'Upgrade Strategy',
-    description: 'Proxy patterns, migration plans, and rollback procedures.',
-  },
-]
-
-const sampleFindings = [
-  {
-    severity: 'High',
-    title: 'Reentrancy in Withdrawal',
-    description: 'External call before state update could allow recursive withdrawals.',
-    fix: 'Implemented checks-effects-interactions pattern.',
-  },
-  {
-    severity: 'Medium',
-    title: 'Missing Input Validation',
-    description: 'User-provided address not validated before storage.',
-    fix: 'Added zero-address and contract checks.',
-  },
-]
-
 export default function Security() {
+  const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
   const findingsRef = useRef<HTMLDivElement>(null)
 
+  const securityItems = [
+    {
+      icon: Key,
+      title: t('security.items.keyManagement.title'),
+      description: t('security.items.keyManagement.description'),
+    },
+    {
+      icon: ShieldCheck,
+      title: t('security.items.inputValidation.title'),
+      description: t('security.items.inputValidation.description'),
+    },
+    {
+      icon: Gauge,
+      title: t('security.items.rateLimiting.title'),
+      description: t('security.items.rateLimiting.description'),
+    },
+    {
+      icon: FileSearch,
+      title: t('security.items.onchainInvariants.title'),
+      description: t('security.items.onchainInvariants.description'),
+    },
+    {
+      icon: Bell,
+      title: t('security.items.monitoring.title'),
+      description: t('security.items.monitoring.description'),
+    },
+    {
+      icon: RefreshCw,
+      title: t('security.items.upgradeStrategy.title'),
+      description: t('security.items.upgradeStrategy.description'),
+    },
+  ]
+
+  const sampleFindings = [
+    {
+      severity: t('security.sampleFindings.high.severity'),
+      title: t('security.sampleFindings.high.title'),
+      description: t('security.sampleFindings.high.description'),
+      fix: t('security.sampleFindings.high.fix'),
+    },
+    {
+      severity: t('security.sampleFindings.medium.severity'),
+      title: t('security.sampleFindings.medium.title'),
+      description: t('security.sampleFindings.medium.description'),
+      fix: t('security.sampleFindings.medium.fix'),
+    },
+  ]
+
+  const mindsetItems = [
+    t('security.mindset.items.0'),
+    t('security.mindset.items.1'),
+    t('security.mindset.items.2'),
+  ]
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header animation
       gsap.fromTo(
         headerRef.current,
         { opacity: 0, y: 30 },
@@ -88,7 +95,6 @@ export default function Security() {
         }
       )
 
-      // Grid items animation
       if (gridRef.current) {
         const items = gridRef.current.children
         gsap.fromTo(
@@ -109,7 +115,6 @@ export default function Security() {
         )
       }
 
-      // Findings animation
       gsap.fromTo(
         findingsRef.current,
         { opacity: 0, y: 30 },
@@ -130,6 +135,15 @@ export default function Security() {
     return () => ctx.revert()
   }, [])
 
+  const getSeverityClass = (severity: string) => {
+    if (severity === 'High' || severity === 'Élevé') {
+      return 'bg-red-500/20 text-red-400'
+    } else if (severity === 'Medium' || severity === 'Moyen') {
+      return 'bg-yellow-500/20 text-yellow-400'
+    }
+    return 'bg-blue-500/20 text-blue-400'
+  }
+
   return (
     <section
       ref={sectionRef}
@@ -138,17 +152,16 @@ export default function Security() {
     >
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left: Security Checklist */}
           <div>
             <div ref={headerRef} className="mb-8">
               <span className="inline-block px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-mono uppercase tracking-wider mb-4">
-                Security First
+                {t('security.badge')}
               </span>
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
-                Security & Reliability
+                {t('security.title')}
               </h2>
               <p className="text-text-muted">
-                Security isn't an afterthought—it's built into every layer. Here's how I approach it.
+                {t('security.subtitle')}
               </p>
             </div>
 
@@ -176,14 +189,13 @@ export default function Security() {
             </div>
           </div>
 
-          {/* Right: Sample Findings */}
           <div ref={findingsRef}>
             <div className="mb-6">
               <h3 className="font-heading text-xl font-bold text-white mb-2">
-                Sample Findings
+                {t('security.sampleFindings.title')}
               </h3>
               <p className="text-sm text-text-muted">
-                Redacted examples from real security reviews.
+                {t('security.sampleFindings.subtitle')}
               </p>
             </div>
 
@@ -195,13 +207,7 @@ export default function Security() {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <span
-                      className={`px-2 py-0.5 rounded text-xs font-mono font-semibold ${
-                        finding.severity === 'High'
-                          ? 'bg-red-500/20 text-red-400'
-                          : finding.severity === 'Medium'
-                          ? 'bg-yellow-500/20 text-yellow-400'
-                          : 'bg-blue-500/20 text-blue-400'
-                      }`}
+                      className={`px-2 py-0.5 rounded text-xs font-mono font-semibold ${getSeverityClass(finding.severity)}`}
                     >
                       {finding.severity}
                     </span>
@@ -220,27 +226,20 @@ export default function Security() {
               ))}
             </div>
 
-            {/* Additional trust signals */}
             <div className="mt-6 p-4 rounded-lg bg-cyan/5 border border-cyan/20">
               <div className="flex items-center gap-3 mb-3">
                 <Lock className="w-5 h-5 text-cyan" />
                 <span className="text-sm font-semibold text-white">
-                  Security-First Mindset
+                  {t('security.mindset.title')}
                 </span>
               </div>
               <ul className="space-y-2 text-xs text-text-muted">
-                <li className="flex items-center gap-2">
-                  <AlertTriangle className="w-3 h-3 text-cyan" />
-                  Threat modeling for every blockchain project
-                </li>
-                <li className="flex items-center gap-2">
-                  <AlertTriangle className="w-3 h-3 text-cyan" />
-                  Property-based testing with Foundry
-                </li>
-                <li className="flex items-center gap-2">
-                  <AlertTriangle className="w-3 h-3 text-cyan" />
-                  Regular dependency audits and updates
-                </li>
+                {mindsetItems.map((item, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <AlertTriangle className="w-3 h-3 text-cyan" />
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

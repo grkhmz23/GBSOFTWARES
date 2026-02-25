@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { 
@@ -86,7 +87,6 @@ function ServiceCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative h-full p-6 md:p-8 rounded-xl bg-surface border border-border-color overflow-hidden transition-all duration-300 hover:border-cyan/30">
-        {/* Spotlight effect */}
         {isHovered && (
           <div
             className="absolute pointer-events-none transition-opacity duration-200"
@@ -101,7 +101,6 @@ function ServiceCard({
           />
         )}
 
-        {/* Border glow on hover */}
         <div 
           className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           style={{
@@ -110,22 +109,18 @@ function ServiceCard({
         />
 
         <div className="relative z-10">
-          {/* Icon */}
           <div className="w-12 h-12 rounded-lg bg-cyan/10 flex items-center justify-center mb-6 group-hover:bg-cyan/20 transition-colors">
             <Icon className="w-6 h-6 text-cyan" />
           </div>
 
-          {/* Title */}
           <h3 className="font-heading text-xl md:text-2xl font-bold text-white mb-3">
             {title}
           </h3>
 
-          {/* Description */}
           <p className="text-text-muted mb-6 leading-relaxed">
             {description}
           </p>
 
-          {/* Features */}
           <ul className="space-y-2 mb-6">
             {features.map((feature, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-text">
@@ -135,7 +130,6 @@ function ServiceCard({
             ))}
           </ul>
 
-          {/* Meta info */}
           <div className="flex flex-wrap gap-4 mb-6 text-xs text-text-muted">
             <div className="flex items-center gap-1">
               <Users className="w-3 h-3" />
@@ -147,7 +141,6 @@ function ServiceCard({
             </div>
           </div>
 
-          {/* CTA */}
           <Button
             variant="outline"
             className="w-full border-cyan text-cyan hover:bg-cyan hover:text-void group/btn"
@@ -162,70 +155,8 @@ function ServiceCard({
   )
 }
 
-const services = [
-  {
-    icon: FileCode,
-    title: 'MVP Sprint',
-    description: 'Full-stack application built and deployed in weeks, not months.',
-    features: [
-      'React/Next.js frontend with modern UI',
-      'Backend API with authentication',
-      'Wallet integration & Web3 flows',
-      'CI/CD pipeline & deployment',
-      'Monitoring & alerting setup',
-    ],
-    whoFor: 'Startups & Founders',
-    timeline: '4-8 weeks',
-    cta: 'Get Estimate',
-  },
-  {
-    icon: Layers,
-    title: 'Protocol Engineering',
-    description: 'Smart contract development with security at the foundation.',
-    features: [
-      'Program design & architecture',
-      'Comprehensive test coverage',
-      'Security review & hardening',
-      'Upgrade & migration strategy',
-      'Documentation & runbooks',
-    ],
-    whoFor: 'DeFi & Web3 Teams',
-    timeline: '6-12 weeks',
-    cta: 'Book Call',
-  },
-  {
-    icon: Shield,
-    title: 'Security & Hardening',
-    description: 'Threat modeling, audits, and fixes for existing systems.',
-    features: [
-      'Threat model & risk assessment',
-      'Code review & vulnerability findings',
-      'Patch PRs with fixes',
-      'Retest & validation',
-      'Security report & recommendations',
-    ],
-    whoFor: 'Live Projects',
-    timeline: '2-4 weeks',
-    cta: 'Request Audit',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Custom Engagement',
-    description: 'Ongoing support for teams needing dedicated engineering.',
-    features: [
-      'Dedicated engineering hours',
-      'Priority support & response',
-      'Architecture consulting',
-      'Team training & mentorship',
-      'Flexible scope & timeline',
-    ],
-    whoFor: 'Enterprise Teams',
-    timeline: 'Monthly retainer',
-    cta: 'Discuss Needs',
-  },
-]
-
 export default function Services() {
+  const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
 
@@ -263,6 +194,69 @@ export default function Services() {
     }
   }
 
+  const services = [
+    {
+      icon: FileCode,
+      title: t('services.mvpSprint.title'),
+      description: t('services.mvpSprint.description'),
+      features: [
+        t('services.mvpSprint.features.0'),
+        t('services.mvpSprint.features.1'),
+        t('services.mvpSprint.features.2'),
+        t('services.mvpSprint.features.3'),
+        t('services.mvpSprint.features.4'),
+      ],
+      whoFor: t('services.mvpSprint.whoFor'),
+      timeline: t('services.mvpSprint.timeline'),
+      cta: t('services.mvpSprint.cta'),
+    },
+    {
+      icon: Layers,
+      title: t('services.protocolEngineering.title'),
+      description: t('services.protocolEngineering.description'),
+      features: [
+        t('services.protocolEngineering.features.0'),
+        t('services.protocolEngineering.features.1'),
+        t('services.protocolEngineering.features.2'),
+        t('services.protocolEngineering.features.3'),
+        t('services.protocolEngineering.features.4'),
+      ],
+      whoFor: t('services.protocolEngineering.whoFor'),
+      timeline: t('services.protocolEngineering.timeline'),
+      cta: t('services.protocolEngineering.cta'),
+    },
+    {
+      icon: Shield,
+      title: t('services.securityAuditing.title'),
+      description: t('services.securityAuditing.description'),
+      features: [
+        t('services.securityAuditing.features.0'),
+        t('services.securityAuditing.features.1'),
+        t('services.securityAuditing.features.2'),
+        t('services.securityAuditing.features.3'),
+        t('services.securityAuditing.features.4'),
+      ],
+      whoFor: t('services.securityAuditing.whoFor'),
+      timeline: t('services.securityAuditing.timeline'),
+      cta: t('services.securityAuditing.cta'),
+    },
+    {
+      icon: MessageSquare,
+      title: t('services.customEngagement.title'),
+      description: t('services.customEngagement.description'),
+      features: [
+        t('services.customEngagement.features.0'),
+        t('services.customEngagement.features.1'),
+        t('services.customEngagement.features.2'),
+        t('services.customEngagement.features.3'),
+        t('services.customEngagement.features.4'),
+      ],
+      whoFor: t('services.customEngagement.whoFor'),
+      timeline: t('services.customEngagement.timeline'),
+      cta: t('services.customEngagement.cta'),
+    },
+  ]
+
   return (
     <section
       ref={sectionRef}
@@ -272,13 +266,13 @@ export default function Services() {
       <div className="container-custom">
         <div ref={headerRef} className="text-center mb-12">
           <span className="inline-block px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-mono uppercase tracking-wider mb-4">
-            Services
+            {t('services.badge')}
           </span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
-            What I Do
+            {t('services.title')}
           </h2>
           <p className="text-text-muted max-w-2xl mx-auto">
-            Productized packages for common needs. Clear scope, clear deliverables, clear outcomes.
+            {t('services.subtitle')}
           </p>
         </div>
 

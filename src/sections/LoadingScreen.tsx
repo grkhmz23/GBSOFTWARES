@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 
 export default function LoadingScreen() {
+  const { t } = useTranslation()
   const containerRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
@@ -11,7 +13,6 @@ export default function LoadingScreen() {
   useEffect(() => {
     const tl = gsap.timeline()
     
-    // Animate progress bar
     if (progressRef.current) {
       tl.to(progressRef.current, {
         width: '100%',
@@ -20,7 +21,6 @@ export default function LoadingScreen() {
       })
     }
     
-    // Fade out text
     if (textRef.current) {
       tl.to(textRef.current, {
         opacity: 0,
@@ -30,7 +30,6 @@ export default function LoadingScreen() {
       }, '-=0.2')
     }
     
-    // Curtain effect - split and slide
     if (curtainTopRef.current) {
       tl.to(curtainTopRef.current, {
         y: '-100%',
@@ -54,14 +53,12 @@ export default function LoadingScreen() {
 
   return (
     <div ref={containerRef} className="fixed inset-0 z-[9999]">
-      {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-void z-10">
         <div ref={textRef} className="text-center">
           <div className="font-heading text-2xl md:text-3xl font-bold text-white mb-8 tracking-wider">
-            INITIALIZING
+            {t('loading.initializing')}
           </div>
           
-          {/* Progress bar container */}
           <div className="w-64 md:w-80 h-1 bg-surface rounded-full overflow-hidden">
             <div 
               ref={progressRef}
@@ -71,12 +68,11 @@ export default function LoadingScreen() {
           </div>
           
           <div className="mt-4 font-mono text-xs text-text-muted">
-            Loading assets...
+            {t('loading.loadingAssets')}
           </div>
         </div>
       </div>
       
-      {/* Curtain overlays */}
       <div 
         ref={curtainTopRef}
         className="absolute inset-0 bg-void z-20" 

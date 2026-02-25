@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, ExternalLink, ChevronUp } from 'lucide-react'
@@ -33,6 +34,7 @@ function CaseStudyRow({
   isExpanded,
   onToggle,
 }: CaseStudyProps) {
+  const { t } = useTranslation()
   const rowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -62,24 +64,20 @@ function CaseStudyRow({
       ref={rowRef}
       className="border-b border-border-color last:border-b-0"
     >
-      {/* Main row */}
       <button
         onClick={onToggle}
         className={`w-full py-6 flex items-center gap-4 md:gap-8 text-left group transition-all duration-300 ${
           isExpanded ? 'text-cyan' : 'text-text-muted hover:text-white'
         }`}
       >
-        {/* Index */}
         <span className="font-mono text-sm w-8 flex-shrink-0 opacity-50">
           {index}
         </span>
 
-        {/* Title */}
         <span className="font-heading text-lg md:text-xl font-semibold flex-grow">
           {title}
         </span>
 
-        {/* Tags (hidden on mobile) */}
         <div className="hidden md:flex gap-2 flex-shrink-0">
           {tags.map((tag, i) => (
             <Badge
@@ -92,12 +90,10 @@ function CaseStudyRow({
           ))}
         </div>
 
-        {/* Year */}
         <span className="font-mono text-sm hidden sm:block flex-shrink-0 w-16 text-right">
           {year}
         </span>
 
-        {/* Arrow / Toggle */}
         <span className="flex-shrink-0 w-8 flex justify-end">
           {isExpanded ? (
             <ChevronUp className="w-5 h-5" />
@@ -107,7 +103,6 @@ function CaseStudyRow({
         </span>
       </button>
 
-      {/* Expanded content */}
       <div
         className={`overflow-hidden transition-all duration-300 ${
           isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
@@ -115,32 +110,28 @@ function CaseStudyRow({
       >
         <div className="pb-8 pl-12 md:pl-16 pr-4">
           <div className="grid md:grid-cols-3 gap-6">
-            {/* Problem */}
             <div>
               <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted mb-2">
-                Problem
+                {t('work.problem')}
               </h4>
               <p className="text-sm text-text leading-relaxed">{problem}</p>
             </div>
 
-            {/* Approach */}
             <div>
               <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted mb-2">
-                Approach
+                {t('work.approach')}
               </h4>
               <p className="text-sm text-text leading-relaxed">{approach}</p>
             </div>
 
-            {/* Outcome */}
             <div>
               <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted mb-2">
-                Outcome
+                {t('work.outcome')}
               </h4>
               <p className="text-sm text-text leading-relaxed">{outcome}</p>
             </div>
           </div>
 
-          {/* Stack & Link */}
           <div className="mt-6 pt-6 border-t border-border-color flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap gap-2">
               {stack.map((tech, i) => (
@@ -160,7 +151,7 @@ function CaseStudyRow({
                 className="flex items-center gap-2 text-sm text-cyan hover:underline"
                 onClick={(e) => e.stopPropagation()}
               >
-                View Project
+                {t('work.viewProject')}
                 <ExternalLink className="w-4 h-4" />
               </a>
             )}
@@ -171,130 +162,8 @@ function CaseStudyRow({
   )
 }
 
-const caseStudies = [
-  {
-    title: 'PSOL Protocol',
-    tags: ['Solana', 'Privacy', 'DeFi'],
-    year: '2024',
-    problem: 'Users needed a privacy layer for Solana transactions without compromising on speed or security.',
-    approach: 'Developed a zero-knowledge privacy protocol enabling anonymous transactions on Solana with minimal latency.',
-    outcome: 'Launched as the leading privacy protocol on Solana with thousands of private transactions processed.',
-    stack: ['Solana', 'Rust', 'Anchor', 'ZK-Proofs', 'React'],
-    link: 'https://psolprotocol.org',
-  },
-  {
-    title: 'Human Rail',
-    tags: ['Solana', 'Identity', 'Web3'],
-    year: '2024',
-    problem: 'Web3 lacked a decentralized identity solution that could verify real humans while preserving privacy.',
-    approach: 'Built an on-chain identity protocol using Soulbound tokens and verifiable credentials on Solana.',
-    outcome: 'Successfully deployed identity verification system used by multiple dApps for sybil resistance.',
-    stack: ['Solana', 'Rust', 'Anchor', 'SBT', 'Next.js'],
-    link: 'https://humanrail.org',
-  },
-  {
-    title: 'Mania Atelier',
-    tags: ['E-commerce', 'Fashion', 'Fullstack'],
-    year: '2024',
-    problem: 'Fashion brand needed a modern, high-performance online store for men and women clothing.',
-    approach: 'Designed a sleek e-commerce platform with seamless checkout, inventory management, and mobile-first UX.',
-    outcome: 'Increased online sales by 150% and achieved sub-2-second page load times across all devices.',
-    stack: ['Next.js', 'TypeScript', 'Stripe', 'Tailwind', 'PostgreSQL'],
-    link: 'https://maniaratelier.com',
-  },
-  {
-    title: 'Trailblazer Agent',
-    tags: ['Solana', 'AI Agent', 'Narrative'],
-    year: '2024',
-    problem: 'Crypto community needed an AI agent to track and analyze emerging narratives on Solana.',
-    approach: 'Created an autonomous AI agent that scans social media, forums, and on-chain data to identify trends.',
-    outcome: 'Became a go-to narrative hunter for Solana traders, identifying trends before they went viral.',
-    stack: ['Solana', 'Python', 'AI/ML', 'NLP', 'React'],
-    link: 'https://trailblazeragent.fun',
-  },
-  {
-    title: 'SOL Audit',
-    tags: ['Solana', 'AI Agent', 'Security'],
-    year: '2024',
-    problem: 'Developers needed automated security analysis and fix proposals for Solana GitHub repositories.',
-    approach: 'Built an AI agent that scans Solana-native GitHub repos, identifies vulnerabilities, proposes fixes, and auto-forks with improvements.',
-    outcome: 'Analyzed 500+ repositories, proposed 2000+ security fixes, and auto-forked critical projects with enhanced security.',
-    stack: ['Solana', 'Rust', 'AI/ML', 'GitHub API', 'Next.js'],
-    link: 'https://solaudit.fun',
-  },
-  {
-    title: 'Swarp Foundation',
-    tags: ['Foundation', 'Web3', 'Official'],
-    year: '2024',
-    problem: 'Swarp Foundation needed an official web presence to showcase their mission and ecosystem initiatives.',
-    approach: 'Designed and developed a professional, accessible website with governance features and documentation.',
-    outcome: 'Established the foundation\'s digital identity with integrated governance and community engagement tools.',
-    stack: ['Next.js', 'TypeScript', 'Tailwind', 'CMS', 'Web3'],
-    link: 'https://swarpfoundation.com',
-  },
-  {
-    title: 'SplitGuard',
-    tags: ['Solana', 'Fee Sharing', 'DeFi'],
-    year: '2024',
-    problem: 'Solana projects needed a native solution for transparent and automated fee sharing among stakeholders.',
-    approach: 'Developed a smart contract platform enabling programmable fee distribution with customizable splits.',
-    outcome: 'Enabled multiple projects to distribute over $1M in shared fees transparently and efficiently.',
-    stack: ['Solana', 'Rust', 'Anchor', 'DeFi', 'React'],
-    link: 'https://splitguard.fun',
-  },
-  {
-    title: 'Live Drops',
-    tags: ['Solana', 'Launchpad', 'Streaming'],
-    year: '2024',
-    problem: 'Creators needed a platform to launch tokens and NFTs with live streaming capabilities for engagement.',
-    approach: 'Built a stream launch platform integrating real-time video with token launches and live minting.',
-    outcome: 'Hosted 100+ successful launches with live community engagement and instant liquidity provision.',
-    stack: ['Solana', 'Rust', 'Anchor', 'WebRTC', 'Next.js'],
-    link: 'https://livedrops.fun',
-  },
-  {
-    title: 'SimFi',
-    tags: ['Solana', 'Memecoins', 'Trading'],
-    year: '2024',
-    problem: 'Traders wanted to practice memecoin trading strategies without risking real capital.',
-    approach: 'Created a paper trading platform with real-time Solana memecoin prices and simulated portfolios.',
-    outcome: 'Attracted thousands of users practicing strategies before deploying real capital to live markets.',
-    stack: ['Solana', 'React', 'WebSocket', 'Trading Engine', 'TypeScript'],
-    link: 'https://simfi.fun',
-  },
-  {
-    title: 'FunPumpFun',
-    tags: ['Solana', 'Gaming', 'Simulation'],
-    year: '2024',
-    problem: 'Users wanted a gamified way to learn about token launches without financial risk.',
-    approach: 'Built an engaging simulation game replicating the Pump.fun experience with virtual currency.',
-    outcome: 'Became a popular educational tool and game, with users spending hours mastering launch mechanics.',
-    stack: ['Solana', 'React', 'Game Design', 'Tailwind', 'TypeScript'],
-    link: 'https://funpumpfun.fun',
-  },
-  {
-    title: 'No Crying',
-    tags: ['Solana', 'Memecoin', 'Community'],
-    year: '2024',
-    problem: 'A growing memecoin community needed a dedicated fan page with real-time updates and engagement tools.',
-    approach: 'Created a vibrant community hub with price tracking, meme gallery, and social features.',
-    outcome: 'Built a thriving community hub with thousands of daily active users and viral content sharing.',
-    stack: ['Next.js', 'Solana', 'Tailwind', 'API Integration', 'TypeScript'],
-    link: 'https://nocrying.fun',
-  },
-  {
-    title: 'Scratch n SOL',
-    tags: ['Solana', 'Gaming', 'Lottery'],
-    year: '2024',
-    problem: 'Solana users wanted a fun, on-chain scratch card game with instant prizes and provable fairness.',
-    approach: 'Developed a blockchain-based scratch and win game with verifiable randomness and instant payouts.',
-    outcome: 'Processed thousands of games daily with instant SOL payouts and provably fair outcomes.',
-    stack: ['Solana', 'Rust', 'Anchor', 'VRF', 'React'],
-    link: 'https://scratchnsol.fun',
-  },
-]
-
 export default function Work() {
+  const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0)
@@ -325,6 +194,129 @@ export default function Work() {
     setExpandedIndex(expandedIndex === index ? null : index)
   }
 
+  const caseStudies = [
+    {
+      title: t('work.projects.psol.title'),
+      tags: t('work.projects.psol.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.psol.problem'),
+      approach: t('work.projects.psol.approach'),
+      outcome: t('work.projects.psol.outcome'),
+      stack: ['Solana', 'Rust', 'Anchor', 'ZK-Proofs', 'React'],
+      link: 'https://psolprotocol.org',
+    },
+    {
+      title: t('work.projects.humanRail.title'),
+      tags: t('work.projects.humanRail.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.humanRail.problem'),
+      approach: t('work.projects.humanRail.approach'),
+      outcome: t('work.projects.humanRail.outcome'),
+      stack: ['Solana', 'Rust', 'Anchor', 'SBT', 'Next.js'],
+      link: 'https://humanrail.org',
+    },
+    {
+      title: t('work.projects.maniaAtelier.title'),
+      tags: t('work.projects.maniaAtelier.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.maniaAtelier.problem'),
+      approach: t('work.projects.maniaAtelier.approach'),
+      outcome: t('work.projects.maniaAtelier.outcome'),
+      stack: ['Next.js', 'TypeScript', 'Stripe', 'Tailwind', 'PostgreSQL'],
+      link: 'https://maniaratelier.com',
+    },
+    {
+      title: t('work.projects.trailblazer.title'),
+      tags: t('work.projects.trailblazer.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.trailblazer.problem'),
+      approach: t('work.projects.trailblazer.approach'),
+      outcome: t('work.projects.trailblazer.outcome'),
+      stack: ['Solana', 'Python', 'AI/ML', 'NLP', 'React'],
+      link: 'https://trailblazeragent.fun',
+    },
+    {
+      title: t('work.projects.solAudit.title'),
+      tags: t('work.projects.solAudit.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.solAudit.problem'),
+      approach: t('work.projects.solAudit.approach'),
+      outcome: t('work.projects.solAudit.outcome'),
+      stack: ['Solana', 'Rust', 'AI/ML', 'GitHub API', 'Next.js'],
+      link: 'https://solaudit.fun',
+    },
+    {
+      title: t('work.projects.swarpFoundation.title'),
+      tags: t('work.projects.swarpFoundation.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.swarpFoundation.problem'),
+      approach: t('work.projects.swarpFoundation.approach'),
+      outcome: t('work.projects.swarpFoundation.outcome'),
+      stack: ['Next.js', 'TypeScript', 'Tailwind', 'CMS', 'Web3'],
+      link: 'https://swarpfoundation.com',
+    },
+    {
+      title: t('work.projects.splitguard.title'),
+      tags: t('work.projects.splitguard.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.splitguard.problem'),
+      approach: t('work.projects.splitguard.approach'),
+      outcome: t('work.projects.splitguard.outcome'),
+      stack: ['Solana', 'Rust', 'Anchor', 'DeFi', 'React'],
+      link: 'https://splitguard.fun',
+    },
+    {
+      title: t('work.projects.liveDrops.title'),
+      tags: t('work.projects.liveDrops.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.liveDrops.problem'),
+      approach: t('work.projects.liveDrops.approach'),
+      outcome: t('work.projects.liveDrops.outcome'),
+      stack: ['Solana', 'Rust', 'Anchor', 'WebRTC', 'Next.js'],
+      link: 'https://livedrops.fun',
+    },
+    {
+      title: t('work.projects.simfi.title'),
+      tags: t('work.projects.simfi.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.simfi.problem'),
+      approach: t('work.projects.simfi.approach'),
+      outcome: t('work.projects.simfi.outcome'),
+      stack: ['Solana', 'React', 'WebSocket', 'Trading Engine', 'TypeScript'],
+      link: 'https://simfi.fun',
+    },
+    {
+      title: t('work.projects.funpumpfun.title'),
+      tags: t('work.projects.funpumpfun.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.funpumpfun.problem'),
+      approach: t('work.projects.funpumpfun.approach'),
+      outcome: t('work.projects.funpumpfun.outcome'),
+      stack: ['Solana', 'React', 'Game Design', 'Tailwind', 'TypeScript'],
+      link: 'https://funpumpfun.fun',
+    },
+    {
+      title: t('work.projects.noCrying.title'),
+      tags: t('work.projects.noCrying.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.noCrying.problem'),
+      approach: t('work.projects.noCrying.approach'),
+      outcome: t('work.projects.noCrying.outcome'),
+      stack: ['Next.js', 'Solana', 'Tailwind', 'API Integration', 'TypeScript'],
+      link: 'https://nocrying.fun',
+    },
+    {
+      title: t('work.projects.scratchNSol.title'),
+      tags: t('work.projects.scratchNSol.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.scratchNSol.problem'),
+      approach: t('work.projects.scratchNSol.approach'),
+      outcome: t('work.projects.scratchNSol.outcome'),
+      stack: ['Solana', 'Rust', 'Anchor', 'VRF', 'React'],
+      link: 'https://scratchnsol.fun',
+    },
+  ]
+
   return (
     <section
       ref={sectionRef}
@@ -334,13 +326,13 @@ export default function Work() {
       <div className="container-custom">
         <div ref={headerRef} className="mb-12">
           <span className="inline-block px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-mono uppercase tracking-wider mb-4">
-            Selected Work
+            {t('work.badge')}
           </span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
-            Case Studies
+            {t('work.title')}
           </h2>
           <p className="text-text-muted max-w-2xl">
-            Deep dives into real projects—problems, approaches, and outcomes.
+            {t('work.subtitle')}
           </p>
         </div>
 

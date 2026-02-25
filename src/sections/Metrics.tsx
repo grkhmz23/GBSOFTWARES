@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -14,13 +15,11 @@ interface MetricCardProps {
 
 function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const numberRef = useRef<HTMLSpanElement>(null)
   const [displayValue, setDisplayValue] = useState(0)
   const numericValue = parseInt(value.replace(/[^0-9]/g, ''))
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Card reveal animation
       gsap.fromTo(
         cardRef.current,
         { opacity: 0, y: 50 },
@@ -38,7 +37,6 @@ function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCar
         }
       )
 
-      // Number counter animation
       ScrollTrigger.create({
         trigger: cardRef.current,
         start: 'top 85%',
@@ -68,7 +66,6 @@ function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCar
       ref={cardRef}
       className="relative group p-6 md:p-8 rounded-xl bg-surface/50 border border-border-color backdrop-blur-sm hover:border-cyan/50 transition-all duration-300"
     >
-      {/* Glow effect on hover */}
       <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan/5 to-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       <div className="relative z-10">
@@ -77,7 +74,6 @@ function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCar
             <span className="text-2xl md:text-3xl font-mono text-cyan">{prefix}</span>
           )}
           <span
-            ref={numberRef}
             className="text-4xl md:text-5xl font-mono font-bold text-white"
           >
             {displayValue.toLocaleString()}
@@ -89,21 +85,14 @@ function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCar
         <p className="text-sm md:text-base text-text-muted">{label}</p>
       </div>
 
-      {/* Decorative corner */}
       <div className="absolute top-0 right-0 w-8 h-8 border-t border-r border-cyan/30 rounded-tr-xl opacity-0 group-hover:opacity-100 transition-opacity" />
       <div className="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-cyan/30 rounded-bl-xl opacity-0 group-hover:opacity-100 transition-opacity" />
     </div>
   )
 }
 
-const metrics = [
-  { value: '50', label: 'Projects Delivered', suffix: '+' },
-  { value: '5', label: 'Years Experience', suffix: '+' },
-  { value: '99', label: 'Uptime Achieved', suffix: '.9%' },
-  { value: '10', label: 'Value Secured', prefix: '$', suffix: 'M+' },
-]
-
 export default function Metrics() {
+  const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
 
@@ -129,6 +118,13 @@ export default function Metrics() {
     return () => ctx.revert()
   }, [])
 
+  const metrics = [
+    { value: '50', label: t('metrics.items.projectsDelivered'), suffix: '+' },
+    { value: '5', label: t('metrics.items.yearsExperience'), suffix: '+' },
+    { value: '99', label: t('metrics.items.uptimeAchieved'), suffix: '.9%' },
+    { value: '10', label: t('metrics.items.valueSecured'), prefix: '$', suffix: 'M+' },
+  ]
+
   return (
     <section
       ref={sectionRef}
@@ -138,13 +134,13 @@ export default function Metrics() {
       <div className="container-custom">
         <div ref={headerRef} className="text-center mb-12">
           <span className="inline-block px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-mono uppercase tracking-wider mb-4">
-            Results
+            {t('metrics.badge')}
           </span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
-            Proof of Work
+            {t('metrics.title')}
           </h2>
           <p className="text-text-muted max-w-2xl mx-auto">
-            Numbers that speak to reliability, scale, and impact.
+            {t('metrics.subtitle')}
           </p>
         </div>
 

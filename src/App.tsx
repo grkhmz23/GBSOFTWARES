@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import './i18n'
 import Navigation from './sections/Navigation'
 import Hero from './sections/Hero'
 import Metrics from './sections/Metrics'

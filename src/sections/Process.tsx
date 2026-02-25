@@ -1,52 +1,78 @@
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Search, PenTool, Code, Rocket, HeadphonesIcon } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const steps = [
-  {
-    icon: Search,
-    title: 'Discovery',
-    description: 'Deep dive into your problem space. Define boundaries, identify risks, and establish clear success metrics.',
-    details: ['Requirements gathering', 'Technical feasibility', 'Risk assessment', 'Scope definition'],
-  },
-  {
-    icon: PenTool,
-    title: 'Architecture',
-    description: 'Design the system with security and scalability in mind. Blockchain-specific threat modeling included.',
-    details: ['System design', 'Threat modeling', 'Data flow diagrams', 'Tech stack selection'],
-  },
-  {
-    icon: Code,
-    title: 'Build',
-    description: 'Agile development with weekly demos. PR-based workflow with thorough code reviews.',
-    details: ['Weekly demos', 'PR reviews', 'Test coverage', 'Documentation'],
-  },
-  {
-    icon: Rocket,
-    title: 'Launch',
-    description: 'CI/CD deployment with monitoring, runbooks, and a smooth handover process.',
-    details: ['CI/CD pipeline', 'Monitoring setup', 'Runbooks', 'Team handover'],
-  },
-  {
-    icon: HeadphonesIcon,
-    title: 'Support',
-    description: 'Optional ongoing support with SLA guarantees for critical systems.',
-    details: ['24/7 monitoring', 'Incident response', 'Performance optimization', 'Feature iterations'],
-  },
-]
-
 export default function Process() {
+  const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<SVGLineElement>(null)
   const stepsRef = useRef<(HTMLDivElement | null)[]>([])
 
+  const steps = [
+    {
+      icon: Search,
+      title: t('process.steps.discovery.title'),
+      description: t('process.steps.discovery.description'),
+      details: [
+        t('process.steps.discovery.details.0'),
+        t('process.steps.discovery.details.1'),
+        t('process.steps.discovery.details.2'),
+        t('process.steps.discovery.details.3'),
+      ],
+    },
+    {
+      icon: PenTool,
+      title: t('process.steps.architecture.title'),
+      description: t('process.steps.architecture.description'),
+      details: [
+        t('process.steps.architecture.details.0'),
+        t('process.steps.architecture.details.1'),
+        t('process.steps.architecture.details.2'),
+        t('process.steps.architecture.details.3'),
+      ],
+    },
+    {
+      icon: Code,
+      title: t('process.steps.build.title'),
+      description: t('process.steps.build.description'),
+      details: [
+        t('process.steps.build.details.0'),
+        t('process.steps.build.details.1'),
+        t('process.steps.build.details.2'),
+        t('process.steps.build.details.3'),
+      ],
+    },
+    {
+      icon: Rocket,
+      title: t('process.steps.launch.title'),
+      description: t('process.steps.launch.description'),
+      details: [
+        t('process.steps.launch.details.0'),
+        t('process.steps.launch.details.1'),
+        t('process.steps.launch.details.2'),
+        t('process.steps.launch.details.3'),
+      ],
+    },
+    {
+      icon: HeadphonesIcon,
+      title: t('process.steps.support.title'),
+      description: t('process.steps.support.description'),
+      details: [
+        t('process.steps.support.details.0'),
+        t('process.steps.support.details.1'),
+        t('process.steps.support.details.2'),
+        t('process.steps.support.details.3'),
+      ],
+    },
+  ]
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header animation
       gsap.fromTo(
         headerRef.current,
         { opacity: 0, y: 30 },
@@ -63,7 +89,6 @@ export default function Process() {
         }
       )
 
-      // Line draw animation
       if (lineRef.current) {
         const lineLength = lineRef.current.getTotalLength()
         gsap.set(lineRef.current, {
@@ -83,7 +108,6 @@ export default function Process() {
         })
       }
 
-      // Step animations
       stepsRef.current.forEach((step) => {
         if (step) {
           gsap.fromTo(
@@ -117,18 +141,17 @@ export default function Process() {
       <div className="container-custom">
         <div ref={headerRef} className="text-center mb-16">
           <span className="inline-block px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-mono uppercase tracking-wider mb-4">
-            Process
+            {t('process.badge')}
           </span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
-            How I Work
+            {t('process.title')}
           </h2>
           <p className="text-text-muted max-w-2xl mx-auto">
-            A proven process that reduces risk and delivers results.
+            {t('process.subtitle')}
           </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
-          {/* Vertical line (SVG for animation) */}
           <svg
             className="absolute left-6 md:left-8 top-0 h-full w-1 hidden md:block"
             preserveAspectRatio="none"
@@ -145,7 +168,6 @@ export default function Process() {
             />
           </svg>
 
-          {/* Steps */}
           <div className="space-y-12 md:space-y-16">
             {steps.map((step, index) => (
               <div
@@ -153,15 +175,12 @@ export default function Process() {
                 ref={(el) => { stepsRef.current[index] = el }}
                 className="relative flex gap-6 md:gap-8"
               >
-                {/* Node */}
                 <div className="relative flex-shrink-0">
                   <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-surface border-2 border-cyan flex items-center justify-center z-10 relative">
                     <step.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan" />
                   </div>
-
                 </div>
 
-                {/* Content */}
                 <div className="flex-grow pt-2">
                   <div className="flex items-center gap-3 mb-2">
                     <span className="font-mono text-xs text-cyan">
@@ -189,7 +208,6 @@ export default function Process() {
             ))}
           </div>
 
-          {/* Micro-details */}
           <div className="mt-16 pt-8 border-t border-border-color">
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="flex items-start gap-3">
@@ -198,10 +216,10 @@ export default function Process() {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold text-white mb-1">
-                    Weekly Demo + Changelog
+                    {t('process.microDetails.weeklyDemo.title')}
                   </h4>
                   <p className="text-xs text-text-muted">
-                    See progress every week with live demos and detailed changelogs.
+                    {t('process.microDetails.weeklyDemo.description')}
                   </p>
                 </div>
               </div>
@@ -211,10 +229,10 @@ export default function Process() {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold text-white mb-1">
-                    Definition of Done
+                    {t('process.microDetails.definitionOfDone.title')}
                   </h4>
                   <p className="text-xs text-text-muted">
-                    Every feature includes tests, observability, and documentation.
+                    {t('process.microDetails.definitionOfDone.description')}
                   </p>
                 </div>
               </div>
