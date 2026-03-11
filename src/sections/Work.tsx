@@ -315,6 +315,16 @@ export default function Work() {
       stack: ['Solana', 'Rust', 'Anchor', 'VRF', 'React'],
       link: 'https://scratchnsol.fun',
     },
+    {
+      title: t('work.projects.desertRoseGin.title'),
+      tags: t('work.projects.desertRoseGin.tags', { returnObjects: true }) as string[],
+      year: '2024',
+      problem: t('work.projects.desertRoseGin.problem'),
+      approach: t('work.projects.desertRoseGin.approach'),
+      outcome: t('work.projects.desertRoseGin.outcome'),
+      stack: ['Next.js', 'Shopify', 'Framer Motion', 'Tailwind', 'CMS'],
+      link: 'https://www.thedesertrosegin.com/',
+    },
   ]
 
   return (

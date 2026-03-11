@@ -203,6 +203,13 @@
         "problem": "Solana users wanted a fun, on-chain scratch card game with instant prizes and provable fairness.",
         "approach": "Developed a blockchain-based scratch and win game with verifiable randomness and instant payouts.",
         "outcome": "Processed thousands of games daily with instant SOL payouts and provably fair outcomes."
+      },
+      "desertRoseGin": {
+        "title": "Desert Rose Gin",
+        "tags": ["Branding", "E-commerce", "Beverage"],
+        "problem": "A premium gin brand needed an elegant digital presence to showcase their craft spirits and drive online sales.",
+        "approach": "Designed a sophisticated brand website with immersive storytelling, Shopify integration for direct sales, and smooth animations that reflect the premium nature of the product.",
+        "outcome": "Established a strong online brand identity with seamless shopping experience, resulting in increased direct-to-consumer sales and brand recognition."
       }
     }
   },

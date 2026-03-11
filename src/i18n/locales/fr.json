@@ -203,6 +203,13 @@
         "problem": "Les utilisateurs Solana voulaient un jeu de grattage on-chain amusant avec gains instantanés et équité vérifiable.",
         "approach": "Développement d'un jeu de grattage et gagner basé sur blockchain avec aléatoire vérifiable et paiements instantanés.",
         "outcome": "Traitement de milliers de jeux quotidiens avec paiements SOL instantanés et résultats prouvablement équitables."
+      },
+      "desertRoseGin": {
+        "title": "Desert Rose Gin",
+        "tags": ["Branding", "E-commerce", "Boisson"],
+        "problem": "Une marque de gin premium avait besoin d'une présence digitale élégante pour mettre en valeur leurs spiritueux artisanaux et stimuler les ventes en ligne.",
+        "approach": "Conception d'un site web de marque sophistiqué avec storytelling immersif, intégration Shopify pour les ventes directes, et animations fluides reflétant le caractère premium du produit.",
+        "outcome": "Établissement d'une forte identité de marque en ligne avec une expérience d'achat fluide, résultant en une augmentation des ventes directes et de la reconnaissance de marque."
       }
     }
   },
