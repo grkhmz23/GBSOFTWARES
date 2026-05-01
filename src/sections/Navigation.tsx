@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Menu, X, Calendar, Mail, Globe } from 'lucide-react'
+import { Menu, Calendar, Mail, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-  SheetClose,
 } from '@/components/ui/sheet'
 import {
   DropdownMenu,
@@ -16,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { scrollToSection } from '@/lib/scroll-to-section'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -50,29 +50,23 @@ export default function Navigation() {
   useEffect(() => {
     const sections = navLinks.map(link => link.href.replace('#', ''))
     
-    const observers: IntersectionObserver[] = []
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' }
+    )
     
     sections.forEach(sectionId => {
       const element = document.getElementById(sectionId)
-      if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                setActiveSection(sectionId)
-              }
-            })
-          },
-          { threshold: 0.3, rootMargin: '-100px 0px -50% 0px' }
-        )
-        observer.observe(element)
-        observers.push(observer)
-      }
+      if (element) observer.observe(element)
     })
 
-    return () => {
-      observers.forEach(observer => observer.disconnect())
-    }
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
@@ -83,31 +77,15 @@ export default function Navigation() {
     )
   }, [])
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      const offset = 100
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth',
-      })
-    }
+  const handleNavClick = useCallback((href: string) => {
+    scrollToSection(href)
     setIsMobileMenuOpen(false)
-  }
+  }, [])
 
-  const scrollToBooking = () => {
-    const element = document.querySelector('#booking')
-    if (element) {
-      const offset = 100
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth',
-      })
-    }
+  const handleBookingClick = useCallback(() => {
+    scrollToSection('#booking')
     setIsMobileMenuOpen(false)
-  }
+  }, [])
 
   return (
     <nav
@@ -121,20 +99,22 @@ export default function Navigation() {
     >
       <div className="container-custom h-full flex items-center justify-between">
         {/* Left: Logo */}
-        <div className="flex items-center">
+        <a href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero') }} className="flex items-center">
           <img 
             src="/logo_transparent.png" 
-            alt="Logo" 
+            alt="Gorkhmaz Beydullayev" 
             className="w-8 h-8 rounded object-cover"
           />
-        </div>
+        </a>
 
         {/* Center: Navigation Links (Desktop) */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            <button
+            <a
               key={link.href}
-              onClick={() => scrollToSection(link.href)}
+              href={link.href}
+              onClick={(e) => { e.preventDefault(); handleNavClick(link.href) }}
+              aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
               className={`relative text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                 activeSection === link.href.replace('#', '')
                   ? 'text-cyan'
@@ -145,7 +125,7 @@ export default function Navigation() {
               {activeSection === link.href.replace('#', '') && (
                 <span className="absolute -bottom-1 left-0 right-0 h-px bg-cyan" />
               )}
-            </button>
+            </a>
           ))}
         </div>
 
@@ -160,8 +140,8 @@ export default function Navigation() {
           {/* Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-text-muted hover:text-white">
-                <Globe className="w-5 h-5" />
+              <Button variant="ghost" size="icon" aria-label={t('language.switch')} className="text-text-muted hover:text-white">
+                <Globe className="w-5 h-5" aria-hidden="true" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-surface border-border-color">
@@ -186,50 +166,47 @@ export default function Navigation() {
               variant="outline"
               size="sm"
               className="border-cyan text-cyan hover:bg-cyan hover:text-void transition-all duration-300"
-              onClick={() => scrollToBooking()}
+              onClick={handleBookingClick}
             >
-              <Calendar className="w-4 h-4 mr-2" />
+              <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
               {t('nav.bookCall')}
             </Button>
             <a
-              href="mailto:gorkhmaz@example.com"
+              href="mailto:gorkhmazb23@gmail.com"
               className="text-text-muted hover:text-white transition-colors"
+              aria-label="Email"
             >
-              <Mail className="w-5 h-5" />
+              <Mail className="w-5 h-5" aria-hidden="true" />
             </a>
           </div>
 
           {/* Mobile Menu */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" className="text-white">
-                <Menu className="w-5 h-5" />
+              <Button variant="ghost" size="icon" aria-label={t('nav.menu')} className="text-white">
+                <Menu className="w-5 h-5" aria-hidden="true" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-surface border-border-color">
-              <div className="flex flex-col h-full">
+            <SheetContent side="right" className="bg-surface border-border-color">
+              <div className="flex flex-col h-full overflow-y-auto">
                 <div className="flex items-center justify-between mb-8">
                   <span className="font-heading font-semibold text-white">{t('nav.menu')}</span>
-                  <SheetClose asChild>
-                    <Button variant="ghost" size="icon" className="text-white">
-                      <X className="w-5 h-5" />
-                    </Button>
-                  </SheetClose>
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2 overflow-y-auto">
                   {navLinks.map((link) => (
-                    <button
+                    <a
                       key={link.href}
-                      onClick={() => scrollToSection(link.href)}
-                      className={`text-left text-sm font-medium uppercase tracking-wider py-2 transition-colors ${
+                      href={link.href}
+                      onClick={(e) => { e.preventDefault(); handleNavClick(link.href) }}
+                      className={`text-left text-sm font-medium uppercase tracking-wider py-3 px-2 rounded-md transition-colors min-h-[44px] flex items-center ${
                         activeSection === link.href.replace('#', '')
-                          ? 'text-cyan'
-                          : 'text-text-muted hover:text-white'
+                          ? 'text-cyan bg-cyan/10'
+                          : 'text-text-muted hover:text-white hover:bg-surface'
                       }`}
                     >
                       {link.label}
-                    </button>
+                    </a>
                   ))}
                 </div>
 
@@ -240,13 +217,13 @@ export default function Navigation() {
                   </div>
                   <Button
                     className="w-full bg-cyan text-void hover:bg-cyan/90"
-                    onClick={() => scrollToBooking()}
+                    onClick={handleBookingClick}
                   >
-                    <Calendar className="w-4 h-4 mr-2" />
+                    <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
                     {t('nav.bookCall')}
                   </Button>
                   <div className="mt-4 text-center text-xs text-text-muted">
-                    gorkhmaz@example.com · UTC-8
+                    gorkhmazb23@gmail.com · UTC-8
                   </div>
                 </div>
               </div>

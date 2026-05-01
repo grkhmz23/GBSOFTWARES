@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Search, PenTool, Code, Rocket, HeadphonesIcon } from 'lucide-react'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,6 +13,7 @@ export default function Process() {
   const headerRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<SVGLineElement>(null)
   const stepsRef = useRef<(HTMLDivElement | null)[]>([])
+  const reducedMotion = useReducedMotion()
 
   const steps = [
     {
@@ -79,7 +81,7 @@ export default function Process() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headerRef.current,
@@ -89,7 +91,7 @@ export default function Process() {
         }
       )
 
-      if (lineRef.current) {
+      if (lineRef.current && !reducedMotion) {
         const lineLength = lineRef.current.getTotalLength()
         gsap.set(lineRef.current, {
           strokeDasharray: lineLength,
@@ -112,11 +114,11 @@ export default function Process() {
         if (step) {
           gsap.fromTo(
             step,
-            { opacity: 0.3, scale: 0.95 },
+            { opacity: reducedMotion ? 1 : 0.3, scale: reducedMotion ? 1 : 0.95 },
             {
               opacity: 1,
               scale: 1,
-              duration: 0.5,
+              duration: reducedMotion ? 0 : 0.5,
               scrollTrigger: {
                 trigger: step,
                 start: 'top 70%',
@@ -130,7 +132,7 @@ export default function Process() {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [reducedMotion])
 
   return (
     <section
@@ -155,6 +157,7 @@ export default function Process() {
           <svg
             className="absolute left-6 md:left-8 top-0 h-full w-1 hidden md:block"
             preserveAspectRatio="none"
+            aria-hidden="true"
           >
             <line
               ref={lineRef}
@@ -168,7 +171,7 @@ export default function Process() {
             />
           </svg>
 
-          <div className="space-y-12 md:space-y-16">
+          <div className="space-y-8 md:space-y-16">
             {steps.map((step, index) => (
               <div
                 key={index}

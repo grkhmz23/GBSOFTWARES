@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -13,6 +13,8 @@ import {
   CheckCircle
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -42,8 +44,12 @@ function ServiceCard({
   onBookCall
 }: ServiceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const mousePositionRef = useRef({ x: 0, y: 0 })
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
+  const reducedMotion = useReducedMotion()
+  const isMobile = useIsMobile()
+  const rafRef = useRef<number | null>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -54,7 +60,7 @@ function ServiceCard({
           opacity: 1,
           y: 0,
           rotateX: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           delay: index * 0.15,
           ease: 'power2.out',
           scrollTrigger: {
@@ -67,16 +73,21 @@ function ServiceCard({
     }, cardRef)
 
     return () => ctx.revert()
-  }, [index])
+  }, [index, reducedMotion])
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return
     const rect = cardRef.current.getBoundingClientRect()
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+    const pos = { x: e.clientX - rect.left, y: e.clientY - rect.top }
+    mousePositionRef.current = pos
+    if (rafRef.current !== null) return
+    rafRef.current = requestAnimationFrame(() => {
+      setMousePosition(mousePositionRef.current)
+      rafRef.current = null
     })
-  }
+  }, [])
+
+  const showSpotlight = isHovered && !isMobile
 
   return (
     <div
@@ -87,7 +98,7 @@ function ServiceCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative h-full p-6 md:p-8 rounded-xl bg-surface border border-border-color overflow-hidden transition-all duration-300 hover:border-cyan/30">
-        {isHovered && (
+        {showSpotlight && (
           <div
             className="absolute pointer-events-none transition-opacity duration-200"
             style={{
@@ -103,9 +114,9 @@ function ServiceCard({
 
         <div 
           className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{
+          style={showSpotlight ? {
             background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 240, 255, 0.2) 0%, transparent 50%)`,
-          }}
+          } : undefined}
         />
 
         <div className="relative z-10">

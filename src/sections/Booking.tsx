@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -47,16 +47,20 @@ export default function Booking() {
   // Get date locale based on current language
   const dateLocale = i18n.language === 'fr' ? fr : enUS
 
-  // Form validation schema with translated error messages
-  const bookingSchema = z.object({
-    name: z.string().min(2, t('booking.validation.nameRequired')),
-    email: z.string().email(t('booking.validation.emailInvalid')),
-    phone: z.string().optional(),
-    service: z.string().min(1, t('booking.validation.serviceRequired')),
-    date: z.date({ message: t('booking.validation.dateRequired') }),
-    time: z.string().min(1, t('booking.validation.timeRequired')),
-    notes: z.string().optional()
-  })
+  // Form validation schema with translated error messages — memoized to avoid recreation
+  const bookingSchema = useMemo(() =>
+    z.object({
+      name: z.string().min(2, t('booking.validation.nameRequired')),
+      email: z.string().email(t('booking.validation.emailInvalid')),
+      phone: z.string().optional(),
+      service: z.string().min(1, t('booking.validation.serviceRequired')),
+      date: z.date({ message: t('booking.validation.dateRequired') }),
+      time: z.string().min(1, t('booking.validation.timeRequired')),
+      notes: z.string().optional()
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
 
   type BookingFormData = z.infer<typeof bookingSchema>
 
@@ -68,7 +72,14 @@ export default function Booking() {
     reset,
     formState: { errors }
   } = useForm<BookingFormData>({
-    resolver: zodResolver(bookingSchema)
+    resolver: zodResolver(bookingSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      service: '',
+      notes: ''
+    }
   })
 
   const selectedDate = watch('date')
@@ -121,7 +132,7 @@ export default function Booking() {
 
   if (isSuccess) {
     return (
-      <section id="booking" className="py-24 px-4 sm:px-6 lg:px-8">
+      <section id="booking" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           <Card className="bg-background/50 backdrop-blur-xl border-border/50">
             <CardContent className="pt-12 pb-12 text-center">
@@ -140,7 +151,7 @@ export default function Booking() {
   }
 
   return (
-    <section id="booking" className="py-24 px-4 sm:px-6 lg:px-8">
+    <section id="booking" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('booking.title')}</h2>
@@ -162,10 +173,11 @@ export default function Booking() {
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Calendar */}
                 <div className="space-y-2">
-                  <Label>{t('booking.date')}</Label>
+                  <Label htmlFor="booking-date">{t('booking.date')}</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
+                        id="booking-date"
                         variant="outline"
                         className={cn(
                           'w-full justify-start text-left font-normal',
@@ -178,7 +190,7 @@ export default function Booking() {
                           : t('booking.pickDate')}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="w-auto p-0" align="center" sideOffset={4} avoidCollisions>
                       <Calendar
                         mode="single"
                         selected={selectedDate}
@@ -197,9 +209,9 @@ export default function Booking() {
 
                 {/* Time Slot */}
                 <div className="space-y-2">
-                  <Label>{t('booking.time')}</Label>
+                  <Label htmlFor="booking-time">{t('booking.time')}</Label>
                   <Select onValueChange={(value) => setValue('time', value)}>
-                    <SelectTrigger className={cn(!selectedTime && 'text-muted-foreground')}>
+                    <SelectTrigger id="booking-time" className={cn(!selectedTime && 'text-muted-foreground')}>
                       <Clock className="mr-2 h-4 w-4" />
                       <SelectValue placeholder={t('booking.selectTime')} />
                     </SelectTrigger>
@@ -220,12 +232,12 @@ export default function Booking() {
               {/* Personal Information */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="name">
+                  <Label htmlFor="booking-name">
                     <User className="inline w-4 h-4 mr-1" />
                     {t('booking.fullName')}
                   </Label>
                   <Input
-                    id="name"
+                    id="booking-name"
                     placeholder={t('booking.namePlaceholder')}
                     {...register('name')}
                   />
@@ -235,12 +247,12 @@ export default function Booking() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">
+                  <Label htmlFor="booking-email">
                     <Mail className="inline w-4 h-4 mr-1" />
                     {t('booking.email')}
                   </Label>
                   <Input
-                    id="email"
+                    id="booking-email"
                     type="email"
                     placeholder={t('booking.emailPlaceholder')}
                     {...register('email')}
@@ -253,12 +265,12 @@ export default function Booking() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="phone">
+                  <Label htmlFor="booking-phone">
                     <Phone className="inline w-4 h-4 mr-1" />
                     {t('booking.phone')}
                   </Label>
                   <Input
-                    id="phone"
+                    id="booking-phone"
                     type="tel"
                     placeholder={t('booking.phonePlaceholder')}
                     {...register('phone')}
@@ -266,9 +278,9 @@ export default function Booking() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="service">{t('booking.service')}</Label>
+                  <Label htmlFor="booking-service">{t('booking.service')}</Label>
                   <Select onValueChange={(value) => setValue('service', value)}>
-                    <SelectTrigger className={cn(!selectedService && 'text-muted-foreground')}>
+                    <SelectTrigger id="booking-service" className={cn(!selectedService && 'text-muted-foreground')}>
                       <SelectValue placeholder={t('booking.selectService')} />
                     </SelectTrigger>
                     <SelectContent>
@@ -287,14 +299,14 @@ export default function Booking() {
 
               {/* Notes */}
               <div className="space-y-2">
-                <Label htmlFor="notes">
+                <Label htmlFor="booking-notes">
                   <MessageSquare className="inline w-4 h-4 mr-1" />
                   {t('booking.notes')}
                 </Label>
                 <Textarea
-                  id="notes"
+                  id="booking-notes"
                   placeholder={t('booking.notesPlaceholder')}
-                  rows={4}
+                  rows={3}
                   {...register('notes')}
                 />
               </div>

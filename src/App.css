@@ -143,6 +143,21 @@ html {
   }
 }
 
+/* Touch device hover fix — prevents hover states from sticking on iOS Safari */
+@media (hover: none) {
+  .group:hover .group-hover\:translate-x-1,
+  .group:hover .group-hover\:opacity-100,
+  .group:hover .group-hover\:text-cyan,
+  .group:hover .group-hover\:border-cyan\/30,
+  .group:hover .group-hover\:bg-cyan\/20 {
+    transform: none;
+    opacity: initial;
+    color: initial;
+    border-color: initial;
+    background-color: initial;
+  }
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .section-padding {

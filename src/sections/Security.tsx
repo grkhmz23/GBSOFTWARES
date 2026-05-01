@@ -58,12 +58,14 @@ export default function Security() {
 
   const sampleFindings = [
     {
+      severityKey: 'high' as const,
       severity: t('security.sampleFindings.high.severity'),
       title: t('security.sampleFindings.high.title'),
       description: t('security.sampleFindings.high.description'),
       fix: t('security.sampleFindings.high.fix'),
     },
     {
+      severityKey: 'medium' as const,
       severity: t('security.sampleFindings.medium.severity'),
       title: t('security.sampleFindings.medium.title'),
       description: t('security.sampleFindings.medium.description'),
@@ -135,10 +137,10 @@ export default function Security() {
     return () => ctx.revert()
   }, [])
 
-  const getSeverityClass = (severity: string) => {
-    if (severity === 'High' || severity === 'Élevé') {
+  const getSeverityClass = (severityKey: string) => {
+    if (severityKey === 'high') {
       return 'bg-red-500/20 text-red-400'
-    } else if (severity === 'Medium' || severity === 'Moyen') {
+    } else if (severityKey === 'medium') {
       return 'bg-yellow-500/20 text-yellow-400'
     }
     return 'bg-blue-500/20 text-blue-400'
@@ -165,7 +167,7 @@ export default function Security() {
               </p>
             </div>
 
-            <div ref={gridRef} className="grid sm:grid-cols-2 gap-4">
+            <div ref={gridRef} className="grid sm:grid-cols-2 gap-3 md:gap-4">
               {securityItems.map((item, index) => (
                 <div
                   key={index}
@@ -207,7 +209,7 @@ export default function Security() {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <span
-                      className={`px-2 py-0.5 rounded text-xs font-mono font-semibold ${getSeverityClass(finding.severity)}`}
+                      className={`px-2 py-0.5 rounded text-xs font-mono font-semibold ${getSeverityClass(finding.severityKey)}`}
                     >
                       {finding.severity}
                     </span>

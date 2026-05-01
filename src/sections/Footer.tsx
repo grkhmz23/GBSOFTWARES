@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Github, Linkedin, Twitter } from 'lucide-react'
+import { scrollToSection } from '@/lib/scroll-to-section'
 
 export default function Footer() {
   const { t } = useTranslation()
@@ -19,18 +20,6 @@ export default function Footer() {
     { icon: Twitter, href: 'https://x.com/uncgorkh', label: 'Twitter' },
   ]
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      const offset = 100
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth',
-      })
-    }
-  }
-
   return (
     <footer className="py-12 border-t border-border-color">
       <div className="container-custom">
@@ -38,7 +27,7 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <img 
               src="/logo_transparent.png" 
-              alt="Logo" 
+              alt="Gorkhmaz Beydullayev" 
               className="w-8 h-8 rounded object-cover"
             />
             <div>
@@ -53,13 +42,14 @@ export default function Footer() {
 
           <nav className="flex flex-wrap justify-center gap-6">
             {footerLinks.map((link) => (
-              <button
+              <a
                 key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="text-sm text-text-muted hover:text-white transition-colors"
+                href={link.href}
+                onClick={(e) => { e.preventDefault(); scrollToSection(link.href) }}
+                className="text-sm text-text-muted hover:text-white transition-colors py-2 px-3 rounded-md min-h-[44px] flex items-center"
               >
                 {link.label}
-              </button>
+              </a>
             ))}
           </nav>
 
@@ -71,9 +61,9 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-surface border border-border-color flex items-center justify-center text-text-muted hover:text-cyan hover:border-cyan/30 transition-all"
-                aria-label={social.label}
+                aria-label={`${social.label} (opens in new tab)`}
               >
-                <social.icon className="w-4 h-4" />
+                <social.icon className="w-4 h-4" aria-hidden="true" />
               </a>
             ))}
           </div>
@@ -83,7 +73,7 @@ export default function Footer() {
           <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-green-500" />
               {t('footer.available')}
             </span>
           </div>

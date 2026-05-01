@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 export default function LoadingScreen() {
   const { t } = useTranslation()
+  const reducedMotion = useReducedMotion()
   const containerRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
@@ -11,6 +13,11 @@ export default function LoadingScreen() {
   const curtainBottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (reducedMotion) {
+      if (containerRef.current) containerRef.current.style.display = 'none'
+      return
+    }
+
     const tl = gsap.timeline()
     
     if (progressRef.current) {
@@ -49,10 +56,12 @@ export default function LoadingScreen() {
     return () => {
       tl.kill()
     }
-  }, [])
+  }, [reducedMotion])
+
+  if (reducedMotion) return null
 
   return (
-    <div ref={containerRef} className="fixed inset-0 z-[9999]">
+    <div ref={containerRef} className="fixed inset-0 z-[9999]" role="status" aria-live="polite" aria-label={t('loading.initializing')}>
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-void z-10">
         <div ref={textRef} className="text-center">
           <div className="font-heading text-2xl md:text-3xl font-bold text-white mb-8 tracking-wider">
@@ -77,11 +86,13 @@ export default function LoadingScreen() {
         ref={curtainTopRef}
         className="absolute inset-0 bg-void z-20" 
         style={{ clipPath: 'inset(0 0 50% 0)' }} 
+        aria-hidden="true"
       />
       <div 
         ref={curtainBottomRef}
         className="absolute inset-0 bg-void z-20" 
         style={{ clipPath: 'inset(50% 0 0 0)' }} 
+        aria-hidden="true"
       />
     </div>
   )

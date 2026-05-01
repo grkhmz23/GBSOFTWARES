@@ -4,16 +4,24 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, Github, FileCode, Shield, Rocket, Terminal, Cpu, Database } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useIsMobile } from '@/hooks/use-mobile'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
+import { scrollToSection } from '@/lib/scroll-to-section'
 import InteractiveBlockchain from './InteractiveBlockchain'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // Typing effect hook
-function useTypingEffect(text: string, speed: number = 50, delay: number = 0) {
+function useTypingEffect(text: string, speed: number = 50, delay: number = 0, enabled: boolean = true) {
   const [displayedText, setDisplayedText] = useState('')
   const [isComplete, setIsComplete] = useState(false)
 
   useEffect(() => {
+    if (!enabled) {
+      setDisplayedText(text)
+      setIsComplete(true)
+      return
+    }
     const timeout = setTimeout(() => {
       let index = 0
       const interval = setInterval(() => {
@@ -28,7 +36,7 @@ function useTypingEffect(text: string, speed: number = 50, delay: number = 0) {
       return () => clearInterval(interval)
     }, delay)
     return () => clearTimeout(timeout)
-  }, [text, speed, delay])
+  }, [text, speed, delay, enabled])
 
   return { displayedText, isComplete }
 }
@@ -131,11 +139,23 @@ function MatrixRain() {
 
     const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン'
     const fontSize = 14
-    const columns = canvas.width / fontSize
-    const drops: number[] = Array(Math.floor(columns)).fill(1)
+    let columns = Math.floor(canvas.width / fontSize)
+    const drops: number[] = Array(columns).fill(1)
 
     let animationId: number
+    let isVisible = true
+
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting },
+      { threshold: 0 }
+    )
+    observer.observe(canvas)
+
     const draw = () => {
+      if (!isVisible) {
+        animationId = requestAnimationFrame(draw)
+        return
+      }
       ctx.fillStyle = 'rgba(5, 5, 10, 0.05)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -160,12 +180,14 @@ function MatrixRain() {
     return () => {
       window.removeEventListener('resize', resize)
       cancelAnimationFrame(animationId)
+      observer.disconnect()
     }
   }, [])
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="absolute inset-0 z-0 opacity-30 pointer-events-none"
     />
   )
@@ -201,7 +223,7 @@ function CursorParticles() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY }
       
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 2; i++) {
         particlesRef.current.push({
           x: e.clientX + (Math.random() - 0.5) * 10,
           y: e.clientY + (Math.random() - 0.5) * 10,
@@ -216,7 +238,18 @@ function CursorParticles() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
 
     let animationId: number
+    let isVisible = true
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting },
+      { threshold: 0 }
+    )
+    observer.observe(canvas)
+
     const animate = () => {
+      if (!isVisible) {
+        animationId = requestAnimationFrame(animate)
+        return
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       particlesRef.current = particlesRef.current.filter(p => {
@@ -243,23 +276,25 @@ function CursorParticles() {
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', handleMouseMove)
       cancelAnimationFrame(animationId)
+      observer.disconnect()
     }
   }, [])
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="absolute inset-0 z-[5] pointer-events-none"
     />
   )
 }
 
 // Glitch text effect
-function GlitchText({ text, className }: { text: string; className?: string }) {
+function GlitchText({ text, className, enabled = true }: { text: string; className?: string; enabled?: boolean }) {
   const containerRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    if (!containerRef.current) return
+    if (!containerRef.current || !enabled) return
 
     const triggerGlitch = () => {
       gsap.to(containerRef.current, {
@@ -275,23 +310,27 @@ function GlitchText({ text, className }: { text: string; className?: string }) {
 
     const interval = setInterval(triggerGlitch, 5000)
     return () => clearInterval(interval)
-  }, [])
+  }, [enabled])
 
   return (
     <span ref={containerRef} className={`relative inline-block ${className}`}>
       <span className="relative z-10">{text}</span>
-      <span 
-        className="absolute inset-0 text-red-500 opacity-0 translate-x-[2px]"
-        aria-hidden="true"
-      >
-        {text}
-      </span>
-      <span 
-        className="absolute inset-0 text-cyan opacity-0 -translate-x-[2px]"
-        aria-hidden="true"
-      >
-        {text}
-      </span>
+      {enabled && (
+        <>
+          <span 
+            className="absolute inset-0 text-red-500 opacity-0 translate-x-[2px]"
+            aria-hidden="true"
+          >
+            {text}
+          </span>
+          <span 
+            className="absolute inset-0 text-cyan opacity-0 -translate-x-[2px]"
+            aria-hidden="true"
+          >
+            {text}
+          </span>
+        </>
+      )}
     </span>
   )
 }
@@ -350,18 +389,21 @@ export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
+  const isMobile = useIsMobile()
+  const reducedMotion = useReducedMotion()
   
   const { displayedText: headlineText, isComplete: headlineComplete } = useTypingEffect(
     t('hero.headline'),
     40,
-    1800
+    1800,
+    !reducedMotion
   )
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(terminalRef.current,
         { opacity: 0, scale: 0.9, y: 50 },
-        { opacity: 1, scale: 1, y: 0, duration: 1, delay: 1.5, ease: 'power3.out' }
+        { opacity: 1, scale: 1, y: 0, duration: reducedMotion ? 0 : 1, delay: 1.5, ease: 'power3.out' }
       )
 
       const revealItems = contentRef.current?.querySelectorAll('.reveal-item')
@@ -371,7 +413,7 @@ export default function Hero() {
           { 
             opacity: 1, 
             y: 0, 
-            duration: 0.8, 
+            duration: reducedMotion ? 0 : 0.8, 
             stagger: 0.15,
             delay: 2.5,
             ease: 'power2.out'
@@ -381,40 +423,31 @@ export default function Hero() {
 
       gsap.fromTo(statsRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, delay: 3.5, ease: 'power2.out' }
+        { opacity: 1, y: 0, duration: reducedMotion ? 0 : 0.8, delay: 3.5, ease: 'power2.out' }
       )
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          if (contentRef.current) {
-            gsap.to(contentRef.current, {
-              opacity: 1 - self.progress * 1.5,
-              y: self.progress * 80,
-              duration: 0.1,
-            })
-          }
-        },
-      })
+      if (!reducedMotion) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+          onUpdate: (self) => {
+            if (contentRef.current) {
+              gsap.set(contentRef.current, {
+                opacity: Math.max(0, 1 - self.progress * 1.5),
+                y: self.progress * 80,
+              })
+            }
+          },
+        })
+      }
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [reducedMotion])
 
-  const scrollToSection = (selector: string) => {
-    const element = document.querySelector(selector)
-    if (element) {
-      const offset = 100
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth',
-      })
-    }
-  }
+
 
   const trustBadges = [
     { icon: Github, label: t('hero.trustBadges.openSource') },
@@ -435,16 +468,18 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-[100dvh] flex items-center overflow-hidden"
       id="hero"
     >
-      <MatrixRain />
-      
-      <div className="absolute inset-0 z-[1]">
-        <InteractiveBlockchain />
-      </div>
-
-      <CursorParticles />
+      {!isMobile && (
+        <>
+          <MatrixRain />
+          <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
+            <InteractiveBlockchain />
+          </div>
+          <CursorParticles />
+        </>
+      )}
 
       {codeSnippets.map((snippet, index) => (
         <FloatingCodeSnippet key={index} {...snippet} />
@@ -470,10 +505,11 @@ export default function Hero() {
               </div>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-6 min-h-[1.2em]">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-6 min-h-[2.4em] sm:min-h-[1.2em]">
               <GlitchText 
                 text={headlineText}
                 className={headlineComplete ? '' : 'border-r-2 border-cyan animate-pulse'}
+                enabled={!reducedMotion}
               />
             </h1>
 
@@ -520,14 +556,14 @@ export default function Hero() {
 
             <div 
               ref={statsRef}
-              className="reveal-item grid grid-cols-3 gap-6 opacity-0"
+              className="reveal-item grid grid-cols-3 gap-3 sm:gap-6 opacity-0"
             >
               {stats.map((stat, i) => (
                 <div key={i} className="text-center sm:text-left">
                   <div className="font-mono text-2xl md:text-3xl font-bold text-cyan">
                     {stat.value}
                   </div>
-                  <div className="text-xs text-text-muted uppercase tracking-wider">
+                  <div className="text-xs text-text-muted uppercase tracking-wider break-words leading-tight">
                     {stat.label}
                   </div>
                 </div>

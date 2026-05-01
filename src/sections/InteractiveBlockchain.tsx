@@ -1,6 +1,6 @@
 import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Icosahedron, Box, Sphere, Line } from '@react-three/drei'
+import { Icosahedron, Box, Sphere } from '@react-three/drei'
 import * as THREE from 'three'
 
 // Mouse position tracker
@@ -88,34 +88,40 @@ function NodeConnection({
   mouse: { x: number; y: number }
   pulseSpeed?: number
 }) {
-  const [points, setPoints] = useState([new THREE.Vector3(...start), new THREE.Vector3(...end)])
+  const lineRef = useRef<THREE.Line>(null!)
+  
+  const lineObj = useMemo(() => {
+    const geo = new THREE.BufferGeometry()
+    const positions = new Float32Array([
+      start[0], start[1], start[2],
+      (start[0] + end[0]) / 2, (start[1] + end[1]) / 2, (start[2] + end[2]) / 2,
+      end[0], end[1], end[2]
+    ])
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    const mat = new THREE.LineBasicMaterial({ color: '#00F0FF', transparent: true, opacity: 0.3 })
+    return new THREE.Line(geo, mat)
+  }, [start, end])
   
   useFrame(({ clock }) => {
-    // Subtle wave effect along the line
+    if (!lineRef.current) return
+    const pos = lineRef.current.geometry.attributes.position.array as Float32Array
+    
     const wave = Math.sin(clock.getElapsedTime() * pulseSpeed) * 0.1
     
-    const midPoint = new THREE.Vector3(
-      (start[0] + end[0]) / 2 + mouse.x * 0.2,
-      (start[1] + end[1]) / 2 + mouse.y * 0.2 + wave,
-      (start[2] + end[2]) / 2
-    )
+    pos[0] = start[0] + mouse.x * 0.1
+    pos[1] = start[1] + mouse.y * 0.1
+    pos[2] = start[2]
+    pos[3] = (start[0] + end[0]) / 2 + mouse.x * 0.2
+    pos[4] = (start[1] + end[1]) / 2 + mouse.y * 0.2 + wave
+    pos[5] = (start[2] + end[2]) / 2
+    pos[6] = end[0] + mouse.x * 0.1
+    pos[7] = end[1] + mouse.y * 0.1
+    pos[8] = end[2]
     
-    setPoints([
-      new THREE.Vector3(start[0] + mouse.x * 0.1, start[1] + mouse.y * 0.1, start[2]),
-      midPoint,
-      new THREE.Vector3(end[0] + mouse.x * 0.1, end[1] + mouse.y * 0.1, end[2])
-    ])
+    lineRef.current.geometry.attributes.position.needsUpdate = true
   })
   
-  return (
-    <Line
-      points={points}
-      color="#00F0FF"
-      lineWidth={0.5}
-      transparent
-      opacity={0.3}
-    />
-  )
+  return <primitive object={lineObj} ref={lineRef} />
 }
 
 // Central rotating core
@@ -439,12 +445,13 @@ export default function InteractiveBlockchain() {
   return (
     <Canvas
       camera={{ position: [0, 0, 8], fov: 50 }}
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       gl={{ 
         antialias: true, 
         alpha: true,
-        powerPreference: 'high-performance'
+        powerPreference: 'default'
       }}
+      aria-hidden="true"
     >
       <Scene />
     </Canvas>

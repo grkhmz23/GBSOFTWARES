@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -31,9 +32,17 @@ export default function Contact() {
   const headerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
+  const successRef = useRef<HTMLDivElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const reducedMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (isSubmitted && successRef.current) {
+      successRef.current.focus()
+    }
+  }, [isSubmitted])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -43,7 +52,7 @@ export default function Contact() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headerRef.current,
@@ -59,7 +68,7 @@ export default function Contact() {
         {
           opacity: 1,
           x: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           delay: 0.2,
           ease: 'power2.out',
           scrollTrigger: {
@@ -76,7 +85,7 @@ export default function Contact() {
         {
           opacity: 1,
           x: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           delay: 0.1,
           ease: 'power2.out',
           scrollTrigger: {
@@ -89,7 +98,7 @@ export default function Contact() {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [reducedMotion])
 
   const [formData, setFormData] = useState({
     name: '',
@@ -161,7 +170,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
           <div ref={infoRef}>
             <h3 className="font-heading text-xl font-bold text-white mb-6">
               {t('contact.whatToInclude.title')}
@@ -209,9 +218,15 @@ export default function Contact() {
 
           <div>
             {isSubmitted ? (
-              <div className="p-8 rounded-xl bg-surface/50 border border-cyan/30 text-center">
+              <div
+                ref={successRef}
+                tabIndex={-1}
+                role="status"
+                aria-live="polite"
+                className="p-8 rounded-xl bg-surface/50 border border-cyan/30 text-center outline-none"
+              >
                 <div className="w-16 h-16 rounded-full bg-cyan/10 flex items-center justify-center mx-auto mb-4">
-                  <Send className="w-8 h-8 text-cyan" />
+                  <Send className="w-8 h-8 text-cyan" aria-hidden="true" />
                 </div>
                 <h3 className="font-heading text-xl font-bold text-white mb-2">
                   {t('contact.success.title')}
@@ -227,7 +242,7 @@ export default function Contact() {
                 className="p-6 md:p-8 rounded-xl bg-surface/50 border border-border-color space-y-6"
               >
                 {error && (
-                  <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                  <div role="alert" className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
                     {error}
                   </div>
                 )}
@@ -263,11 +278,11 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="project" className="text-text">
+                  <Label htmlFor="contact-project" className="text-text">
                     {t('contact.form.projectType')}
                   </Label>
                   <Select value={formData.projectType} onValueChange={(value) => handleChange('projectType', value)}>
-                    <SelectTrigger className="bg-void border-border-color text-white">
+                    <SelectTrigger id="contact-project" className="bg-void border-border-color text-white">
                       <SelectValue placeholder={t('contact.form.projectTypePlaceholder')} />
                     </SelectTrigger>
                     <SelectContent className="bg-surface border-border-color">
@@ -282,11 +297,11 @@ export default function Contact() {
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="budget" className="text-text">
+                    <Label htmlFor="contact-budget" className="text-text">
                       {t('contact.form.budget')}
                     </Label>
                     <Select value={formData.budget} onValueChange={(value) => handleChange('budget', value)}>
-                      <SelectTrigger className="bg-void border-border-color text-white">
+                      <SelectTrigger id="contact-budget" className="bg-void border-border-color text-white">
                         <SelectValue placeholder={t('contact.form.budgetPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent className="bg-surface border-border-color">
@@ -299,11 +314,11 @@ export default function Contact() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="timeline" className="text-text">
+                    <Label htmlFor="contact-timeline" className="text-text">
                       {t('contact.form.timeline')}
                     </Label>
                     <Select value={formData.timeline} onValueChange={(value) => handleChange('timeline', value)}>
-                      <SelectTrigger className="bg-void border-border-color text-white">
+                      <SelectTrigger id="contact-timeline" className="bg-void border-border-color text-white">
                         <SelectValue placeholder={t('contact.form.timelinePlaceholder')} />
                       </SelectTrigger>
                       <SelectContent className="bg-surface border-border-color">
@@ -317,17 +332,17 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message" className="text-text">
+                  <Label htmlFor="contact-message" className="text-text">
                     {t('contact.form.projectDetails')}
                   </Label>
                   <Textarea
-                    id="message"
+                    id="contact-message"
                     value={formData.message}
                     onChange={(e) => handleChange('message', e.target.value)}
                     placeholder={t('contact.form.projectDetailsPlaceholder')}
-                    rows={5}
+                    rows={4}
                     required
-                    className="bg-void border-border-color text-white placeholder:text-text-muted focus:border-cyan resize-none"
+                    className="bg-void border-border-color text-white placeholder:text-text-muted focus:border-cyan"
                   />
                 </div>
 
@@ -362,7 +377,7 @@ export default function Contact() {
                   ) : (
                     <span className="flex items-center gap-2">
                       {t('contact.form.send')}
-                      <Send className="w-4 h-4" />
+                      <Send className="w-4 h-4" aria-hidden="true" />
                     </span>
                   )}
                 </Button>

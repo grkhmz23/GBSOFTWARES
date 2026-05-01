@@ -36,6 +36,7 @@ function CaseStudyRow({
 }: CaseStudyProps) {
   const { t } = useTranslation()
   const rowRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,6 +67,8 @@ function CaseStudyRow({
     >
       <button
         onClick={onToggle}
+        aria-expanded={isExpanded}
+        aria-controls={`case-study-content-${index}`}
         className={`w-full py-6 flex items-center gap-4 md:gap-8 text-left group transition-all duration-300 ${
           isExpanded ? 'text-cyan' : 'text-text-muted hover:text-white'
         }`}
@@ -74,7 +77,7 @@ function CaseStudyRow({
           {index}
         </span>
 
-        <span className="font-heading text-lg md:text-xl font-semibold flex-grow">
+        <span className="font-heading text-base sm:text-lg md:text-xl font-semibold flex-grow min-w-0 truncate">
           {title}
         </span>
 
@@ -104,11 +107,26 @@ function CaseStudyRow({
       </button>
 
       <div
-        className={`overflow-hidden transition-all duration-300 ${
-          isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+        id={`case-study-content-${index}`}
+        ref={contentRef}
+        className={`overflow-hidden transition-all duration-500 ease-in-out ${
+          isExpanded ? 'opacity-100' : 'max-h-0 opacity-0'
         }`}
+        style={isExpanded ? { maxHeight: contentRef.current ? contentRef.current.scrollHeight + 40 : 1200 } : undefined}
       >
-        <div className="pb-8 pl-12 md:pl-16 pr-4">
+        <div className="pb-8 pl-10 sm:pl-12 md:pl-16 pr-4">
+          <div className="flex flex-wrap gap-2 md:hidden mb-4">
+            {tags.map((tag, i) => (
+              <Badge
+                key={i}
+                variant="secondary"
+                className="bg-surface text-text-muted border-border-color text-xs"
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted mb-2">
@@ -148,6 +166,7 @@ function CaseStudyRow({
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${t('work.viewProject')} — ${title} (opens in new tab)`}
                 className="flex items-center gap-2 text-sm text-cyan hover:underline"
                 onClick={(e) => e.stopPropagation()}
               >

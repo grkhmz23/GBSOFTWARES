@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,6 +17,7 @@ export default function FAQ() {
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const accordionRef = useRef<HTMLDivElement>(null)
+  const reducedMotion = useReducedMotion()
 
   const faqs = [
     {
@@ -60,7 +62,7 @@ export default function FAQ() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headerRef.current,
@@ -76,7 +78,7 @@ export default function FAQ() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           delay: 0.2,
           ease: 'power2.out',
           scrollTrigger: {
@@ -89,7 +91,7 @@ export default function FAQ() {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [reducedMotion])
 
   return (
     <section

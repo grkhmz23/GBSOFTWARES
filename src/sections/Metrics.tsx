@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,8 +16,9 @@ interface MetricCardProps {
 
 function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const [displayValue, setDisplayValue] = useState(0)
+  const valueRef = useRef<HTMLSpanElement>(null)
   const numericValue = parseInt(value.replace(/[^0-9]/g, ''))
+  const reducedMotion = useReducedMotion()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -26,7 +28,7 @@ function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCar
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: reducedMotion ? 0 : 0.8,
           delay,
           ease: 'power2.out',
           scrollTrigger: {
@@ -37,29 +39,36 @@ function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCar
         }
       )
 
+      if (reducedMotion) {
+        if (valueRef.current) {
+          valueRef.current.textContent = numericValue.toLocaleString()
+        }
+        return
+      }
+
       ScrollTrigger.create({
         trigger: cardRef.current,
         start: 'top 85%',
         onEnter: () => {
-          gsap.to(
-            { val: 0 },
-            {
-              val: numericValue,
-              duration: 2,
-              delay: delay + 0.3,
-              ease: 'power2.out',
-              onUpdate: function () {
-                setDisplayValue(Math.floor(this.targets()[0].val))
-              },
-            }
-          )
+          const counter = { val: 0 }
+          gsap.to(counter, {
+            val: numericValue,
+            duration: 2,
+            delay: delay + 0.3,
+            ease: 'power2.out',
+            onUpdate: () => {
+              if (valueRef.current) {
+                valueRef.current.textContent = Math.floor(counter.val).toLocaleString()
+              }
+            },
+          })
         },
         once: true,
       })
     }, cardRef)
 
     return () => ctx.revert()
-  }, [numericValue, delay])
+  }, [numericValue, delay, reducedMotion])
 
   return (
     <div
@@ -74,9 +83,10 @@ function MetricCard({ value, label, suffix = '', prefix = '', delay }: MetricCar
             <span className="text-2xl md:text-3xl font-mono text-cyan">{prefix}</span>
           )}
           <span
+            ref={valueRef}
             className="text-4xl md:text-5xl font-mono font-bold text-white"
           >
-            {displayValue.toLocaleString()}
+            {reducedMotion ? numericValue.toLocaleString() : '0'}
           </span>
           {suffix && (
             <span className="text-2xl md:text-3xl font-mono text-cyan">{suffix}</span>

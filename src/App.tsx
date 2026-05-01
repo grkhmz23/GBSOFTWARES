@@ -23,10 +23,10 @@ function App() {
   const mainRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Simulate loading time for assets
+    // Short loading delay for entrance animation; real assets load in parallel
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 1500)
+    }, 800)
 
     return () => clearTimeout(timer)
   }, [])
@@ -48,7 +48,7 @@ function App() {
   }
 
   return (
-    <div ref={mainRef} className="relative min-h-screen bg-void text-text overflow-x-hidden">
+    <div ref={mainRef} className="relative min-h-[100dvh] bg-void text-text overflow-x-hidden">
       {/* Global grid pattern background */}
       <div className="fixed inset-0 grid-pattern pointer-events-none z-0" />
       
