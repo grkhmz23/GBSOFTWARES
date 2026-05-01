@@ -28,7 +28,7 @@ export default function Footer() {
             <img 
               src="/logo_transparent.png" 
               alt="Gorkhmaz Beydullayev" 
-              className="w-8 h-8 rounded object-cover"
+              className="h-8 md:h-10 w-auto object-contain"
             />
             <div>
               <span className="font-heading font-semibold text-white text-sm">

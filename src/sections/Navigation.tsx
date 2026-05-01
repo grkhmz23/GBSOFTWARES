@@ -99,11 +99,11 @@ export default function Navigation() {
     >
       <div className="container-custom h-full flex items-center justify-between">
         {/* Left: Logo */}
-        <a href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero') }} className="flex items-center">
+        <a href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero') }} className="flex items-center gap-3">
           <img 
             src="/logo_transparent.png" 
             alt="Gorkhmaz Beydullayev" 
-            className="w-8 h-8 rounded object-cover"
+            className="h-8 md:h-10 w-auto object-contain"
           />
         </a>
 
