@@ -120,12 +120,26 @@
     "outcome": "Résultat",
     "viewProject": "Voir le Projet",
     "projects": {
-      "psol": {
-        "title": "PSOL Protocol",
-        "tags": ["Solana", "Confidentialité", "DeFi"],
-        "problem": "Les utilisateurs avaient besoin d'une couche de confidentialité pour les transactions Solana sans compromettre la vitesse ou la sécurité.",
-        "approach": "Développement d'un protocole de confidentialité zero-knowledge permettant des transactions anonymes sur Solana avec une latence minimale.",
-        "outcome": "Lancé comme le principal protocole de confidentialité sur Solana avec des milliers de transactions privées traitées."
+      "whiteProtocol": {
+        "title": "The White Protocol",
+        "tags": ["Confidentialité", "Cross-chain", "DeFi"],
+        "problem": "Les utilisateurs DeFi n'avaient aucun moyen de régler des transferts de stablecoins de façon confidentielle entre Solana, Base, Ethereum, BSC et Polygon—chaque transaction était entièrement publique et traçable.",
+        "approach": "Construction d'un protocole de règlement privé de stablecoins avec routage confidentiel et un bridge cross-chain couvrant cinq grands réseaux, utilisant des preuves zero-knowledge pour masquer les détails des transactions.",
+        "outcome": "Lancement d'une couche de confidentialité multi-chain en production permettant le règlement anonyme de stablecoins et le bridging à grande échelle sur les cinq plus grands écosystèmes."
+      },
+      "founderArena": {
+        "title": "Founder Arena",
+        "tags": ["IA", "Gaming", "Simulation"],
+        "problem": "Les entrepreneurs en herbe n'avaient aucun moyen sans risque de vivre les dynamiques réelles d'une startup—levées de fonds, recrutement, pivots—avant de se lancer.",
+        "approach": "Construction d'un jeu de simulation de startup propulsé par l'IA où les joueurs construisent et font évoluer une entreprise à travers des scénarios dynamiques avec des conditions de marché et des retours d'IA.",
+        "outcome": "Livraison d'un jeu éducatif captivant qui affine les instincts entrepreneuriaux à travers des scénarios de startup réalistes aux conséquences concrètes."
+      },
+      "swarpPay": {
+        "title": "SwarpPay",
+        "tags": ["Fintech", "Web3", "Landing Page"],
+        "problem": "SwarpPay avait besoin d'une présence digitale soignée pour communiquer clairement la valeur de leur produit de paiement aux clients et investisseurs.",
+        "approach": "Conception d'une landing page orientée conversion avec un message percutant, des fonctionnalités mises en avant et des appels à l'action forts alignés sur la marque SwarpPay.",
+        "outcome": "Établissement de l'identité en ligne de SwarpPay avec un site professionnel favorisant l'acquisition d'utilisateurs et la communication avec les investisseurs."
       },
       "humanRail": {
         "title": "Human Rail",
@@ -141,40 +155,12 @@
         "approach": "Conception d'une plateforme e-commerce élégante avec checkout fluide, gestion d'inventaire et UX mobile-first.",
         "outcome": "Augmentation des ventes en ligne de 150% et temps de chargement inférieur à 2 secondes sur tous les appareils."
       },
-      "trailblazer": {
-        "title": "Trailblazer Agent",
-        "tags": ["Solana", "Agent IA", "Narratif"],
-        "problem": "La communauté crypto avait besoin d'un agent IA pour suivre et analyser les narratifs émergents sur Solana.",
-        "approach": "Création d'un agent IA autonome qui scanne les réseaux sociaux, forums et données on-chain pour identifier les tendances.",
-        "outcome": "Devenu un chasseur de narratifs incontournable pour les traders Solana, identifiant les tendances avant qu'elles ne deviennent virales."
-      },
-      "solAudit": {
-        "title": "SOL Audit",
-        "tags": ["Solana", "Agent IA", "Sécurité"],
-        "problem": "Les développeurs avaient besoin d'une analyse de sécurité automatisée et de propositions de correctifs pour les repos GitHub Solana.",
-        "approach": "Construction d'un agent IA qui scanne les repos GitHub natifs Solana, identifie les vulnérabilités, propose des correctifs et auto-fork avec améliorations.",
-        "outcome": "Analyse de 500+ repositories, proposition de 2000+ correctifs de sécurité, et auto-fork de projets critiques avec sécurité renforcée."
-      },
       "swarpFoundation": {
         "title": "Swarp Foundation",
-        "tags": ["Fondation", "Web3", "Officiel"],
-        "problem": "La Swarp Foundation avait besoin d'une présence web officielle pour présenter leur mission et initiatives écosystème.",
-        "approach": "Conception et développement d'un site web professionnel et accessible avec fonctionnalités de gouvernance et documentation.",
-        "outcome": "Établissement de l'identité digitale de la fondation avec outils de gouvernance intégrés et engagement communautaire."
-      },
-      "splitguard": {
-        "title": "SplitGuard",
-        "tags": ["Solana", "Partage de Frais", "DeFi"],
-        "problem": "Les projets Solana avaient besoin d'une solution native pour le partage transparent et automatisé des frais entre stakeholders.",
-        "approach": "Développement d'une plateforme de smart contracts permettant la distribution programmable des frais avec splits personnalisables.",
-        "outcome": "Permis à plusieurs projets de distribuer plus de 1M$ de frais partagés de manière transparente et efficace."
-      },
-      "liveDrops": {
-        "title": "Live Drops",
-        "tags": ["Solana", "Launchpad", "Streaming"],
-        "problem": "Les créateurs avaient besoin d'une plateforme pour lancer des tokens et NFTs avec capacités de streaming en direct pour l'engagement.",
-        "approach": "Construction d'une plateforme de lancement en stream intégrant vidéo temps réel avec lancements de tokens et minting live.",
-        "outcome": "Hébergement de 100+ lancements réussis avec engagement communautaire en direct et provision de liquidité instantanée."
+        "tags": ["Conseil", "Web3", "Officiel"],
+        "problem": "SWRP avait besoin d'un site de conseil professionnel pour présenter clairement leurs services, leur mission et leur écosystème à des partenaires et clients potentiels.",
+        "approach": "Conception et développement d'un site de conseil soigné avec une offre de services claire, de la documentation et des fonctionnalités de gouvernance reflétant la marque SWRP.",
+        "outcome": "Établissement de l'identité digitale crédible de SWRP en tant qu'entité de conseil Web3, stimulant l'engagement des partenaires et la croissance de la communauté."
       },
       "simfi": {
         "title": "SimFi",
@@ -182,27 +168,6 @@
         "problem": "Les traders voulaient pratiquer des stratégies de trading de memecoins sans risquer de capital réel.",
         "approach": "Création d'une plateforme de trading papier avec prix des memecoins Solana en temps réel et portfolios simulés.",
         "outcome": "Attiré des milliers d'utilisateurs pratiquant des stratégies avant de déployer du capital réel sur les marchés."
-      },
-      "funpumpfun": {
-        "title": "FunPumpFun",
-        "tags": ["Solana", "Gaming", "Simulation"],
-        "problem": "Les utilisateurs voulaient une façon gamifiée d'apprendre les lancements de tokens sans risque financier.",
-        "approach": "Construction d'un jeu de simulation engageant reproduisant l'expérience Pump.fun avec monnaie virtuelle.",
-        "outcome": "Devenu un outil éducatif et jeu populaire, les utilisateurs passant des heures à maîtriser les mécaniques de lancement."
-      },
-      "noCrying": {
-        "title": "No Crying",
-        "tags": ["Solana", "Memecoin", "Communauté"],
-        "problem": "Une communauté memecoin en croissance avait besoin d'une page fan dédiée avec mises à jour en temps réel et outils d'engagement.",
-        "approach": "Création d'un hub communautaire dynamique avec suivi de prix, galerie de memes et fonctionnalités sociales.",
-        "outcome": "Construction d'un hub communautaire florissant avec des milliers d'utilisateurs actifs quotidiens et partage de contenu viral."
-      },
-      "scratchNSol": {
-        "title": "Scratch n SOL",
-        "tags": ["Solana", "Gaming", "Loterie"],
-        "problem": "Les utilisateurs Solana voulaient un jeu de grattage on-chain amusant avec gains instantanés et équité vérifiable.",
-        "approach": "Développement d'un jeu de grattage et gagner basé sur blockchain avec aléatoire vérifiable et paiements instantanés.",
-        "outcome": "Traitement de milliers de jeux quotidiens avec paiements SOL instantanés et résultats prouvablement équitables."
       },
       "desertRoseGin": {
         "title": "Desert Rose Gin",

@@ -14,14 +14,14 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { cn } from '@/lib/utils'
+import { cn, sanitizeInput } from '@/lib/utils'
 import emailjs from '@emailjs/browser'
 import { toast } from 'sonner'
+import { checkRateLimit, formatWaitTime } from '@/lib/rate-limit'
 
-// EmailJS configuration (same as Contact section)
-const EMAILJS_SERVICE_ID = 'service_cxb26d4'
-const EMAILJS_TEMPLATE_ID = 'template_g9qlawr'
-const EMAILJS_PUBLIC_KEY = 'cKs7isxAB4tBNN7B7'
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID ?? 'service_cxb26d4'
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_BOOKING_TEMPLATE_ID ?? 'template_g9qlawr'
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? 'cKs7isxAB4tBNN7B7'
 
 // Available time slots
 const TIME_SLOTS = [
@@ -43,6 +43,7 @@ export default function Booking() {
   const { t, i18n } = useTranslation()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [honeypot, setHoneypot] = useState('')
 
   // Get date locale based on current language
   const dateLocale = i18n.language === 'fr' ? fr : enUS
@@ -93,18 +94,29 @@ export default function Booking() {
   }
 
   const onSubmit = async (data: BookingFormData) => {
+    // Honeypot — bots fill this, humans don't
+    if (honeypot) return
+
+    // Rate limit: max 3 bookings per 15 minutes
+    const rl = checkRateLimit('booking')
+    if (!rl.allowed) {
+      toast.error(`Too many requests. Please wait ${formatWaitTime(rl.waitMs)}.`)
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
+      const safeDate = format(data.date, 'MMMM dd, yyyy')
       const templateParams = {
-        from_name: data.name,
-        from_email: data.email,
-        phone: data.phone || 'Not provided',
-        service: data.service,
-        date: format(data.date, 'MMMM dd, yyyy'),
-        time: data.time,
-        notes: data.notes || 'No additional notes',
-        message: `Booking Request: ${data.service} on ${format(data.date, 'MMMM dd, yyyy')} at ${data.time}`
+        from_name: sanitizeInput(data.name, 100),
+        from_email: sanitizeInput(data.email, 254),
+        phone: data.phone ? sanitizeInput(data.phone, 30) : 'Not provided',
+        service: sanitizeInput(data.service, 50),
+        date: safeDate,
+        time: sanitizeInput(data.time, 20),
+        notes: data.notes ? sanitizeInput(data.notes, 1000) : 'No additional notes',
+        message: `Booking Request: ${sanitizeInput(data.service, 50)} on ${safeDate} at ${sanitizeInput(data.time, 20)}`
       }
 
       await emailjs.send(
@@ -116,15 +128,13 @@ export default function Booking() {
 
       setIsSuccess(true)
       toast.success(t('booking.success.title'))
-      
-      // Reset form after 3 seconds
+
       setTimeout(() => {
         reset()
         setIsSuccess(false)
       }, 3000)
-    } catch (error) {
+    } catch {
       toast.error(t('booking.error'))
-      console.error('Booking error:', error)
     } finally {
       setIsSubmitting(false)
     }
@@ -169,6 +179,11 @@ export default function Booking() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Honeypot — visually hidden, bots fill it, humans don't */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+                <label htmlFor="hp_booking">Website</label>
+                <input id="hp_booking" name="website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+              </div>
               {/* Date and Time Selection */}
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Calendar */}

@@ -16,15 +16,16 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useReducedMotion } from '@/hooks/use-reduced-motion'
+import { checkRateLimit, formatWaitTime } from '@/lib/rate-limit'
+import { sanitizeInput } from '@/lib/utils'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// EmailJS configuration
-// Service ID: service_cxb26d4 (already set)
-// You still need: Template ID and Public Key from EmailJS dashboard
-const EMAILJS_SERVICE_ID = 'service_cxb26d4'
-const EMAILJS_TEMPLATE_ID = 'template_mj57ngy'
-const EMAILJS_PUBLIC_KEY = 'cKs7isxAB4tBNN7B7'
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID ?? 'service_cxb26d4'
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID ?? 'template_mj57ngy'
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? 'cKs7isxAB4tBNN7B7'
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Contact() {
   const { t } = useTranslation()
@@ -36,6 +37,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [honeypot, setHoneypot] = useState('')
   const reducedMotion = useReducedMotion()
 
   useEffect(() => {
@@ -115,27 +117,46 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
     setError(null)
+
+    // Honeypot — bots fill this, humans don't
+    if (honeypot) return
+
+    // Client-side validation
+    const name = sanitizeInput(formData.name, 100)
+    const email = sanitizeInput(formData.email, 254)
+    const message = sanitizeInput(formData.message, 2000)
+
+    if (name.length < 2) { setError('Please enter your name.'); return }
+    if (!EMAIL_RE.test(email)) { setError('Please enter a valid email address.'); return }
+    if (message.length < 10) { setError('Message is too short.'); return }
+
+    // Rate limit: max 3 submissions per 15 minutes
+    const rl = checkRateLimit('contact')
+    if (!rl.allowed) {
+      setError(`Too many submissions. Please wait ${formatWaitTime(rl.waitMs)} before trying again.`)
+      return
+    }
+
+    setIsSubmitting(true)
 
     try {
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          from_name: formData.name,
-          from_email: formData.email,
-          project_type: formData.projectType,
-          budget: formData.budget,
-          timeline: formData.timeline,
-          message: formData.message,
+          from_name: name,
+          from_email: email,
+          project_type: sanitizeInput(formData.projectType, 50),
+          budget: sanitizeInput(formData.budget, 50),
+          timeline: sanitizeInput(formData.timeline, 50),
+          message,
         },
         EMAILJS_PUBLIC_KEY
       )
-      
+
       setIsSubmitted(true)
-    } catch (err) {
-      console.error('Failed to send message:', err)
+    } catch {
       setError(t('contact.error'))
     } finally {
       setIsSubmitting(false)
@@ -208,7 +229,7 @@ export default function Contact() {
               <Button
                 variant="outline"
                 className="border-cyan text-cyan hover:bg-cyan hover:text-void"
-                onClick={() => window.open('https://calendly.com', '_blank')}
+                onClick={() => window.open('https://calendly.com', '_blank', 'noopener,noreferrer')}
               >
                 {t('contact.schedule.button')}
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -241,6 +262,11 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 className="p-6 md:p-8 rounded-xl bg-surface/50 border border-border-color space-y-6"
               >
+                {/* Honeypot — visually hidden, bots fill it, humans don't */}
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+                  <label htmlFor="hp_contact">Website</label>
+                  <input id="hp_contact" name="website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                </div>
                 {error && (
                   <div role="alert" className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
                     {error}
@@ -258,6 +284,7 @@ export default function Contact() {
                       onChange={(e) => handleChange('name', e.target.value)}
                       placeholder={t('contact.form.namePlaceholder')}
                       required
+                      maxLength={100}
                       className="bg-void border-border-color text-white placeholder:text-text-muted focus:border-cyan"
                     />
                   </div>
@@ -272,6 +299,7 @@ export default function Contact() {
                       onChange={(e) => handleChange('email', e.target.value)}
                       placeholder={t('contact.form.emailPlaceholder')}
                       required
+                      maxLength={254}
                       className="bg-void border-border-color text-white placeholder:text-text-muted focus:border-cyan"
                     />
                   </div>
@@ -342,6 +370,7 @@ export default function Contact() {
                     placeholder={t('contact.form.projectDetailsPlaceholder')}
                     rows={4}
                     required
+                    maxLength={2000}
                     className="bg-void border-border-color text-white placeholder:text-text-muted focus:border-cyan"
                   />
                 </div>
