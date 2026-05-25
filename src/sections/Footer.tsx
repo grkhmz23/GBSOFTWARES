@@ -1,33 +1,32 @@
-import { useTranslation } from 'react-i18next'
 import { Github, Linkedin, Twitter } from 'lucide-react'
 import { scrollToSection } from '@/lib/scroll-to-section'
 
+const FOOTER_LINKS = [
+  { label: 'Build', href: '#build' },
+  { label: 'Process', href: '#process' },
+  { label: 'Core', href: '#capabilities' },
+  { label: 'Work', href: '#work' },
+  { label: 'Contact', href: '#contact' },
+]
+
+const SOCIAL_LINKS = [
+  { icon: Github, href: 'https://github.com/grkhmz23/', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/gorkhmaz-beydullayev/', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/uncgorkh', label: 'Twitter' },
+]
+
 export default function Footer() {
-  const { t } = useTranslation()
-
-  const footerLinks = [
-    { label: t('nav.work'), href: '#work' },
-    { label: t('nav.services'), href: '#services' },
-    { label: t('nav.process'), href: '#process' },
-    { label: t('nav.security'), href: '#security' },
-    { label: t('nav.faq'), href: '#faq' },
-    { label: t('nav.bookCall'), href: '#contact' },
-  ]
-
-  const socialLinks = [
-    { icon: Github, href: 'https://github.com/grkhmz23/', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/gorkhmaz-beydullayev/', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://x.com/uncgorkh', label: 'Twitter' },
-  ]
-
   return (
-    <footer className="py-12 border-t border-border-color">
-      <div className="container-custom">
+    <footer className="relative py-12 border-t border-border-color overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/30 to-transparent" />
+      </div>
+      <div className="container-custom relative">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-3">
-            <img 
-              src="/logo_transparent.png" 
-              alt="Gorkhmaz Beydullayev" 
+            <img
+              src="/logo_transparent.png"
+              alt="GB Softwares"
               className="h-8 md:h-10 w-auto object-contain"
             />
             <div>
@@ -35,18 +34,21 @@ export default function Footer() {
                 Gorkhmaz Beydullayev
               </span>
               <p className="text-xs text-text-muted">
-                {t('footer.builtWith')}
+                Built from idea to production.
               </p>
             </div>
           </div>
 
-          <nav className="flex flex-wrap justify-center gap-6">
-            {footerLinks.map((link) => (
+          <nav className="flex flex-wrap justify-center gap-1">
+            {FOOTER_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollToSection(link.href) }}
-                className="text-sm text-text-muted hover:text-white transition-colors py-2 px-3 rounded-md min-h-[44px] flex items-center"
+                onClick={(e) => {
+                  e.preventDefault()
+                  scrollToSection(link.href)
+                }}
+                className="text-xs text-text-muted hover:text-cyan transition-colors py-2 px-3 rounded-md min-h-[44px] flex items-center font-mono uppercase tracking-wider"
               >
                 {link.label}
               </a>
@@ -54,7 +56,7 @@ export default function Footer() {
           </nav>
 
           <div className="flex items-center gap-4">
-            {socialLinks.map((social) => (
+            {SOCIAL_LINKS.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
@@ -70,11 +72,11 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border-color/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
-          <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
+          <p>© {new Date().getFullYear()} GB Softwares — Gorkhmaz Beydullayev.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500" />
-              {t('footer.available')}
+              Available for projects
             </span>
           </div>
         </div>

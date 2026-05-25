@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight, ExternalLink, ChevronUp } from 'lucide-react'
+import { ArrowRight, ChevronUp, ExternalLink } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -42,40 +42,34 @@ function CaseStudyRow({
     const ctx = gsap.context(() => {
       gsap.fromTo(
         rowRef.current,
-        { opacity: 0, x: -30 },
+        { opacity: 0, x: -20 },
         {
           opacity: 1,
           x: 0,
-          duration: 0.6,
+          duration: 0.5,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: rowRef.current,
-            start: 'top 85%',
+            start: 'top 88%',
             toggleActions: 'play none none none',
           },
         }
       )
     }, rowRef)
-
     return () => ctx.revert()
   }, [])
 
   return (
-    <div
-      ref={rowRef}
-      className="border-b border-border-color last:border-b-0"
-    >
+    <div ref={rowRef} className="border-b border-white/[0.06] last:border-b-0">
       <button
         onClick={onToggle}
         aria-expanded={isExpanded}
         aria-controls={`case-study-content-${index}`}
-        className={`w-full py-6 flex items-center gap-4 md:gap-8 text-left group transition-all duration-300 ${
+        className={`w-full py-6 flex items-center gap-4 md:gap-8 text-left group transition-colors duration-300 ${
           isExpanded ? 'text-cyan' : 'text-text-muted hover:text-white'
         }`}
       >
-        <span className="font-mono text-sm w-8 flex-shrink-0 opacity-50">
-          {index}
-        </span>
+        <span className="font-mono text-sm w-8 flex-shrink-0 opacity-50">{index}</span>
 
         <span className="font-heading text-base sm:text-lg md:text-xl font-semibold flex-grow min-w-0 truncate">
           {title}
@@ -86,14 +80,14 @@ function CaseStudyRow({
             <Badge
               key={i}
               variant="secondary"
-              className="bg-surface text-text-muted border-border-color text-xs"
+              className="bg-white/[0.03] text-text-muted border-white/10 text-xs"
             >
               {tag}
             </Badge>
           ))}
         </div>
 
-        <span className="font-mono text-sm hidden sm:block flex-shrink-0 w-16 text-right">
+        <span className="font-mono text-sm hidden sm:block flex-shrink-0 w-16 text-right opacity-60">
           {year}
         </span>
 
@@ -110,9 +104,8 @@ function CaseStudyRow({
         id={`case-study-content-${index}`}
         ref={contentRef}
         className={`overflow-hidden transition-all duration-500 ease-in-out ${
-          isExpanded ? 'opacity-100' : 'max-h-0 opacity-0'
+          isExpanded ? 'max-h-[1600px] opacity-100' : 'max-h-0 opacity-0'
         }`}
-        style={isExpanded ? { maxHeight: contentRef.current ? contentRef.current.scrollHeight + 40 : 1200 } : undefined}
       >
         <div className="pb-8 pl-10 sm:pl-12 md:pl-16 pr-4">
           <div className="flex flex-wrap gap-2 md:hidden mb-4">
@@ -120,7 +113,7 @@ function CaseStudyRow({
               <Badge
                 key={i}
                 variant="secondary"
-                className="bg-surface text-text-muted border-border-color text-xs"
+                className="bg-white/[0.03] text-text-muted border-white/10 text-xs"
               >
                 {tag}
               </Badge>
@@ -129,33 +122,31 @@ function CaseStudyRow({
 
           <div className="grid md:grid-cols-3 gap-6">
             <div>
-              <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted mb-2">
-                {t('work.problem')}
+              <h4 className="text-xs font-mono uppercase tracking-wider text-cyan/70 mb-2">
+                {t('work.problem', 'Problem')}
               </h4>
               <p className="text-sm text-text leading-relaxed">{problem}</p>
             </div>
-
             <div>
-              <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted mb-2">
-                {t('work.approach')}
+              <h4 className="text-xs font-mono uppercase tracking-wider text-cyan/70 mb-2">
+                {t('work.approach', 'Approach')}
               </h4>
               <p className="text-sm text-text leading-relaxed">{approach}</p>
             </div>
-
             <div>
-              <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted mb-2">
-                {t('work.outcome')}
+              <h4 className="text-xs font-mono uppercase tracking-wider text-cyan/70 mb-2">
+                {t('work.outcome', 'Outcome')}
               </h4>
               <p className="text-sm text-text leading-relaxed">{outcome}</p>
             </div>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-border-color flex flex-wrap items-center justify-between gap-4">
+          <div className="mt-6 pt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap gap-2">
               {stack.map((tech, i) => (
                 <span
                   key={i}
-                  className="px-2 py-1 rounded bg-surface text-xs text-cyan font-mono"
+                  className="px-2 py-1 rounded bg-white/[0.03] text-xs text-cyan font-mono"
                 >
                   {tech}
                 </span>
@@ -166,11 +157,11 @@ function CaseStudyRow({
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${t('work.viewProject')} — ${title} (opens in new tab)`}
+                aria-label={`View ${title} (opens in new tab)`}
                 className="flex items-center gap-2 text-sm text-cyan hover:underline"
                 onClick={(e) => e.stopPropagation()}
               >
-                {t('work.viewProject')}
+                View Project
                 <ExternalLink className="w-4 h-4" />
               </a>
             )}
@@ -191,11 +182,11 @@ export default function Work() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         headerRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 0.7,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headerRef.current,
@@ -205,13 +196,10 @@ export default function Work() {
         }
       )
     }, sectionRef)
-
     return () => ctx.revert()
   }, [])
 
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index)
-  }
+  const toggle = (i: number) => setExpandedIndex(expandedIndex === i ? null : i)
 
   const caseStudies = [
     {
@@ -299,30 +287,53 @@ export default function Work() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding relative scroll-margin"
       id="work"
+      className="relative py-24 md:py-32 overflow-hidden scroll-mt-24"
     >
-      <div className="container-custom">
-        <div ref={headerRef} className="mb-12">
-          <span className="inline-block px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-mono uppercase tracking-wider mb-4">
-            {t('work.badge')}
-          </span>
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
-            {t('work.title')}
+      {/* Atmospheric backdrop continuing the cosmic theme */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,240,255,0.05),transparent_60%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/30 to-transparent" />
+      </div>
+
+      <div className="container-custom relative z-10">
+        <div ref={headerRef} className="mb-12 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan/30 bg-white/[0.03] mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-cyan">
+              Real artifacts · 05
+            </span>
+          </div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+            Selected work, <span className="text-gradient">shipped to production.</span>
           </h2>
-          <p className="text-text-muted max-w-2xl">
-            {t('work.subtitle')}
+          <p className="text-text-muted">
+            Eight real systems — privacy protocols, simulation games, fintech, identity,
+            commerce, trading. Tap any row to open the build notes.
           </p>
         </div>
 
-        <div className="bg-surface/30 border border-border-color rounded-xl overflow-hidden">
-          {caseStudies.map((study, index) => (
+        <div className="relative rounded-2xl border border-white/[0.06] bg-black/30 backdrop-blur-xl overflow-hidden">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-px rounded-2xl"
+            style={{
+              background:
+                'linear-gradient(135deg, rgba(0,240,255,0.15), transparent 25%, transparent 75%, rgba(112,0,255,0.15))',
+              WebkitMask:
+                'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+              WebkitMaskComposite: 'xor',
+              padding: '1px',
+              borderRadius: 'inherit',
+            }}
+          />
+          {caseStudies.map((study, i) => (
             <CaseStudyRow
-              key={index}
-              index={String(index + 1).padStart(2, '0')}
+              key={i}
+              index={String(i + 1).padStart(2, '0')}
               {...study}
-              isExpanded={expandedIndex === index}
-              onToggle={() => toggleExpand(index)}
+              isExpanded={expandedIndex === i}
+              onToggle={() => toggle(i)}
             />
           ))}
         </div>
