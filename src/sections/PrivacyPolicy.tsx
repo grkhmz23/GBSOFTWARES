@@ -10,20 +10,28 @@ export default function PrivacyPolicy({ onClose }: PrivacyPolicyProps) {
   const { t } = useTranslation();
 
   useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = originalOverflow;
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[10] bg-white overflow-y-auto">
-      <div className="max-w-[800px] mx-auto px-6 py-12 md:py-20">
+    <div
+      className="fixed inset-0 z-[10] bg-white"
+      style={{
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        height: '100dvh',
+      }}
+    >
+      <div className="max-w-[800px] mx-auto px-6 py-12 md:py-20 pb-24">
         <div className="flex items-center justify-between mb-12">
           <h1 className="text-title-1 text-black">{t('privacy.title', 'privacy policy')}</h1>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-black/5 rounded-full transition-colors"
+            className="p-2 hover:bg-black/5 rounded-full transition-colors shrink-0"
             aria-label="Close"
           >
             <CloseIcon color="#000000" size={24} />
