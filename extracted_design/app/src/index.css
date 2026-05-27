@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --gray-1: #2E2E2E;
+    --gray-2: #CECECE;
+    --gray-3: #E7E7E7;
+    --blue: #0F62FE;
+    --red: #FE0F41;
+    --orange: #FF5C00;
+
+    --ease-primary: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-smooth: cubic-bezier(0.2, 0, 0.2, 1);
+
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --border: 0 0% 80.8%;
+    --input: 0 0% 80.8%;
+    --ring: 0 0% 0%;
+    --radius: 0rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: lowercase;
+    color: var(--black);
+    background-color: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  input, textarea, select {
+    text-transform: lowercase;
+  }
+
+  ::placeholder {
+    text-transform: lowercase;
+  }
+}
+
+@layer components {
+  .grayscale-img {
+    filter: grayscale(100%) contrast(0.9) brightness(1.05);
+  }
+
+  .stage-surface {
+    background-color: var(--white);
+    color: var(--black);
+  }
+
+  .stage-mantle {
+    background-color: var(--blue);
+    color: var(--white);
+  }
+
+  .stage-outer-core {
+    background-color: var(--red);
+    color: var(--white);
+  }
+
+  .stage-inner-core {
+    background-color: var(--orange);
+    color: var(--white);
+  }
+
+  .text-display {
+    font-size: clamp(2.8125rem, 1.5rem + 5vw, 5.9375rem);
+    line-height: 1;
+    font-weight: 400;
+  }
+
+  .text-title-1 {
+    font-size: clamp(2.5rem, 1.4286rem + 3.5714vw, 4.125rem);
+    line-height: 1;
+    font-weight: 600;
+  }
+
+  .text-title-2 {
+    font-size: clamp(1.375rem, 0.7143rem + 2.6786vw, 3.125rem);
+    line-height: 1;
+    font-weight: 400;
+  }
+
+  .text-title-3 {
+    font-size: clamp(1.1875rem, 0.8214rem + 1.3393vw, 1.875rem);
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  .text-body {
+    font-size: clamp(0.9375rem, 0.8036rem + 0.4464vw, 1.25rem);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  .text-body-small {
+    font-size: clamp(0.75rem, 0.6786rem + 0.2232vw, 0.875rem);
+    line-height: 1.3;
+    font-weight: 400;
+  }
+
+  .text-nav {
+    font-size: clamp(0.75rem, 0.6786rem + 0.2232vw, 0.875rem);
+    line-height: 1;
+    font-weight: 500;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

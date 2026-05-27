@@ -1,0 +1,241 @@
+{
+  "nav": {
+    "getInTouch": "contactez-moi"
+  },
+  "hero": {
+    "name": "gbsoftwares",
+    "tagline": "produits web, blockchain, bureau et mobile construits de l'idée à la production.",
+    "ctaProject": "démarrer un projet",
+    "ctaWork": "explorer les projets"
+  },
+  "work": {
+    "heading": "projets sélectionnés",
+    "projects": {
+      "whiteProtocol": {
+        "title": "the white protocol",
+        "categories": "confidentialité, cross-chain, defi"
+      },
+      "founderArena": {
+        "title": "founder arena",
+        "categories": "ia, gaming, simulation"
+      },
+      "swarpPay": {
+        "title": "swarppay",
+        "categories": "fintech, web3, page de destination"
+      },
+      "humanRail": {
+        "title": "human rail",
+        "categories": "solana, identité, web3"
+      },
+      "maniaAtelier": {
+        "title": "mania atelier",
+        "categories": "e-commerce, mode, fullstack"
+      },
+      "swarpFoundation": {
+        "title": "swarp foundation",
+        "categories": "conseil, web3, officiel"
+      },
+      "simFi": {
+        "title": "simfi",
+        "categories": "solana, memecoins, trading"
+      },
+      "desertRoseGin": {
+        "title": "desert rose gin",
+        "categories": "branding, e-commerce, boisson"
+      }
+    }
+  },
+  "capabilities": {
+    "heading": "ce que je construis",
+    "items": {
+      "webApps": {
+        "number": "01",
+        "title": "apps web",
+        "orbit": "production-grade"
+      },
+      "blockchain": {
+        "number": "02",
+        "title": "blockchain",
+        "orbit": "smart contracts"
+      },
+      "mobileApps": {
+        "number": "03",
+        "title": "apps mobiles",
+        "orbit": "ios, android"
+      },
+      "desktopApps": {
+        "number": "04",
+        "title": "apps bureau",
+        "orbit": "macos, windows, linux"
+      },
+      "aiProducts": {
+        "number": "05",
+        "title": "produits ia",
+        "orbit": "agents, copilotes"
+      },
+      "mvpToProd": {
+        "number": "06",
+        "title": "mvp à production",
+        "orbit": "du croquis au lancement"
+      }
+    },
+    "downloadCV": "télécharger cv"
+  },
+  "process": {
+    "heading": "ma méthode",
+    "steps": [
+      {
+        "title": "stratégie",
+        "description": "comprendre le problème, définir les objectifs, étudier les utilisateurs et le marché."
+      },
+      {
+        "title": "architecture",
+        "description": "concevoir la structure du système, le flux de données et la base technique."
+      },
+      {
+        "title": "ui/ux design",
+        "description": "créer des interfaces intuitives avec des principes de design centrés sur l'utilisateur."
+      },
+      {
+        "title": "développement backend",
+        "description": "construire des apis robustes, des bases de données et une infrastructure serveur."
+      },
+      {
+        "title": "smart contracts",
+        "description": "développer une logique blockchain sécurisée et auditée."
+      },
+      {
+        "title": "tests",
+        "description": "qa complète, tests unitaires, tests d'intégration et audits de sécurité."
+      },
+      {
+        "title": "déploiement",
+        "description": "pipelines ci/cd, infrastructure cloud et monitoring."
+      },
+      {
+        "title": "itération",
+        "description": "amélioration continue basée sur les retours utilisateurs et les analyses."
+      }
+    ]
+  },
+  "skills": {
+    "heading": "couches techniques",
+    "categories": [
+      {
+        "title": "frontend",
+        "details": "react 19, next.js, typescript, tailwind css, gsap, three.js, framer motion"
+      },
+      {
+        "title": "backend",
+        "details": "node.js, express, postgresql, mongodb, redis, docker, aws"
+      },
+      {
+        "title": "blockchain",
+        "details": "solana/rust, evm/solidity, anchor, wagmi, ethers.js, zero-knowledge proofs"
+      },
+      {
+        "title": "mobile & desktop",
+        "details": "react native, electron, tauri, ios, android, cross-platform"
+      },
+      {
+        "title": "couche ia",
+        "details": "openai api, langchain, vector databases, embeddings, fine-tuning"
+      }
+    ]
+  },
+  "experience": {
+    "heading": "expérience",
+    "entries": [
+      {
+        "company": "swarp foundation",
+        "role": "fondateur & lead developer",
+        "date": "2024 - présent",
+        "description": "direction du développement de projets d'infrastructure web3, gestion d'une équipe d'ingénieurs distribuée et architecture de solutions cross-chain.",
+        "tags": ["solana", "rust", "react", "web3"]
+      },
+      {
+        "company": "consultant indépendant",
+        "role": "ingénieur full-stack & blockchain",
+        "date": "2023 - 2024",
+        "description": "livraison d'applications web et blockchain de qualité production pour des clients dans les secteurs fintech, gaming et e-commerce.",
+        "tags": ["fullstack", "blockchain", "consulting"]
+      },
+      {
+        "company": "tech lead chez startupx",
+        "role": "lead technique",
+        "date": "2022 - 2023",
+        "description": "direction d'une équipe de 5 ingénieurs, architecture d'infrastructure microservices et livraison de 3 versions produit majeures.",
+        "tags": ["leadership", "architecture", "node.js"]
+      },
+      {
+        "company": "développeur senior chez agencyy",
+        "role": "développeur full-stack senior",
+        "date": "2020 - 2022",
+        "description": "construction de projets clients web, mobile et bureau. spécialisation dans les écosystèmes react et la conception d'apis.",
+        "tags": ["react", "typescript", "apis"]
+      },
+      {
+        "company": "développeur full-stack chez studioz",
+        "role": "développeur full-stack",
+        "date": "2018 - 2020",
+        "description": "développement d'applications web responsives et d'apis restful. collaboration avec des designers pour livrer des interfaces parfaites.",
+        "tags": ["javascript", "css", "sql"]
+      }
+    ]
+  },
+  "caseStudy": {
+    "title": "the white protocol",
+    "description": "un protocole de règlement stablecoin privé avec routage de transferts confidentiels et un pont cross-chain sur solana, base, ethereum, bsc et polygon. utilise des preuves à divulgation nulle pour des transactions préservant la confidentialité.",
+    "tags": ["solana", "rust", "solidity", "zk-proofs", "evm", "react"],
+    "viewProject": "voir le projet",
+    "sourceCode": "code source"
+  },
+  "contact": {
+    "heading": "donnez vie au produit",
+    "availability": "disponible pour des projets",
+    "form": {
+      "name": "votre nom",
+      "email": "votre email",
+      "projectType": "type de projet",
+      "projectTypes": [
+        "app web",
+        "blockchain/smart contracts",
+        "app mobile",
+        "app bureau",
+        "produit ia",
+        "mvp à production",
+        "autre"
+      ],
+      "budget": "fourchette budgétaire",
+      "budgets": [
+        "moins de $10k",
+        "$10k-$25k",
+        "$25k-$50k",
+        "$50k-$100k+",
+        "discutons-en"
+      ],
+      "timeline": "délai",
+      "timelines": [
+        "dès que possible",
+        "~1 mois",
+        "~3 mois",
+        "flexible"
+      ],
+      "message": "que construisez-vous ?",
+      "submit": "envoyer",
+      "success": "message envoyé avec succès !",
+      "error": "une erreur s'est produite. veuillez réessayer."
+    },
+    "email": "gorkhmazb23@gmail.com",
+    "responseTime": "sous 24 heures, jours ouvrables",
+    "timezone": "utc ±8"
+  },
+  "footer": {
+    "copyright": "gbsoftwares. tous droits réservés.",
+    "social": {
+      "github": "github",
+      "linkedin": "linkedin",
+      "twitter": "twitter/x"
+    }
+  }
+}
