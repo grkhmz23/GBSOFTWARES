@@ -1,36 +1,65 @@
-import { useEffect, useState } from 'react'
-import './i18n'
-import Navigation from './sections/Navigation'
-import CoreJourney from './sections/CoreJourney'
-import Work from './sections/Work'
-import Contact from './sections/Contact'
-import Footer from './sections/Footer'
-import LoadingScreen from './sections/LoadingScreen'
-import './App.css'
+import { useState, useEffect, useCallback } from 'react';
+import { useLenis } from './hooks/useLenis';
+import { StageProvider } from './contexts/StageContext';
+import PageLoader from './components/PageLoader';
+import ParticleField from './components/ParticleField';
+import Header from './components/Header';
+import HeroSection from './sections/HeroSection';
+import WorkGridSection from './sections/WorkGridSection';
+import CapabilitiesSection from './sections/CapabilitiesSection';
+import ProcessSection from './sections/ProcessSection';
+import SkillsSection from './sections/SkillsSection';
+import ExperienceSection from './sections/ExperienceSection';
+import CaseStudySection from './sections/CaseStudySection';
+import ContactSection from './sections/ContactSection';
+import Footer from './sections/Footer';
+import PrivacyPolicy from './sections/PrivacyPolicy';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true)
+  useLenis();
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 700)
-    return () => clearTimeout(timer)
-  }, [])
+    const handleHash = () => {
+      setShowPrivacy(window.location.hash === '#/privacy');
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
-  if (isLoading) {
-    return <LoadingScreen />
+  const openPrivacy = useCallback(() => {
+    window.location.hash = '#/privacy';
+    setShowPrivacy(true);
+  }, []);
+
+  const closePrivacy = useCallback(() => {
+    window.history.pushState(null, '', window.location.pathname + window.location.search);
+    setShowPrivacy(false);
+  }, []);
+
+  if (showPrivacy) {
+    return <PrivacyPolicy onClose={closePrivacy} />;
   }
 
   return (
-    <div className="relative min-h-[100dvh] bg-void text-text">
-      <Navigation />
-      <main className="relative z-10">
-        <CoreJourney />
-        <Work />
-        <Contact />
+    <StageProvider>
+      <PageLoader />
+      <ParticleField />
+      <Header />
+      <main>
+        <HeroSection />
+        <WorkGridSection />
+        <CapabilitiesSection />
+        <ProcessSection />
+        <SkillsSection />
+        <ExperienceSection />
+        <CaseStudySection />
+        <ContactSection />
+        <Footer onPrivacyClick={openPrivacy} />
       </main>
-      <Footer />
-    </div>
-  )
+    </StageProvider>
+  );
 }
 
-export default App
+export default App;

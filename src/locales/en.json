@@ -1,0 +1,288 @@
+{
+  "nav": {
+    "getInTouch": "get in touch"
+  },
+  "hero": {
+    "name": "gbsoftwares",
+    "tagline": "web, blockchain, desktop and mobile products built from idea to production.",
+    "ctaProject": "start a project",
+    "ctaWork": "explore work"
+  },
+  "work": {
+    "heading": "selected work",
+    "projects": {
+      "whiteProtocol": {
+        "title": "the white protocol",
+        "categories": "privacy, cross-chain, defi"
+      },
+      "founderArena": {
+        "title": "founder arena",
+        "categories": "ai, gaming, simulation"
+      },
+      "swarpPay": {
+        "title": "swarppay",
+        "categories": "fintech, web3, landing page"
+      },
+      "humanRail": {
+        "title": "human rail",
+        "categories": "solana, identity, web3"
+      },
+      "maniaAtelier": {
+        "title": "mania atelier",
+        "categories": "e-commerce, fashion, fullstack"
+      },
+      "swarpFoundation": {
+        "title": "swarp foundation",
+        "categories": "consulting, web3, official"
+      },
+      "simFi": {
+        "title": "simfi",
+        "categories": "solana, memecoins, trading"
+      },
+      "desertRoseGin": {
+        "title": "desert rose gin",
+        "categories": "branding, e-commerce, beverage"
+      }
+    }
+  },
+  "capabilities": {
+    "heading": "what i build",
+    "items": {
+      "webApps": {
+        "number": "01",
+        "title": "web apps",
+        "orbit": "production-grade"
+      },
+      "blockchain": {
+        "number": "02",
+        "title": "blockchain",
+        "orbit": "smart contracts"
+      },
+      "mobileApps": {
+        "number": "03",
+        "title": "mobile apps",
+        "orbit": "ios, android"
+      },
+      "desktopApps": {
+        "number": "04",
+        "title": "desktop apps",
+        "orbit": "macos, windows, linux"
+      },
+      "aiProducts": {
+        "number": "05",
+        "title": "ai products",
+        "orbit": "agents, copilots"
+      },
+      "mvpToProd": {
+        "number": "06",
+        "title": "mvp to production",
+        "orbit": "from sketch to launch"
+      }
+    },
+    "downloadCV": "download cv"
+  },
+  "process": {
+    "heading": "how i think",
+    "steps": [
+      {
+        "title": "strategy",
+        "description": "understand the problem, define goals, research users and market."
+      },
+      {
+        "title": "architecture",
+        "description": "design the system structure, data flow, and technical foundation."
+      },
+      {
+        "title": "ui/ux design",
+        "description": "craft intuitive interfaces with user-centered design principles."
+      },
+      {
+        "title": "backend development",
+        "description": "build robust apis, databases, and server infrastructure."
+      },
+      {
+        "title": "smart contracts",
+        "description": "develop secure, audited blockchain logic."
+      },
+      {
+        "title": "testing",
+        "description": "comprehensive qa, unit tests, integration tests, and security audits."
+      },
+      {
+        "title": "deployment",
+        "description": "ci/cd pipelines, cloud infrastructure, and monitoring."
+      },
+      {
+        "title": "iteration",
+        "description": "continuous improvement based on user feedback and analytics."
+      }
+    ]
+  },
+  "skills": {
+    "heading": "engineering layers",
+    "categories": [
+      {
+        "title": "frontend",
+        "details": "react 19, next.js, typescript, tailwind css, gsap, three.js, framer motion"
+      },
+      {
+        "title": "backend",
+        "details": "node.js, express, postgresql, mongodb, redis, docker, aws"
+      },
+      {
+        "title": "blockchain",
+        "details": "solana/rust, evm/solidity, anchor, wagmi, ethers.js, zero-knowledge proofs"
+      },
+      {
+        "title": "mobile & desktop",
+        "details": "react native, electron, tauri, ios, android, cross-platform"
+      },
+      {
+        "title": "ai layer",
+        "details": "openai api, langchain, vector databases, embeddings, fine-tuning"
+      }
+    ]
+  },
+  "experience": {
+    "heading": "experience",
+    "entries": [
+      {
+        "company": "swarp foundation",
+        "role": "founder & lead developer",
+        "date": "2024 - present",
+        "description": "leading development of web3 infrastructure projects, managing a distributed engineering team, and architecting cross-chain solutions.",
+        "tags": ["solana", "rust", "react", "web3"]
+      },
+      {
+        "company": "independent consultant",
+        "role": "full-stack & blockchain engineer",
+        "date": "2023 - 2024",
+        "description": "delivered production-grade web and blockchain applications for clients across fintech, gaming, and e-commerce sectors.",
+        "tags": ["fullstack", "blockchain", "consulting"]
+      },
+      {
+        "company": "tech lead at startupx",
+        "role": "technical lead",
+        "date": "2022 - 2023",
+        "description": "led a team of 5 engineers, architected microservices infrastructure, and shipped 3 major product releases.",
+        "tags": ["leadership", "architecture", "node.js"]
+      },
+      {
+        "company": "senior developer at agencyy",
+        "role": "senior full-stack developer",
+        "date": "2020 - 2022",
+        "description": "built client projects across web, mobile, and desktop platforms. specialized in react ecosystems and api design.",
+        "tags": ["react", "typescript", "apis"]
+      },
+      {
+        "company": "full-stack developer at studioz",
+        "role": "full-stack developer",
+        "date": "2018 - 2020",
+        "description": "developed responsive web applications and RESTful apis. collaborated with designers to ship pixel-perfect interfaces.",
+        "tags": ["javascript", "css", "sql"]
+      }
+    ]
+  },
+  "caseStudy": {
+    "title": "the white protocol",
+    "description": "a private stablecoin settlement protocol with confidential transfer routing and a cross-chain bridge across solana, base, ethereum, bsc, and polygon. uses zero-knowledge proofs for privacy-preserving transactions.",
+    "tags": ["solana", "rust", "solidity", "zk-proofs", "evm", "react"],
+    "viewProject": "view project",
+    "sourceCode": "source code"
+  },
+  "contact": {
+    "heading": "bring the product into reality",
+    "availability": "available for projects",
+    "form": {
+      "name": "your name",
+      "email": "your email",
+      "projectType": "project type",
+      "projectTypes": [
+        "web app",
+        "blockchain/smart contracts",
+        "mobile app",
+        "desktop app",
+        "ai product",
+        "mvp to production",
+        "other"
+      ],
+      "budget": "budget range",
+      "budgets": [
+        "under $10k",
+        "$10k-$25k",
+        "$25k-$50k",
+        "$50k-$100k+",
+        "let's discuss"
+      ],
+      "timeline": "timeline",
+      "timelines": [
+        "asap",
+        "~1 month",
+        "~3 months",
+        "flexible"
+      ],
+      "message": "what are you building?",
+      "submit": "send message",
+      "success": "message sent successfully!",
+      "error": "something went wrong. please try again."
+    },
+    "email": "gorkhmazb23@gmail.com",
+    "responseTime": "within 24 hours, weekdays",
+    "timezone": "utc ±8"
+  },
+  "footer": {
+    "copyright": "gbsoftwares. all rights reserved.",
+    "privacy": "privacy policy",
+    "social": {
+      "github": "github",
+      "linkedin": "linkedin",
+      "twitter": "twitter/x"
+    }
+  },
+  "privacy": {
+    "title": "privacy policy",
+    "effectiveDate": "effective date",
+    "effectiveDateText": "this privacy policy is effective as of may 2025 and applies to the gb softwares website.",
+    "overview": "1. overview",
+    "overviewText": "gb softwares (\"we\", \"us\", or \"our\") respects your privacy. this privacy policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our contact form.",
+    "collect": "2. information we collect",
+    "collectIntro": "we collect minimal information necessary to respond to inquiries and improve user experience:",
+    "contactInfo": "contact information",
+    "contactInfoText": "name, email address, and project details submitted through the contact form.",
+    "technicalData": "technical data",
+    "technicalDataText": "ip address, browser type, device information, and pages visited (via standard server logs).",
+    "localStorage": "local storage data",
+    "localStorageText": "language preference and rate-limiting timestamps stored in your browser to prevent spam and remember your settings.",
+    "use": "3. how we use your information",
+    "use1": "to respond to your inquiries and project requests",
+    "use2": "to prevent spam and abuse through rate limiting",
+    "use3": "to remember your language preference for future visits",
+    "use4": "to analyze website traffic and improve user experience",
+    "use5": "to comply with legal obligations",
+    "thirdParties": "4. third-party services",
+    "thirdPartiesText": "we use trusted third-party services to operate this website:",
+    "emailjs": "used to deliver contact form submissions to our email inbox. data is processed according to their privacy policy.",
+    "vercel": "hosts this website and processes server logs. data is processed according to their privacy policy.",
+    "fonts": "loads the inter typeface. google may collect usage data according to their privacy policy.",
+    "cookies": "5. cookies and local storage",
+    "cookiesText": "we do not use tracking cookies. we use browser local storage solely for: (a) remembering your selected language (english or french), and (b) enforcing rate limits on the contact form to prevent spam. you can clear this data at any time through your browser settings.",
+    "retention": "6. data retention",
+    "retentionText": "contact form submissions are retained for as long as necessary to fulfill your request and maintain business records (typically up to 2 years). server logs are retained for 30 days. local storage data persists until you clear your browser cache.",
+    "security": "7. data security",
+    "securityText": "we implement reasonable technical and organizational measures to protect your data, including input sanitization, rate limiting, honeypot spam protection, and https encryption. however, no method of transmission over the internet is 100% secure.",
+    "rights": "8. your rights",
+    "rightsText": "depending on your jurisdiction, you may have the right to:",
+    "right1": "access the personal data we hold about you",
+    "right2": "request correction or deletion of your data",
+    "right3": "object to or restrict certain processing activities",
+    "right4": "withdraw consent at any time",
+    "rightsContact": "to exercise these rights, contact us using the information below.",
+    "children": "9. children's privacy",
+    "childrenText": "our website is not directed to individuals under 16 years of age. we do not knowingly collect personal information from children.",
+    "changes": "10. changes to this policy",
+    "changesText": "we may update this privacy policy from time to time. the updated version will be indicated by an updated effective date. we encourage you to review this policy periodically.",
+    "contact": "11. contact us",
+    "contactText": "if you have questions or concerns about this privacy policy, please contact us at:",
+    "allRights": "all rights reserved."
+  }
+}
