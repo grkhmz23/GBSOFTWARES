@@ -20,15 +20,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          gsap: ['gsap', '@gsap/react'],
-          ui: [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-tooltip',
-            'lucide-react'
-          ],
+          gsap: ['gsap'],
         },
       },
     },

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useStage } from '@/contexts/StageContext';
+import { useStage } from '@/contexts/useStage';
 
 gsap.registerPlugin(ScrollTrigger);
 

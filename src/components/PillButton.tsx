@@ -1,4 +1,4 @@
-import { useStage } from '@/contexts/StageContext';
+import { useStage } from '@/contexts/useStage';
 
 interface PillButtonProps {
   children: React.ReactNode;

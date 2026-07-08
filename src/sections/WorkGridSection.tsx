@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useStage } from '@/contexts/StageContext';
+import { useStage } from '@/contexts/useStage';
 import DiagonalReveal from '@/components/DiagonalReveal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -38,8 +38,9 @@ export default function WorkGridSection() {
   }, [setStage]);
 
   useEffect(() => {
-    itemRefs.current.forEach((el) => {
-      if (!el) return;
+    const items = itemRefs.current.filter((el): el is HTMLDivElement => Boolean(el));
+
+    items.forEach((el) => {
       const speed = parseFloat(el.dataset.speed || '0');
 
       gsap.to(el, {
@@ -56,7 +57,7 @@ export default function WorkGridSection() {
 
     return () => {
       ScrollTrigger.getAll().forEach(st => {
-        if (projects.some((_, i) => itemRefs.current[i] && st.trigger === itemRefs.current[i])) {
+        if (items.includes(st.trigger as HTMLDivElement)) {
           st.kill();
         }
       });

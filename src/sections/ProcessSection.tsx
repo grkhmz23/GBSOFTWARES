@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useStage } from '@/contexts/StageContext';
+import { useStage } from '@/contexts/useStage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,11 +39,13 @@ function RobotSVG({ className = '' }: { className?: string }) {
 // Labyrinth path definition (SVG path for the 8 steps)
 function LabyrinthDiagram({ activeStep }: { activeStep: number }) {
   const pathRef = useRef<SVGPathElement>(null);
+  const [pathLength, setPathLength] = useState(1000);
 
   useEffect(() => {
     if (!pathRef.current) return;
 
     const length = pathRef.current.getTotalLength();
+    setPathLength(length);
     gsap.set(pathRef.current, {
       strokeDasharray: length,
       strokeDashoffset: length,
@@ -108,8 +110,8 @@ function LabyrinthDiagram({ activeStep }: { activeStep: number }) {
         strokeWidth="2"
         strokeLinecap="round"
         style={{
-          strokeDasharray: pathRef.current?.getTotalLength() || 1000,
-          strokeDashoffset: (pathRef.current?.getTotalLength() || 1000) * (1 - (activeStep + 1) / 8),
+          strokeDasharray: pathLength,
+          strokeDashoffset: pathLength * (1 - (activeStep + 1) / 8),
           transition: 'stroke-dashoffset 0.5s ease',
         }}
       />
@@ -249,7 +251,7 @@ export default function ProcessSection() {
 
             <div className="transition-all duration-500">
               <span className="text-body-small text-white/50 block mb-2">
-                step {activeStep + 1} of 8
+                {t('process.stepProgress', { current: activeStep + 1, total: 8 })}
               </span>
               <h3 className="text-title-3 text-white font-medium mb-4">
                 {t(`process.steps.${activeStep}.title`)}

@@ -20,8 +20,3 @@ export function checkRateLimit(key: string): { allowed: boolean; waitMs: number 
     return { allowed: true, waitMs: 0 }
   }
 }
-
-export function formatWaitTime(ms: number): string {
-  const minutes = Math.ceil(ms / 60000)
-  return `${minutes} minute${minutes !== 1 ? 's' : ''}`
-}

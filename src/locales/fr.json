@@ -1,23 +1,32 @@
 {
   "nav": {
-    "getInTouch": "contactez-moi"
+    "work": "réalisations",
+    "capabilities": "expertise",
+    "process": "méthode",
+    "skills": "technologies",
+    "experience": "expérience",
+    "getInTouch": "me contacter",
+    "goToTop": "revenir en haut",
+    "openMenu": "ouvrir le menu",
+    "closeMenu": "fermer le menu"
   },
   "hero": {
     "name": "gbsoftwares",
-    "tagline": "produits web, blockchain, bureau et mobile construits de l'idée à la production.",
+    "tagline": "produits web, blockchain, desktop et mobiles conçus de l'idée jusqu'à la mise en production.",
     "ctaProject": "démarrer un projet",
-    "ctaWork": "explorer les projets"
+    "ctaWork": "voir les réalisations",
+    "scrollDown": "faire défiler vers le bas"
   },
   "work": {
-    "heading": "projets sélectionnés",
+    "heading": "réalisations sélectionnées",
     "projects": {
       "whiteProtocol": {
         "title": "the white protocol",
-        "categories": "confidentialité, cross-chain, defi"
+        "categories": "confidentialité, inter-chaînes, defi"
       },
       "founderArena": {
         "title": "founder arena",
-        "categories": "ia, gaming, simulation"
+        "categories": "ia, jeu, simulation"
       },
       "swarpPay": {
         "title": "swarppay",
@@ -29,11 +38,11 @@
       },
       "maniaAtelier": {
         "title": "mania atelier",
-        "categories": "e-commerce, mode, fullstack"
+        "categories": "e-commerce, mode, full-stack"
       },
       "swarpFoundation": {
         "title": "swarp foundation",
-        "categories": "conseil, web3, officiel"
+        "categories": "conseil, web3, site officiel"
       },
       "simFi": {
         "title": "simfi",
@@ -50,8 +59,8 @@
     "items": {
       "webApps": {
         "number": "01",
-        "title": "apps web",
-        "orbit": "production-grade"
+        "title": "applications web",
+        "orbit": "prêtes pour la production"
       },
       "blockchain": {
         "number": "02",
@@ -60,12 +69,12 @@
       },
       "mobileApps": {
         "number": "03",
-        "title": "apps mobiles",
+        "title": "applications mobiles",
         "orbit": "ios, android"
       },
       "desktopApps": {
         "number": "04",
-        "title": "apps bureau",
+        "title": "applications desktop",
         "orbit": "macos, windows, linux"
       },
       "aiProducts": {
@@ -75,51 +84,52 @@
       },
       "mvpToProd": {
         "number": "06",
-        "title": "mvp à production",
-        "orbit": "du croquis au lancement"
+        "title": "du mvp à la production",
+        "orbit": "de l'esquisse au lancement"
       }
     },
-    "downloadCV": "télécharger cv"
+    "downloadCV": "télécharger le cv"
   },
   "process": {
-    "heading": "ma méthode",
+    "heading": "ma façon de penser",
+    "stepProgress": "étape {{current}} sur {{total}}",
     "steps": [
       {
         "title": "stratégie",
-        "description": "comprendre le problème, définir les objectifs, étudier les utilisateurs et le marché."
+        "description": "comprendre le problème, définir les objectifs, analyser les utilisateurs et le marché."
       },
       {
         "title": "architecture",
-        "description": "concevoir la structure du système, le flux de données et la base technique."
+        "description": "concevoir la structure du système, les flux de données et les fondations techniques."
       },
       {
-        "title": "ui/ux design",
-        "description": "créer des interfaces intuitives avec des principes de design centrés sur l'utilisateur."
+        "title": "design ui/ux",
+        "description": "concevoir des interfaces intuitives avec une approche centrée sur l'utilisateur."
       },
       {
         "title": "développement backend",
-        "description": "construire des apis robustes, des bases de données et une infrastructure serveur."
+        "description": "développer des apis robustes, des bases de données fiables et une infrastructure serveur solide."
       },
       {
         "title": "smart contracts",
-        "description": "développer une logique blockchain sécurisée et auditée."
+        "description": "développer une logique blockchain sécurisée, testée et prête à être auditée."
       },
       {
         "title": "tests",
-        "description": "qa complète, tests unitaires, tests d'intégration et audits de sécurité."
+        "description": "mettre en place une qa complète, des tests unitaires, des tests d'intégration et des contrôles de sécurité."
       },
       {
         "title": "déploiement",
-        "description": "pipelines ci/cd, infrastructure cloud et monitoring."
+        "description": "mettre en place les pipelines ci/cd, l'infrastructure cloud et la supervision."
       },
       {
         "title": "itération",
-        "description": "amélioration continue basée sur les retours utilisateurs et les analyses."
+        "description": "améliorer le produit en continu à partir des retours utilisateurs et des données d'usage."
       }
     ]
   },
   "skills": {
-    "heading": "couches techniques",
+    "heading": "couches d'ingénierie",
     "categories": [
       {
         "title": "frontend",
@@ -131,15 +141,15 @@
       },
       {
         "title": "blockchain",
-        "details": "solana/rust, evm/solidity, anchor, wagmi, ethers.js, zero-knowledge proofs"
+        "details": "solana/rust, evm/solidity, anchor, wagmi, ethers.js, preuves zero-knowledge"
       },
       {
         "title": "mobile & desktop",
-        "details": "react native, electron, tauri, ios, android, cross-platform"
+        "details": "react native, electron, tauri, ios, android, multiplateforme"
       },
       {
         "title": "couche ia",
-        "details": "openai api, langchain, vector databases, embeddings, fine-tuning"
+        "details": "openai api, langchain, bases vectorielles, embeddings, fine-tuning"
       }
     ]
   },
@@ -148,62 +158,62 @@
     "entries": [
       {
         "company": "swarp foundation",
-        "role": "fondateur & lead developer",
+        "role": "fondateur & développeur principal",
         "date": "2024 - présent",
-        "description": "direction du développement de projets d'infrastructure web3, gestion d'une équipe d'ingénieurs distribuée et architecture de solutions cross-chain.",
+        "description": "pilotage du développement de projets d'infrastructure web3, coordination d'une équipe d'ingénierie distribuée et architecture de solutions inter-chaînes.",
         "tags": ["solana", "rust", "react", "web3"]
       },
       {
         "company": "consultant indépendant",
         "role": "ingénieur full-stack & blockchain",
         "date": "2023 - 2024",
-        "description": "livraison d'applications web et blockchain de qualité production pour des clients dans les secteurs fintech, gaming et e-commerce.",
+        "description": "livraison d'applications web et blockchain prêtes pour la production pour des clients dans la fintech, le jeu et l'e-commerce.",
         "tags": ["fullstack", "blockchain", "consulting"]
       },
       {
         "company": "tech lead chez startupx",
         "role": "lead technique",
         "date": "2022 - 2023",
-        "description": "direction d'une équipe de 5 ingénieurs, architecture d'infrastructure microservices et livraison de 3 versions produit majeures.",
+        "description": "encadrement d'une équipe de 5 ingénieurs, architecture d'une infrastructure microservices et livraison de 3 versions produit majeures.",
         "tags": ["leadership", "architecture", "node.js"]
       },
       {
         "company": "développeur senior chez agencyy",
         "role": "développeur full-stack senior",
         "date": "2020 - 2022",
-        "description": "construction de projets clients web, mobile et bureau. spécialisation dans les écosystèmes react et la conception d'apis.",
+        "description": "développement de projets clients web, mobiles et desktop, avec une spécialisation dans l'écosystème react et la conception d'apis.",
         "tags": ["react", "typescript", "apis"]
       },
       {
         "company": "développeur full-stack chez studioz",
         "role": "développeur full-stack",
         "date": "2018 - 2020",
-        "description": "développement d'applications web responsives et d'apis restful. collaboration avec des designers pour livrer des interfaces parfaites.",
+        "description": "développement d'applications web responsives et d'apis restful, en collaboration avec des designers pour livrer des interfaces précises et soignées.",
         "tags": ["javascript", "css", "sql"]
       }
     ]
   },
   "caseStudy": {
     "title": "the white protocol",
-    "description": "un protocole de règlement stablecoin privé avec routage de transferts confidentiels et un pont cross-chain sur solana, base, ethereum, bsc et polygon. utilise des preuves à divulgation nulle pour des transactions préservant la confidentialité.",
+    "description": "un protocole privé de règlement en stablecoin avec routage confidentiel des transferts et pont inter-chaînes sur solana, base, ethereum, bsc et polygon. il utilise des preuves zero-knowledge pour préserver la confidentialité des transactions.",
     "tags": ["solana", "rust", "solidity", "zk-proofs", "evm", "react"],
     "viewProject": "voir le projet",
     "sourceCode": "code source"
   },
   "contact": {
-    "heading": "donnez vie au produit",
-    "availability": "disponible pour des projets",
+    "heading": "donner vie au produit",
+    "availability": "disponible pour de nouveaux projets",
     "form": {
       "name": "votre nom",
-      "email": "votre email",
+      "email": "votre e-mail",
       "projectType": "type de projet",
       "projectTypes": [
-        "app web",
+        "application web",
         "blockchain/smart contracts",
-        "app mobile",
-        "app bureau",
+        "application mobile",
+        "application desktop",
         "produit ia",
-        "mvp à production",
+        "du mvp à la production",
         "autre"
       ],
       "budget": "fourchette budgétaire",
@@ -216,18 +226,26 @@
       ],
       "timeline": "délai",
       "timelines": [
-        "dès que possible",
+        "dès maintenant",
         "~1 mois",
         "~3 mois",
         "flexible"
       ],
       "message": "que construisez-vous ?",
-      "submit": "envoyer",
+      "submit": "envoyer le message",
       "success": "message envoyé avec succès !",
-      "error": "une erreur s'est produite. veuillez réessayer."
+      "error": "une erreur s'est produite. veuillez réessayer.",
+      "waitTime_one": "{{count}} minute",
+      "waitTime_other": "{{count}} minutes",
+      "validation": {
+        "name": "veuillez indiquer votre nom.",
+        "email": "veuillez saisir une adresse e-mail valide.",
+        "message": "le message est trop court.",
+        "rateLimit": "trop de soumissions. veuillez patienter {{wait}} avant de réessayer."
+      }
     },
     "email": "gorkhmazb23@gmail.com",
-    "responseTime": "sous 24 heures, jours ouvrables",
+    "responseTime": "réponse sous 24 heures, en semaine",
     "timezone": "utc ±8"
   },
   "footer": {
@@ -241,48 +259,48 @@
   },
   "privacy": {
     "title": "politique de confidentialité",
-    "effectiveDate": "date d'effet",
-    "effectiveDateText": "cette politique de confidentialité est en vigueur à partir de mai 2025 et s'applique au site web gb softwares.",
-    "overview": "1. aperçu",
-    "overviewText": "gb softwares (\"nous\", \"notre\") respecte votre vie privée. cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous visitez notre site web ou utilisez notre formulaire de contact.",
+    "effectiveDate": "date d'entrée en vigueur",
+    "effectiveDateText": "cette politique de confidentialité entre en vigueur en mai 2025 et s'applique au site web gb softwares.",
+    "overview": "1. vue d'ensemble",
+    "overviewText": "gb softwares (\"nous\", \"notre\") respecte votre vie privée. cette politique de confidentialité explique comment nous collectons, utilisons, communiquons et protégeons vos informations lorsque vous visitez notre site web ou utilisez notre formulaire de contact.",
     "collect": "2. informations que nous collectons",
-    "collectIntro": "nous collectons un minimum d'informations nécessaires pour répondre aux demandes et améliorer l'expérience utilisateur :",
+    "collectIntro": "nous collectons uniquement les informations nécessaires pour répondre aux demandes et améliorer l'expérience utilisateur :",
     "contactInfo": "informations de contact",
     "contactInfoText": "nom, adresse e-mail et détails du projet soumis via le formulaire de contact.",
     "technicalData": "données techniques",
-    "technicalDataText": "adresse ip, type de navigateur, informations sur l'appareil et pages visitées (via les journaux serveur standard).",
+    "technicalDataText": "adresse ip, type de navigateur, informations sur l'appareil et pages consultées (via les journaux serveur standard).",
     "localStorage": "données de stockage local",
-    "localStorageText": "préférence de langue et horodatages de limitation de débit stockés dans votre navigateur pour prévenir le spam et mémoriser vos paramètres.",
+    "localStorageText": "préférence de langue et horodatages de limitation des soumissions stockés dans votre navigateur afin de prévenir le spam et mémoriser vos paramètres.",
     "use": "3. comment nous utilisons vos informations",
-    "use1": "pour répondre à vos demandes et projets",
-    "use2": "pour prévenir le spam et les abus via la limitation de débit",
+    "use1": "pour répondre à vos demandes et à vos projets",
+    "use2": "pour prévenir le spam et les abus grâce à la limitation des soumissions",
     "use3": "pour mémoriser votre préférence de langue pour les visites futures",
     "use4": "pour analyser le trafic du site et améliorer l'expérience utilisateur",
-    "use5": "pour se conformer aux obligations légales",
+    "use5": "pour respecter nos obligations légales",
     "thirdParties": "4. services tiers",
     "thirdPartiesText": "nous utilisons des services tiers de confiance pour faire fonctionner ce site web :",
-    "emailjs": "utilisé pour livrer les soumissions du formulaire de contact à notre boîte e-mail. les données sont traitées conformément à leur politique de confidentialité.",
+    "emailjs": "utilisé pour transmettre les soumissions du formulaire de contact vers notre boîte e-mail. les données sont traitées conformément à leur politique de confidentialité.",
     "vercel": "héberge ce site web et traite les journaux serveur. les données sont traitées conformément à leur politique de confidentialité.",
     "fonts": "charge la police inter. google peut collecter des données d'utilisation conformément à sa politique de confidentialité.",
     "cookies": "5. cookies et stockage local",
-    "cookiesText": "nous n'utilisons pas de cookies de suivi. nous utilisons le stockage local du navigateur uniquement pour : (a) mémoriser votre langue sélectionnée (anglais ou français), et (b) appliquer les limites de débit sur le formulaire de contact pour prévenir le spam. vous pouvez effacer ces données à tout moment via les paramètres de votre navigateur.",
+    "cookiesText": "nous n'utilisons pas de cookies de suivi. nous utilisons le stockage local du navigateur uniquement pour : (a) mémoriser la langue sélectionnée (français ou anglais), et (b) appliquer des limites de soumission au formulaire de contact afin de prévenir le spam. vous pouvez effacer ces données à tout moment depuis les paramètres de votre navigateur.",
     "retention": "6. conservation des données",
-    "retentionText": "les soumissions du formulaire de contact sont conservées aussi longtemps que nécessaire pour répondre à votre demande et maintenir les dossiers commerciaux (généralement jusqu'à 2 ans). les journaux serveur sont conservés pendant 30 jours. les données de stockage local persistent jusqu'à ce que vous effaciez le cache de votre navigateur.",
+    "retentionText": "les soumissions du formulaire de contact sont conservées aussi longtemps que nécessaire pour répondre à votre demande et tenir nos dossiers commerciaux (généralement jusqu'à 2 ans). les journaux serveur sont conservés pendant 30 jours. les données de stockage local restent présentes jusqu'à ce que vous effaciez le cache de votre navigateur.",
     "security": "7. sécurité des données",
-    "securityText": "nous mettons en œuvre des mesures techniques et organisationnelles raisonnables pour protéger vos données, y compris la désinfection des entrées, la limitation de débit, la protection anti-spam par honeypot et le chiffrement https. cependant, aucune méthode de transmission sur internet n'est 100% sécurisée.",
+    "securityText": "nous mettons en œuvre des mesures techniques et organisationnelles raisonnables pour protéger vos données, notamment la validation des entrées, la limitation des soumissions, la protection anti-spam par honeypot et le chiffrement https. toutefois, aucune méthode de transmission sur internet n'est sécurisée à 100 %.",
     "rights": "8. vos droits",
     "rightsText": "selon votre juridiction, vous pouvez avoir le droit de :",
     "right1": "accéder aux données personnelles que nous détenons à votre sujet",
     "right2": "demander la correction ou la suppression de vos données",
-    "right3": "vous opposer à ou restreindre certaines activités de traitement",
+    "right3": "vous opposer à certains traitements ou en demander la limitation",
     "right4": "retirer votre consentement à tout moment",
     "rightsContact": "pour exercer ces droits, contactez-nous en utilisant les informations ci-dessous.",
-    "children": "9. confidentialité des enfants",
-    "childrenText": "notre site web n'est pas destiné aux personnes de moins de 16 ans. nous ne collectons pas sciemment d'informations personnelles auprès d'enfants.",
-    "changes": "10. modifications de cette politique",
-    "changesText": "nous pouvons mettre à jour cette politique de confidentialité de temps à autre. la version mise à jour sera indiquée par une date d'effet actualisée. nous vous encourageons à consulter cette politique périodiquement.",
+    "children": "9. protection des mineurs",
+    "childrenText": "notre site web ne s'adresse pas aux personnes de moins de 16 ans. nous ne collectons pas sciemment d'informations personnelles auprès de mineurs.",
+    "changes": "10. modifications de la politique",
+    "changesText": "nous pouvons mettre à jour cette politique de confidentialité ponctuellement. la version mise à jour sera indiquée par une nouvelle date d'entrée en vigueur. nous vous encourageons à la consulter régulièrement.",
     "contact": "11. nous contacter",
-    "contactText": "si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, veuillez nous contacter à :",
+    "contactText": "pour toute question ou préoccupation concernant cette politique de confidentialité, vous pouvez nous contacter à :",
     "allRights": "tous droits réservés."
   }
 }

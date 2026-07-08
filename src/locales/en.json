@@ -1,12 +1,21 @@
 {
   "nav": {
-    "getInTouch": "get in touch"
+    "work": "work",
+    "capabilities": "capabilities",
+    "process": "process",
+    "skills": "skills",
+    "experience": "experience",
+    "getInTouch": "get in touch",
+    "goToTop": "go to top",
+    "openMenu": "open menu",
+    "closeMenu": "close menu"
   },
   "hero": {
     "name": "gbsoftwares",
     "tagline": "web, blockchain, desktop and mobile products built from idea to production.",
     "ctaProject": "start a project",
-    "ctaWork": "explore work"
+    "ctaWork": "explore work",
+    "scrollDown": "scroll down"
   },
   "work": {
     "heading": "selected work",
@@ -83,6 +92,7 @@
   },
   "process": {
     "heading": "how i think",
+    "stepProgress": "step {{current}} of {{total}}",
     "steps": [
       {
         "title": "strategy",
@@ -224,7 +234,15 @@
       "message": "what are you building?",
       "submit": "send message",
       "success": "message sent successfully!",
-      "error": "something went wrong. please try again."
+      "error": "something went wrong. please try again.",
+      "waitTime_one": "{{count}} minute",
+      "waitTime_other": "{{count}} minutes",
+      "validation": {
+        "name": "please enter your name.",
+        "email": "please enter a valid email address.",
+        "message": "message is too short.",
+        "rateLimit": "too many submissions. please wait {{wait}} before trying again."
+      }
     },
     "email": "gorkhmazb23@gmail.com",
     "responseTime": "within 24 hours, weekdays",

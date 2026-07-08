@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useStage, stageColors } from '@/contexts/StageContext';
+import { stageColors } from '@/contexts/stage';
+import { useStage } from '@/contexts/useStage';
 
 interface Particle {
   x: number;

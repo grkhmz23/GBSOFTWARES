@@ -243,7 +243,7 @@ export default function HeroSection() {
         <button
           onClick={scrollToWork}
           className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-pulse-opacity cursor-pointer"
-          aria-label="Scroll down"
+          aria-label={t('hero.scrollDown')}
         >
           <ChevronDownIcon color="#000000" size={24} />
         </button>

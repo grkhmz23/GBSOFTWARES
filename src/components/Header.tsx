@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useStage } from '@/contexts/StageContext';
+import { useStage } from '@/contexts/useStage';
 import { EmailIcon, MenuIcon, CloseIcon } from './icons';
 
 export default function Header() {
@@ -39,11 +39,11 @@ export default function Header() {
   const iconColor = isInverted ? '#FFFFFF' : '#000000';
 
   const navLinks = [
-    { id: 'work', label: 'work' },
-    { id: 'capabilities', label: 'capabilities' },
-    { id: 'process', label: 'process' },
-    { id: 'skills', label: 'skills' },
-    { id: 'experience', label: 'experience' },
+    { id: 'work', label: t('nav.work') },
+    { id: 'capabilities', label: t('nav.capabilities') },
+    { id: 'process', label: t('nav.process') },
+    { id: 'skills', label: t('nav.skills') },
+    { id: 'experience', label: t('nav.experience') },
   ];
 
   return (
@@ -55,7 +55,7 @@ export default function Header() {
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="cursor-pointer"
-          aria-label="Go to top"
+          aria-label={t('nav.goToTop')}
         >
           <svg width="40" height="20" viewBox="0 0 44 22" fill="none">
             <text
@@ -118,7 +118,7 @@ export default function Header() {
         <button
           className="md:hidden"
           onClick={() => setMobileOpen(true)}
-          aria-label="Open menu"
+          aria-label={t('nav.openMenu')}
         >
           <MenuIcon color={iconColor} />
         </button>
@@ -130,7 +130,7 @@ export default function Header() {
           <button
             className="absolute top-4 right-6"
             onClick={() => setMobileOpen(false)}
-            aria-label="Close menu"
+            aria-label={t('nav.closeMenu')}
           >
             <CloseIcon color="#FFFFFF" size={32} />
           </button>

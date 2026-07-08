@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useStage } from '@/contexts/StageContext';
+import { useStage } from '@/contexts/useStage';
 import DiagonalReveal from '@/components/DiagonalReveal';
 import PillButton from '@/components/PillButton';
-import { checkRateLimit, formatWaitTime } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { sanitizeInput } from '@/lib/utils';
 import emailjs from '@emailjs/browser';
 
@@ -80,13 +80,14 @@ export default function ContactSection() {
     const email = sanitizeInput(formData.email, 254);
     const message = sanitizeInput(formData.message, 2000);
 
-    if (name.length < 2) { setErrorMsg('Please enter your name.'); setFormState('error'); return; }
-    if (!EMAIL_RE.test(email)) { setErrorMsg('Please enter a valid email address.'); setFormState('error'); return; }
-    if (message.length < 10) { setErrorMsg('Message is too short.'); setFormState('error'); return; }
+    if (name.length < 2) { setErrorMsg(t('contact.form.validation.name')); setFormState('error'); return; }
+    if (!EMAIL_RE.test(email)) { setErrorMsg(t('contact.form.validation.email')); setFormState('error'); return; }
+    if (message.length < 10) { setErrorMsg(t('contact.form.validation.message')); setFormState('error'); return; }
 
     const rl = checkRateLimit('contact');
     if (!rl.allowed) {
-      setErrorMsg(`Too many submissions. Please wait ${formatWaitTime(rl.waitMs)} before trying again.`);
+      const waitMinutes = Math.ceil(rl.waitMs / 60000);
+      setErrorMsg(t('contact.form.validation.rateLimit', { wait: t('contact.form.waitTime', { count: waitMinutes }) }));
       setFormState('error');
       return;
     }
