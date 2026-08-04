@@ -7,15 +7,18 @@ import DiagonalReveal from '@/components/DiagonalReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projects = [
-  { key: 'whiteProtocol', img: '/assets/project-white-protocol.jpg', span: 'md:col-span-5', offset: 'md:mt-0' },
-  { key: 'founderArena', img: '/assets/project-founder-arena.jpg', span: 'md:col-span-4 md:col-start-8', offset: 'md:mt-24' },
-  { key: 'swarpPay', img: '/assets/project-swarppay.jpg', span: 'md:col-span-4', offset: 'md:mt-16' },
-  { key: 'humanRail', img: '/assets/project-human-rail.jpg', span: 'md:col-span-5 md:col-start-6', offset: 'md:mt-8' },
-  { key: 'maniaAtelier', img: '/assets/project-mania-atelier.jpg', span: 'md:col-span-5', offset: 'md:mt-20' },
-  { key: 'swarpFoundation', img: '/assets/project-swarp-foundation.jpg', span: 'md:col-span-4 md:col-start-7', offset: 'md:mt-4' },
-  { key: 'simFi', img: '/assets/project-simfi.jpg', span: 'md:col-span-4 md:col-start-2', offset: 'md:mt-12' },
-  { key: 'desertRoseGin', img: '/assets/project-desert-rose-gin.jpg', span: 'md:col-span-5', offset: 'md:mt-0' },
+// Cards render a live iframe preview of each site. If a site ever starts
+// sending X-Frame-Options/frame-ancestors headers again, add an `img` field
+// pointing at a screenshot in /assets to fall back to a static image.
+const projects: { key: string; url: string; img?: string; span: string; offset: string }[] = [
+  { key: 'whiteProtocol', url: 'https://www.thewhiteprotocol.com/', span: 'md:col-span-5', offset: 'md:mt-0' },
+  { key: 'founderArena', url: 'https://www.founderarena.xyz/', span: 'md:col-span-4 md:col-start-8', offset: 'md:mt-24' },
+  { key: 'swarpPay', url: 'https://www.swarppay.com/', span: 'md:col-span-4', offset: 'md:mt-16' },
+  { key: 'humanRail', url: 'https://www.humanrail.org/', span: 'md:col-span-5 md:col-start-6', offset: 'md:mt-8' },
+  { key: 'swarpConsulting', url: 'https://www.swarpconsulting.com/', span: 'md:col-span-5', offset: 'md:mt-20' },
+  { key: 'swarpFoundation', url: 'https://www.swarpfoundation.com/', span: 'md:col-span-4 md:col-start-7', offset: 'md:mt-4' },
+  { key: 'gorkh', url: 'https://www.gorkh.com/', span: 'md:col-span-4 md:col-start-2', offset: 'md:mt-12' },
+  { key: 'desertRoseGin', url: 'https://www.thedesertrosegin.com/', span: 'md:col-span-5', offset: 'md:mt-0' },
 ];
 
 export default function WorkGridSection() {
@@ -80,25 +83,43 @@ export default function WorkGridSection() {
             data-speed={String(0.3 + (i % 3) * 0.15)}
             className={`${project.span} ${project.offset} group cursor-pointer`}
           >
-            <DiagonalReveal className="mb-3">
-              <div className="relative overflow-hidden aspect-[4/3]">
-                <img
-                  src={project.img}
-                  alt={t(`work.projects.${project.key}.title`)}
-                  className="w-full h-full object-cover grayscale-img transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300" />
-              </div>
-            </DiagonalReveal>
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+              aria-label={t(`work.projects.${project.key}.title`)}
+            >
+              <DiagonalReveal className="mb-3">
+                <div className="relative overflow-hidden aspect-[4/3] bg-gray1/5">
+                  {project.img ? (
+                    <img
+                      src={project.img}
+                      alt={t(`work.projects.${project.key}.title`)}
+                      className="w-full h-full object-cover grayscale-img transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <iframe
+                      src={project.url}
+                      title={t(`work.projects.${project.key}.title`)}
+                      loading="lazy"
+                      tabIndex={-1}
+                      className="absolute top-0 left-0 w-[200%] h-[200%] origin-top-left scale-50 border-0 pointer-events-none grayscale-img transition-transform duration-700 group-hover:scale-[0.55]"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300" />
+                </div>
+              </DiagonalReveal>
 
-            <div className="opacity-0 translate-y-4" style={{ animation: `fadeInUp 1s ${0.5 + i * 0.1}s forwards` }}>
-              <h3 className="text-body-small font-medium text-black">
-                {t(`work.projects.${project.key}.title`)}
-              </h3>
-              <p className="text-body-small text-gray1/60 mt-1">
-                {t(`work.projects.${project.key}.categories`)}
-              </p>
-            </div>
+              <div className="opacity-0 translate-y-4" style={{ animation: `fadeInUp 1s ${0.5 + i * 0.1}s forwards` }}>
+                <h3 className="text-body-small font-medium text-black">
+                  {t(`work.projects.${project.key}.title`)}
+                </h3>
+                <p className="text-body-small text-gray1/60 mt-1">
+                  {t(`work.projects.${project.key}.categories`)}
+                </p>
+              </div>
+            </a>
           </div>
         ))}
       </div>

@@ -46,7 +46,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.emailjs.com; worker-src blob:; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.emailjs.com; worker-src blob:; frame-src https://www.thewhiteprotocol.com https://www.founderarena.xyz https://www.swarpconsulting.com https://www.gorkh.com https://www.thedesertrosegin.com https://www.swarppay.com https://www.swarpfoundation.com https://www.humanrail.org; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
         }
       ]
     }
